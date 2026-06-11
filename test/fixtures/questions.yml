@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tema: Copa do Mundo
+  dificuldade: facil
+  enunciado: Quem ganhou a Copa do Mundo de 1970?
+
+two:
+  tema: Copa do Mundo
+  dificuldade: medio
+  enunciado: Em que país foi a Copa do Mundo de 2014?

@@ -44,10 +44,10 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] `rails new . -d postgresql --css tailwind` executado; app sobe com `bin/dev`
-- [ ] Hotwire (turbo-rails, stimulus-rails) presente no Gemfile
-- [ ] `bin/rails db:create` funciona
-- [ ] Tag viewport mobile presente no layout
+- [x] `rails new . -d postgresql --css tailwind` executado; app sobe com `bin/dev`
+- [x] Hotwire (turbo-rails, stimulus-rails) presente no Gemfile
+- [x] `bin/rails db:create` funciona
+- [x] Tag viewport mobile presente no layout
 
 **Tests**: none · **Gate**: build
 **Commit**: `chore: inicializa app Rails com Postgres, Hotwire e Tailwind`
@@ -65,11 +65,11 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Migration cria tabela `questions`
-- [ ] Validações: enunciado presente e único; `exactly_one_correct_answer`
-- [ ] Teste unit cobre válido / inválido (0 ou 2 corretas)
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 3+ testes passam
+- [x] Migration cria tabela `questions`
+- [x] Validações: enunciado presente e único; `exactly_one_correct_answer`
+- [x] Teste unit cobre válido / inválido (0 ou 2 corretas)
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 5 testes passam
 
 **Tests**: unit · **Gate**: quick
 **Commit**: `feat(quiz): model Question com validações`
@@ -87,11 +87,11 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Migration cria `answers` com FK para questions
-- [ ] Validação de presença de texto
-- [ ] Teste unit do vínculo e validação
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 2+ testes passam
+- [x] Migration cria `answers` com FK para questions
+- [x] Validação de presença de texto
+- [x] Teste unit do vínculo e validação
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 3 testes passam
 
 **Tests**: unit · **Gate**: quick
 **Commit**: `feat(quiz): model Answer vinculado a Question`
@@ -109,12 +109,12 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: `torcedor-maluco` (fonte/manutenção da planilha)
 
 **Done when**:
-- [ ] Lê o `.xlsx` e cria Question + 4 Answers (1 correta) por linha
-- [ ] Pula linhas inválidas e loga
-- [ ] Upsert por enunciado — rodar 2x não duplica
-- [ ] Teste unit com planilha de exemplo (válida + inválida)
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 3+ testes passam
+- [x] Lê o `.xlsx` e cria Question + 4 Answers (1 correta) por linha
+- [x] Pula linhas inválidas e loga
+- [x] Upsert por enunciado — rodar 2x não duplica
+- [x] Teste unit com planilha de exemplo (válida + inválida)
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 3 testes passam
 
 **Tests**: unit · **Gate**: quick
 **Commit**: `feat(quiz): importa perguntas da planilha mestre via seed`
@@ -132,12 +132,12 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] `POST /games` sorteia 5 ids distintos e salva na sessão
-- [ ] Renderiza a 1ª pergunta com 4 alternativas
-- [ ] Banco com <5 perguntas → renderiza aviso (sem erro 500)
-- [ ] Teste integration cobre início e o caso <5
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 2+ testes passam
+- [x] `POST /games` sorteia 5 ids distintos e salva na sessão
+- [x] Renderiza a 1ª pergunta com 4 alternativas
+- [x] Banco com <5 perguntas → renderiza aviso (sem erro 500)
+- [x] Teste integration cobre início e o caso <5
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 2 testes passam
 
 **Tests**: integration · **Gate**: full
 **Commit**: `feat(quiz): inicia partida sorteando 5 perguntas`
@@ -155,12 +155,12 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Resposta correta soma +1; errada/timeout soma 0
-- [ ] Avança sem recarregar (Turbo); na 5ª, leva ao resultado
-- [ ] Pontuação final correta ("X de 5") validada no fluxo
-- [ ] Teste integration: 3 certas + 2 erradas → "3 de 5"
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 3+ testes passam
+- [x] Resposta correta soma +1; errada/timeout soma 0
+- [x] Avança sem recarregar (Turbo); na 5ª, leva ao resultado
+- [x] Pontuação final correta ("X de 5") validada no fluxo
+- [x] Teste integration: 3 certas + 2 erradas → "3 de 5"
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 4 testes passam (incluindo timeout)
 
 **Tests**: integration · **Gate**: full
 **Commit**: `feat(quiz): registra resposta, pontua e avança via Turbo`
