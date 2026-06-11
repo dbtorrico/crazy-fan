@@ -28,24 +28,31 @@ class GameFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "resposta correta soma ponto e resposta errada nao soma" do
-    questions = create_questions(5)
+    create_questions(5)
     post games_path
 
-    correct_answer = questions.first.answers.find_by(correta: true)
+    question_ids = session[:game]["question_ids"]
+
+    correct_answer = Answer.find_by(question_id: question_ids[0], correta: true)
     post answer_games_path, params: { answer_id: correct_answer.id }
     assert_equal 1, session[:game]["score"]
 
-    wrong_answer = questions.second.answers.find_by(correta: false)
+    wrong_answer = Answer.find_by(question_id: question_ids[1], correta: false)
     post answer_games_path, params: { answer_id: wrong_answer.id }
     assert_equal 1, session[:game]["score"]
   end
 
   test "3 certas e 2 erradas resulta em pontuacao 3 de 5" do
-    questions = create_questions(5)
+    create_questions(5)
     post games_path
 
-    questions.each_with_index do |q, i|
-      answer = i < 3 ? q.answers.find_by(correta: true) : q.answers.find_by(correta: false)
+    question_ids = session[:game]["question_ids"]
+    question_ids.each_with_index do |question_id, i|
+      answer = if i < 3
+        Answer.find_by(question_id: question_id, correta: true)
+      else
+        Answer.find_by(question_id: question_id, correta: false)
+      end
       post answer_games_path, params: { answer_id: answer.id }
     end
 
