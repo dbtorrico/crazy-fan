@@ -22,7 +22,7 @@ jobs:
       - name: Scan for common Rails security vulnerabilities using static analysis
         # TODO: remover --skip-checks EOLRails ao atualizar para Rails 8
         # Rails 7.2 tem suporte até 2026-08-09; upgrade planejado pós-MVP.
-        run: bin/brakeman --no-pager --skip-checks EOLRails
+        run: bin/brakeman --no-pager --except EOLRails
 
   scan_js:
     runs-on: ubuntu-latest
