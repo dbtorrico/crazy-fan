@@ -15,6 +15,8 @@ class GameFlowTest < ActionDispatch::IntegrationTest
   test "POST /games com banco populado inicia partida e mostra 1ª pergunta" do
     create_questions(5)
     post games_path
+    assert_response :redirect
+    follow_redirect!
     assert_response :success
     assert_select "p", /Pergunta 1 de 5/
   end
@@ -68,5 +70,27 @@ class GameFlowTest < ActionDispatch::IntegrationTest
     score_antes = session[:game]["score"]
     post answer_games_path, params: {}
     assert_equal score_antes, session[:game]["score"]
+  end
+
+  test "contador de pergunta avança após cada resposta" do
+    create_questions(5)
+    post games_path
+    assert_response :redirect
+    follow_redirect!
+    assert_select "p", /Pergunta 1 de 5/
+
+    question_ids = session[:game]["question_ids"]
+
+    correct = Answer.find_by(question_id: question_ids[0], correta: true)
+    post answer_games_path, params: { answer_id: correct.id }
+    assert_response :redirect
+    follow_redirect!
+    assert_select "p", /Pergunta 2 de 5/
+
+    wrong = Answer.find_by(question_id: question_ids[1], correta: false)
+    post answer_games_path, params: { answer_id: wrong.id }
+    assert_response :redirect
+    follow_redirect!
+    assert_select "p", /Pergunta 3 de 5/
   end
 end

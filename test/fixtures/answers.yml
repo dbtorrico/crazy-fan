@@ -1,13 +1,39 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
+one_correct:
   question: one
-  texto: MyString
-  correta: false
-  fonte: MyString
+  texto: Brasil
+  correta: true
 
-two:
-  question: two
-  texto: MyString
+one_wrong_1:
+  question: one
+  texto: Alemanha
   correta: false
-  fonte: MyString
+
+one_wrong_2:
+  question: one
+  texto: Argentina
+  correta: false
+
+one_wrong_3:
+  question: one
+  texto: Itália
+  correta: false
+
+two_correct:
+  question: two
+  texto: Brasil
+  correta: true
+
+two_wrong_1:
+  question: two
+  texto: Argentina
+  correta: false
+
+two_wrong_2:
+  question: two
+  texto: Alemanha
+  correta: false
+
+two_wrong_3:
+  question: two
+  texto: França
+  correta: false

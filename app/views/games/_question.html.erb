@@ -1,0 +1,22 @@
+<div data-controller="timer" data-timer-seconds-value="15" class="max-w-lg mx-auto p-4">
+  <div class="flex justify-between items-center mb-4">
+    <p class="text-sm text-gray-500">Pergunta <%= current_index + 1 %> de 5</p>
+    <span class="text-sm font-bold text-red-500" data-timer-target="display"></span>
+  </div>
+
+  <h2 class="text-xl font-bold mb-6"><%= question.enunciado %></h2>
+
+  <div class="flex flex-col gap-3">
+    <% question.answers.each do |answer| %>
+      <%= button_to answer.texto, answer_games_path,
+          params: { answer_id: answer.id },
+          data: { action: "submit->timer#stop" },
+          class: "w-full py-4 px-4 bg-blue-100 rounded-lg text-left text-base font-medium min-h-[44px]" %>
+    <% end %>
+  </div>
+
+  <%= form_with url: answer_games_path, method: :post,
+      data: { timer_target: "timeoutForm" },
+      class: "hidden" do |_f| %>
+  <% end %>
+</div>

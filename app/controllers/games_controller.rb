@@ -10,8 +10,18 @@ class GamesController < ApplicationController
     end
 
     session[:game] = { "question_ids" => question_ids, "current_index" => 0, "score" => 0 }
-    @question = Question.includes(:answers).find(question_ids.first)
-    render :show
+    redirect_to play_game_path
+  end
+
+  def show
+    game = session[:game]
+    return redirect_to new_game_path unless game
+
+    idx = game["current_index"].to_i
+    return redirect_to result_games_path if idx >= 5
+
+    @question      = Question.includes(:answers).find(game["question_ids"][idx])
+    @current_index = idx
   end
 
   def answer
@@ -29,8 +39,7 @@ class GamesController < ApplicationController
     if next_index >= 5
       redirect_to result_games_path
     else
-      @question = Question.includes(:answers).find(game["question_ids"][next_index])
-      render :show
+      redirect_to play_game_path
     end
   end
 
