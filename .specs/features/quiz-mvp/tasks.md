@@ -109,12 +109,12 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: `torcedor-maluco` (fonte/manutenção da planilha)
 
 **Done when**:
-- [ ] Lê o `.xlsx` e cria Question + 4 Answers (1 correta) por linha
-- [ ] Pula linhas inválidas e loga
-- [ ] Upsert por enunciado — rodar 2x não duplica
-- [ ] Teste unit com planilha de exemplo (válida + inválida)
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 3+ testes passam
+- [x] Lê o `.xlsx` e cria Question + 4 Answers (1 correta) por linha
+- [x] Pula linhas inválidas e loga
+- [x] Upsert por enunciado — rodar 2x não duplica
+- [x] Teste unit com planilha de exemplo (válida + inválida)
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 3 testes passam
 
 **Tests**: unit · **Gate**: quick
 **Commit**: `feat(quiz): importa perguntas da planilha mestre via seed`
@@ -132,12 +132,12 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] `POST /games` sorteia 5 ids distintos e salva na sessão
-- [ ] Renderiza a 1ª pergunta com 4 alternativas
-- [ ] Banco com <5 perguntas → renderiza aviso (sem erro 500)
-- [ ] Teste integration cobre início e o caso <5
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 2+ testes passam
+- [x] `POST /games` sorteia 5 ids distintos e salva na sessão
+- [x] Renderiza a 1ª pergunta com 4 alternativas
+- [x] Banco com <5 perguntas → renderiza aviso (sem erro 500)
+- [x] Teste integration cobre início e o caso <5
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 2 testes passam
 
 **Tests**: integration · **Gate**: full
 **Commit**: `feat(quiz): inicia partida sorteando 5 perguntas`
