@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "question" do %>
+  <div class="max-w-lg mx-auto p-4">
+    <p class="text-sm text-gray-500 mb-4">Pergunta <%= current_index + 1 %> de 5</p>
+    <h2 class="text-xl font-bold mb-6"><%= question.enunciado %></h2>
+    <div class="flex flex-col gap-3">
+      <% question.answers.each do |answer| %>
+        <%= button_to answer.texto, answer_games_path,
+            params: { answer_id: answer.id },
+            data: { turbo_frame: "question" },
+            class: "w-full py-4 px-4 bg-blue-100 rounded-lg text-left text-base font-medium min-h-[44px]" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

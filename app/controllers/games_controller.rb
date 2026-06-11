@@ -11,6 +11,7 @@ class GamesController < ApplicationController
 
     session[:game] = { "question_ids" => question_ids, "current_index" => 0, "score" => 0 }
     @question = Question.includes(:answers).find(question_ids.first)
+    @current_index = 0
     render :show
   end
 
@@ -30,6 +31,7 @@ class GamesController < ApplicationController
       redirect_to result_games_path
     else
       @question = Question.includes(:answers).find(game["question_ids"][next_index])
+      @current_index = next_index
       render :show
     end
   end
