@@ -18,7 +18,8 @@ class GamesController < ApplicationController
     game = session[:game]
     return redirect_to new_game_path unless game
 
-    answer = Answer.find_by(id: params[:answer_id])
+    expected_question_id = game["question_ids"][game["current_index"]]
+    answer = Answer.find_by(id: params[:answer_id], question_id: expected_question_id)
     game["score"] += 1 if answer&.correta
 
     next_index = game["current_index"] + 1
