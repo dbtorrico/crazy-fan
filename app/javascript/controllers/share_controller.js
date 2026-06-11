@@ -15,8 +15,12 @@ export default class extends Controller {
         // user cancelled — no feedback needed
       }
     } else {
-      await navigator.clipboard.writeText(`${text} ${url}`)
-      this.showFeedback("Link copiado!")
+      try {
+        await navigator.clipboard.writeText(`${text} ${url}`)
+        this.showFeedback("Link copiado!")
+      } catch (_e) {
+        this.showFeedback("Copie o link manualmente")
+      }
     }
   }
 
