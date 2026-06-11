@@ -1,0 +1,200 @@
+  [1m[35m (65.6ms)[0m  [1m[35mDROP DATABASE IF EXISTS "crazy_fan_test"[0m
+  [1m[35m (188.1ms)[0m  [1m[35mCREATE DATABASE "crazy_fan_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (11.7ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions" CASCADE[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "questions" ("id" bigserial primary key, "tema" character varying, "dificuldade" character varying, "enunciado" text NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_questions_on_enunciado" ON "questions" ("enunciado")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260611012250)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2026-06-11 01:24:03.813825', '2026-06-11 01:24:03.813826') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '1dfe8e506eb168f67644d33c5fd9148536ca1fa3', '2026-06-11 01:24:03.814534', '2026-06-11 01:24:03.814534') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "questions" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.5ms)[0m  [1m[31mDELETE FROM "questions";
+INSERT INTO "questions" ("id", "tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.873823', '2026-06-11 01:24:03.873823'), (298486374, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.873823', '2026-06-11 01:24:03.873823')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.0ms)[0m  [1m[35mALTER TABLE "questions" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "questions";
+INSERT INTO "questions" ("id", "tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.885110', '2026-06-11 01:24:03.885110'), (298486374, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.885110', '2026-06-11 01:24:03.885110')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "questions" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "questions";
+INSERT INTO "questions" ("id", "tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.886715', '2026-06-11 01:24:03.886715'), (298486374, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.886715', '2026-06-11 01:24:03.886715')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.0ms)[0m  [1m[35mALTER TABLE "questions" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "questions";
+INSERT INTO "questions" ("id", "tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.888124', '2026-06-11 01:24:03.888124'), (298486374, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.888124', '2026-06-11 01:24:03.888124')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.0ms)[0m  [1m[35mALTER TABLE "questions" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "questions";
+INSERT INTO "questions" ("id", "tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES (980190962, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.889302', '2026-06-11 01:24:03.889302'), (298486374, 'MyString', 'MyString', 'MyText', '2026-06-11 01:24:03.889302', '2026-06-11 01:24:03.889302')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "questions" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[35m (1.7ms)[0m  [1m[31mDELETE FROM "questions";
+INSERT INTO "questions" ("id", "tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES (980190962, 'Copa do Mundo', 'facil', 'Quem ganhou a Copa do Mundo de 1970?', '2026-06-11 01:27:18.160280', '2026-06-11 01:27:18.160280'), (298486374, 'Copa do Mundo', 'medio', 'Em que país foi a Copa do Mundo de 2014?', '2026-06-11 01:27:18.160280', '2026-06-11 01:27:18.160280')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "questions" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" ENABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (241.2ms)[0m  [1m[35mdo $$
+  declare r record;
+BEGIN
+FOR r IN (
+  SELECT FORMAT(
+    'UPDATE pg_constraint SET convalidated=false WHERE conname = ''%I'' AND connamespace::regnamespace = ''%I''::regnamespace; ALTER TABLE %I.%I VALIDATE CONSTRAINT %I;',
+    constraint_name,
+    table_schema,
+    table_schema,
+    table_name,
+    constraint_name
+  ) AS constraint_check
+  FROM information_schema.table_constraints WHERE constraint_type = 'FOREIGN KEY'
+)
+  LOOP
+    EXECUTE (r.constraint_check);
+  END LOOP;
+END;
+$$;
+[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+-----------------------------------------
+QuestionTest: test_inválida_sem_enunciado
+-----------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+-------------------------------------------------------
+QuestionTest: test_inválida_com_duas_respostas_corretas
+-------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+-------------------------------------------------------------------------------
+QuestionTest: test_válida_com_enunciado_único_e_exatamente_uma_resposta_correta
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+---------------------------------------------------
+QuestionTest: test_inválida_com_enunciado_duplicado
+---------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+--------------------------------------------------------
+QuestionTest: test_inválida_sem_nenhuma_resposta_correta
+--------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (62.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "crazy_fan_test"[0m
+  [1m[35m (220.3ms)[0m  [1m[35mCREATE DATABASE "crazy_fan_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (13.5ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "answers" CASCADE[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "answers" ("id" bigserial primary key, "question_id" bigint NOT NULL, "texto" character varying, "correta" boolean, "fonte" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_answers_on_question_id" ON "answers" ("question_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "questions" CASCADE[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE TABLE "questions" ("id" bigserial primary key, "tema" character varying, "dificuldade" character varying, "enunciado" text NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_questions_on_enunciado" ON "questions" ("enunciado")[0m
+  [1m[35m (8.7ms)[0m  [1m[35mALTER TABLE "answers" ADD CONSTRAINT "fk_rails_3d5ed4418f"
+FOREIGN KEY ("question_id")
+  REFERENCES "questions" ("id")
+[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (10.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260611012759)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20260611012250);[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2026-06-11 01:28:21.174949', '2026-06-11 01:28:21.174950') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'bdbc2e7e005ca9df7b8fbc746d3ef4b85f2a095e', '2026-06-11 01:28:21.176261', '2026-06-11 01:28:21.176262') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "questions" DISABLE TRIGGER ALL;ALTER TABLE "answers" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[35m (1.3ms)[0m  [1m[31mDELETE FROM "answers";
+DELETE FROM "questions";
+INSERT INTO "answers" ("id", "question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES (980190962, 980190962, 'MyString', FALSE, 'MyString', '2026-06-11 01:28:21.236705', '2026-06-11 01:28:21.236705'), (298486374, 298486374, 'MyString', FALSE, 'MyString', '2026-06-11 01:28:21.236705', '2026-06-11 01:28:21.236705');
+INSERT INTO "questions" ("id", "tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES (980190962, 'Copa do Mundo', 'facil', 'Quem ganhou a Copa do Mundo de 1970?', '2026-06-11 01:28:21.246631', '2026-06-11 01:28:21.246631'), (298486374, 'Copa do Mundo', 'medio', 'Em que país foi a Copa do Mundo de 2014?', '2026-06-11 01:28:21.246631', '2026-06-11 01:28:21.246631')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "questions" ENABLE TRIGGER ALL;ALTER TABLE "answers" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" ENABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (18.9ms)[0m  [1m[35mdo $$
+  declare r record;
+BEGIN
+FOR r IN (
+  SELECT FORMAT(
+    'UPDATE pg_constraint SET convalidated=false WHERE conname = ''%I'' AND connamespace::regnamespace = ''%I''::regnamespace; ALTER TABLE %I.%I VALIDATE CONSTRAINT %I;',
+    constraint_name,
+    table_schema,
+    table_schema,
+    table_name,
+    constraint_name
+  ) AS constraint_check
+  FROM information_schema.table_constraints WHERE constraint_type = 'FOREIGN KEY'
+)
+  LOOP
+    EXECUTE (r.constraint_check);
+  END LOOP;
+END;
+$$;
+[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+-------------------------------------------------------
+QuestionTest: test_inválida_com_duas_respostas_corretas
+-------------------------------------------------------
+  [1m[36mQuestion Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Pergunta com duas corretas"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+-----------------------------------------
+QuestionTest: test_inválida_sem_enunciado
+-----------------------------------------
+  [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", ""], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+-------------------------------------------------------------------------------
+QuestionTest: test_válida_com_enunciado_único_e_exatamente_uma_resposta_correta
+-------------------------------------------------------------------------------
+  [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Quem ganhou a Copa de 2002?"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+---------------------------------------------------
+QuestionTest: test_inválida_com_enunciado_duplicado
+---------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mQuestion Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Quem ganhou a Copa de 2002?"], ["LIMIT", 1]]
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["tema", nil], ["dificuldade", nil], ["enunciado", "Quem ganhou a Copa de 2002?"], ["created_at", "2026-06-11 01:28:21.360144"], ["updated_at", "2026-06-11 01:28:21.360144"]]
+  [1m[36mAnswer Create (0.2ms)[0m  [1m[32mINSERT INTO "answers" ("question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["question_id", 980190963], ["texto", "Brasil"], ["correta", true], ["fonte", nil], ["created_at", "2026-06-11 01:28:21.361382"], ["updated_at", "2026-06-11 01:28:21.361382"]]
+  [1m[36mAnswer Create (0.1ms)[0m  [1m[32mINSERT INTO "answers" ("question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["question_id", 980190963], ["texto", "Alemanha"], ["correta", false], ["fonte", nil], ["created_at", "2026-06-11 01:28:21.361878"], ["updated_at", "2026-06-11 01:28:21.361878"]]
+  [1m[36mAnswer Create (0.1ms)[0m  [1m[32mINSERT INTO "answers" ("question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["question_id", 980190963], ["texto", "Argentina"], ["correta", false], ["fonte", nil], ["created_at", "2026-06-11 01:28:21.362334"], ["updated_at", "2026-06-11 01:28:21.362334"]]
+  [1m[36mAnswer Create (0.1ms)[0m  [1m[32mINSERT INTO "answers" ("question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["question_id", 980190963], ["texto", "França"], ["correta", false], ["fonte", nil], ["created_at", "2026-06-11 01:28:21.362680"], ["updated_at", "2026-06-11 01:28:21.362680"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Quem ganhou a Copa de 2002?"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+--------------------------------------------------------
+QuestionTest: test_inválida_sem_nenhuma_resposta_correta
+--------------------------------------------------------
+  [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Pergunta sem correta"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m

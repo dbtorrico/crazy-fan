@@ -44,10 +44,10 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] `rails new . -d postgresql --css tailwind` executado; app sobe com `bin/dev`
-- [ ] Hotwire (turbo-rails, stimulus-rails) presente no Gemfile
-- [ ] `bin/rails db:create` funciona
-- [ ] Tag viewport mobile presente no layout
+- [x] `rails new . -d postgresql --css tailwind` executado; app sobe com `bin/dev`
+- [x] Hotwire (turbo-rails, stimulus-rails) presente no Gemfile
+- [x] `bin/rails db:create` funciona
+- [x] Tag viewport mobile presente no layout
 
 **Tests**: none · **Gate**: build
 **Commit**: `chore: inicializa app Rails com Postgres, Hotwire e Tailwind`
@@ -65,11 +65,11 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Migration cria tabela `questions`
-- [ ] Validações: enunciado presente e único; `exactly_one_correct_answer`
-- [ ] Teste unit cobre válido / inválido (0 ou 2 corretas)
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 3+ testes passam
+- [x] Migration cria tabela `questions`
+- [x] Validações: enunciado presente e único; `exactly_one_correct_answer`
+- [x] Teste unit cobre válido / inválido (0 ou 2 corretas)
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 5 testes passam
 
 **Tests**: unit · **Gate**: quick
 **Commit**: `feat(quiz): model Question com validações`
