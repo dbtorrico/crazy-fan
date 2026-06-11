@@ -198,3 +198,105 @@ QuestionTest: test_inválida_sem_nenhuma_resposta_correta
 --------------------------------------------------------
   [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Pergunta sem correta"], ["LIMIT", 1]]
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "questions" DISABLE TRIGGER ALL;ALTER TABLE "answers" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.8ms)[0m  [1m[31mDELETE FROM "answers";
+DELETE FROM "questions";
+INSERT INTO "answers" ("id", "question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES (980190962, 980190962, 'MyString', FALSE, 'MyString', '2026-06-11 01:29:12.106997', '2026-06-11 01:29:12.106997'), (298486374, 298486374, 'MyString', FALSE, 'MyString', '2026-06-11 01:29:12.106997', '2026-06-11 01:29:12.106997');
+INSERT INTO "questions" ("id", "tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES (980190962, 'Copa do Mundo', 'facil', 'Quem ganhou a Copa do Mundo de 1970?', '2026-06-11 01:29:12.112836', '2026-06-11 01:29:12.112836'), (298486374, 'Copa do Mundo', 'medio', 'Em que país foi a Copa do Mundo de 2014?', '2026-06-11 01:29:12.112836', '2026-06-11 01:29:12.112836')[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "questions" ENABLE TRIGGER ALL;ALTER TABLE "answers" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "ar_internal_metadata" ENABLE TRIGGER ALL[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.1ms)[0m  [1m[35mdo $$
+  declare r record;
+BEGIN
+FOR r IN (
+  SELECT FORMAT(
+    'UPDATE pg_constraint SET convalidated=false WHERE conname = ''%I'' AND connamespace::regnamespace = ''%I''::regnamespace; ALTER TABLE %I.%I VALIDATE CONSTRAINT %I;',
+    constraint_name,
+    table_schema,
+    table_schema,
+    table_name,
+    constraint_name
+  ) AS constraint_check
+  FROM information_schema.table_constraints WHERE constraint_type = 'FOREIGN KEY'
+)
+  LOOP
+    EXECUTE (r.constraint_check);
+  END LOOP;
+END;
+$$;
+[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+-----------------------------------
+AnswerTest: test_inválida_sem_texto
+-----------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mQuestion Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Qual país ganhou a Copa de 2002?"], ["LIMIT", 1]]
+  [1m[36mQuestion Create (0.1ms)[0m  [1m[32mINSERT INTO "questions" ("tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["tema", nil], ["dificuldade", nil], ["enunciado", "Qual país ganhou a Copa de 2002?"], ["created_at", "2026-06-11 01:29:12.136494"], ["updated_at", "2026-06-11 01:29:12.136494"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+------------------------------------------------------
+AnswerTest: test_válida_com_texto_e_vínculo_à_pergunta
+------------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mQuestion Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Qual país ganhou a Copa de 2002?"], ["LIMIT", 1]]
+  [1m[36mQuestion Create (0.1ms)[0m  [1m[32mINSERT INTO "questions" ("tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["tema", nil], ["dificuldade", nil], ["enunciado", "Qual país ganhou a Copa de 2002?"], ["created_at", "2026-06-11 01:29:12.154165"], ["updated_at", "2026-06-11 01:29:12.154165"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+--------------------------------------------
+AnswerTest: test_pertence_à_pergunta_correta
+--------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mQuestion Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Qual país ganhou a Copa de 2002?"], ["LIMIT", 1]]
+  [1m[36mQuestion Create (0.1ms)[0m  [1m[32mINSERT INTO "questions" ("tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["tema", nil], ["dificuldade", nil], ["enunciado", "Qual país ganhou a Copa de 2002?"], ["created_at", "2026-06-11 01:29:12.156756"], ["updated_at", "2026-06-11 01:29:12.156756"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAnswer Create (0.4ms)[0m  [1m[32mINSERT INTO "answers" ("question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["question_id", 980190965], ["texto", "Brasil"], ["correta", true], ["fonte", nil], ["created_at", "2026-06-11 01:29:12.158261"], ["updated_at", "2026-06-11 01:29:12.158261"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+-------------------------------------------------------------------------------
+QuestionTest: test_válida_com_enunciado_único_e_exatamente_uma_resposta_correta
+-------------------------------------------------------------------------------
+  [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Quem ganhou a Copa de 2002?"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+-------------------------------------------------------
+QuestionTest: test_inválida_com_duas_respostas_corretas
+-------------------------------------------------------
+  [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Pergunta com duas corretas"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+-----------------------------------------
+QuestionTest: test_inválida_sem_enunciado
+-----------------------------------------
+  [1m[36mQuestion Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", ""], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+--------------------------------------------------------
+QuestionTest: test_inválida_sem_nenhuma_resposta_correta
+--------------------------------------------------------
+  [1m[36mQuestion Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Pergunta sem correta"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+---------------------------------------------------
+QuestionTest: test_inválida_com_enunciado_duplicado
+---------------------------------------------------
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Quem ganhou a Copa de 2002?"], ["LIMIT", 1]]
+  [1m[36mQuestion Create (0.1ms)[0m  [1m[32mINSERT INTO "questions" ("tema", "dificuldade", "enunciado", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["tema", nil], ["dificuldade", nil], ["enunciado", "Quem ganhou a Copa de 2002?"], ["created_at", "2026-06-11 01:29:12.164269"], ["updated_at", "2026-06-11 01:29:12.164269"]]
+  [1m[36mAnswer Create (0.1ms)[0m  [1m[32mINSERT INTO "answers" ("question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["question_id", 980190966], ["texto", "Brasil"], ["correta", true], ["fonte", nil], ["created_at", "2026-06-11 01:29:12.164563"], ["updated_at", "2026-06-11 01:29:12.164563"]]
+  [1m[36mAnswer Create (0.1ms)[0m  [1m[32mINSERT INTO "answers" ("question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["question_id", 980190966], ["texto", "Alemanha"], ["correta", false], ["fonte", nil], ["created_at", "2026-06-11 01:29:12.164943"], ["updated_at", "2026-06-11 01:29:12.164943"]]
+  [1m[36mAnswer Create (0.1ms)[0m  [1m[32mINSERT INTO "answers" ("question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["question_id", 980190966], ["texto", "Argentina"], ["correta", false], ["fonte", nil], ["created_at", "2026-06-11 01:29:12.165182"], ["updated_at", "2026-06-11 01:29:12.165182"]]
+  [1m[36mAnswer Create (0.0ms)[0m  [1m[32mINSERT INTO "answers" ("question_id", "texto", "correta", "fonte", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["question_id", 980190966], ["texto", "França"], ["correta", false], ["fonte", nil], ["created_at", "2026-06-11 01:29:12.165405"], ["updated_at", "2026-06-11 01:29:12.165405"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mQuestion Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."enunciado" = $1 LIMIT $2[0m  [["enunciado", "Quem ganhou a Copa de 2002?"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mROLLBACK[0m

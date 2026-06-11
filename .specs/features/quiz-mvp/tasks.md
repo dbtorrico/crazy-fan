@@ -87,11 +87,11 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Migration cria `answers` com FK para questions
-- [ ] Validação de presença de texto
-- [ ] Teste unit do vínculo e validação
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 2+ testes passam
+- [x] Migration cria `answers` com FK para questions
+- [x] Validação de presença de texto
+- [x] Teste unit do vínculo e validação
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 3 testes passam
 
 **Tests**: unit · **Gate**: quick
 **Commit**: `feat(quiz): model Answer vinculado a Question`
