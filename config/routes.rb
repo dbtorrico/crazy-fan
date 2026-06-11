@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get  "games/new",    to: "games#new",    as: :new_game
   post "games",        to: "games#create",  as: :games
+  get  "games/play",   to: "games#show",   as: :play_game
   post "games/answer", to: "games#answer",  as: :answer_games
   get  "games/result", to: "games#result",  as: :result_games
 
