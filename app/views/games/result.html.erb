@@ -19,6 +19,17 @@
     <% end %>
   </p>
 
+  <div data-controller="share"
+       data-share-text-value="Fiz <%= @score %> de 5 no Torcedor Maluco, e você?"
+       data-share-url-value="<%= new_game_url %>"
+       class="w-full max-w-xs mb-4">
+    <button data-action="click->share#share"
+            class="w-full bg-blue-500 text-white px-8 py-4 rounded-lg text-xl font-bold min-h-[44px]">
+      Compartilhar resultado
+    </button>
+    <p data-share-target="feedback" class="hidden text-sm text-green-600 mt-2 text-center"></p>
+  </div>
+
   <%= button_to "Jogar de novo", games_path, method: :post,
       class: "bg-green-500 text-white px-8 py-4 rounded-lg text-xl font-bold min-h-[44px] w-full max-w-xs" %>
 </div>
