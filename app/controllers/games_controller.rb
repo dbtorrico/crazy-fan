@@ -17,8 +17,11 @@ class GamesController < ApplicationController
     game = session[:game]
     return redirect_to new_game_path unless game
 
-    @question = Question.includes(:answers).find(game["question_ids"][game["current_index"]])
-    @current_index = game["current_index"]
+    idx = game["current_index"].to_i
+    return redirect_to result_games_path if idx >= 5
+
+    @question      = Question.includes(:answers).find(game["question_ids"][idx])
+    @current_index = idx
   end
 
   def answer
