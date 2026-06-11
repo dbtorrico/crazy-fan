@@ -1,0 +1,4 @@
+  [1m[35m (106.3ms)[0m  [1m[35mCREATE DATABASE "crazy_fan_development" ENCODING = 'unicode'[0m
+  [1m[35m (111.5ms)[0m  [1m[35mCREATE DATABASE "crazy_fan_development" ENCODING = 'unicode'[0m
+  [1m[35m (382.1ms)[0m  [1m[35mCREATE DATABASE "crazy_fan_development" ENCODING = 'unicode'[0m
+  [1m[35m (244.6ms)[0m  [1m[35mCREATE DATABASE "crazy_fan_test" ENCODING = 'unicode'[0m
