@@ -155,12 +155,12 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Resposta correta soma +1; errada/timeout soma 0
-- [ ] Avança sem recarregar (Turbo); na 5ª, leva ao resultado
-- [ ] Pontuação final correta ("X de 5") validada no fluxo
-- [ ] Teste integration: 3 certas + 2 erradas → "3 de 5"
-- [ ] Gate passa: `bin/rails test`
-- [ ] Test count: 3+ testes passam
+- [x] Resposta correta soma +1; errada/timeout soma 0
+- [x] Avança sem recarregar (Turbo); na 5ª, leva ao resultado
+- [x] Pontuação final correta ("X de 5") validada no fluxo
+- [x] Teste integration: 3 certas + 2 erradas → "3 de 5"
+- [x] Gate passa: `bin/rails test`
+- [x] Test count: 4 testes passam (incluindo timeout)
 
 **Tests**: integration · **Gate**: full
 **Commit**: `feat(quiz): registra resposta, pontua e avança via Turbo`

@@ -26,4 +26,40 @@ class GameFlowTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "p", /Estamos preparando mais perguntas/
   end
+
+  test "resposta correta soma ponto e resposta errada nao soma" do
+    questions = create_questions(5)
+    post games_path
+
+    correct_answer = questions.first.answers.find_by(correta: true)
+    post answer_games_path, params: { answer_id: correct_answer.id }
+    assert_equal 1, session[:game]["score"]
+
+    wrong_answer = questions.second.answers.find_by(correta: false)
+    post answer_games_path, params: { answer_id: wrong_answer.id }
+    assert_equal 1, session[:game]["score"]
+  end
+
+  test "3 certas e 2 erradas resulta em pontuacao 3 de 5" do
+    questions = create_questions(5)
+    post games_path
+
+    questions.each_with_index do |q, i|
+      answer = i < 3 ? q.answers.find_by(correta: true) : q.answers.find_by(correta: false)
+      post answer_games_path, params: { answer_id: answer.id }
+    end
+
+    assert_response :redirect
+    follow_redirect!
+    assert_select "p", /3 de 5/
+  end
+
+  test "timeout (sem answer_id) conta como erro e avanca" do
+    questions = create_questions(5)
+    post games_path
+
+    score_antes = session[:game]["score"]
+    post answer_games_path, params: {}
+    assert_equal score_antes, session[:game]["score"]
+  end
 end
