@@ -1,22 +1,71 @@
-<div data-controller="timer" data-timer-seconds-value="15" class="max-w-lg mx-auto p-4">
-  <div class="flex justify-between items-center mb-4">
-    <p class="text-sm text-gray-500">Pergunta <%= current_index + 1 %> de 5</p>
-    <span class="text-sm font-bold text-red-500" data-timer-target="display"></span>
+<% letters = %w[A B C D] %>
+
+<div class="min-h-screen flex flex-col bg-creme"
+     data-controller="quiz"
+     data-quiz-total-time-value="15">
+
+  <%= render "layouts/header" %>
+
+  <%# Progress label + score pill %>
+  <div class="flex items-center justify-between px-[18px] pt-[14px] pb-1">
+    <p class="font-fredoka font-semibold text-[13px] text-gray-500 whitespace-nowrap">
+      Pergunta <span class="text-verde font-bold"><%= current_index + 1 %></span> de 5
+    </p>
+    <div class="font-fredoka font-bold text-[12.5px] bg-amarelo text-azul px-[11px] py-[5px] rounded-full flex items-center gap-1.5 whitespace-nowrap">
+      <span class="w-2 h-2 rounded-full bg-azul inline-block"></span>
+      <%= score %> pts
+    </div>
   </div>
 
-  <h2 class="text-xl font-bold mb-6"><%= question.enunciado %></h2>
-
-  <div class="flex flex-col gap-3">
-    <% question.answers.each do |answer| %>
-      <%= button_to answer.texto, answer_games_path,
-          params: { answer_id: answer.id },
-          data: { action: "submit->timer#stop" },
-          class: "w-full py-4 px-4 bg-blue-100 rounded-lg text-left text-base font-medium min-h-[44px]" %>
-    <% end %>
+  <%# Progress bar %>
+  <div class="h-1.5 bg-gray-200 rounded-full mx-[18px] mt-2 overflow-hidden">
+    <div class="h-full bg-verde rounded-full"
+         style="width: <%= (current_index.to_f / 5 * 100).round %>%; transition: width .4s"></div>
   </div>
 
-  <%= form_with url: answer_games_path, method: :post,
-      data: { timer_target: "timeoutForm" },
-      class: "hidden" do |_f| %>
+  <%# Timer ring %>
+  <div class="flex items-center justify-center gap-4 px-[18px] pt-[18px] pb-2">
+    <div class="relative w-[78px] h-[78px] shrink-0">
+      <svg width="78" height="78" style="transform: rotate(-90deg)">
+        <circle cx="39" cy="39" r="34" fill="none" stroke="#e7e9ef" stroke-width="7"/>
+        <circle cx="39" cy="39" r="34" fill="none" stroke="#009C3B" stroke-width="7"
+                stroke-linecap="round"
+                stroke-dasharray="213.63"
+                stroke-dashoffset="0"
+                data-quiz-target="ringProgress"
+                style="transition: stroke-dashoffset 1s linear, stroke .3s"/>
+      </svg>
+      <div class="absolute inset-0 flex items-center justify-center font-fredoka font-bold text-[26px]"
+           style="color: #002776"
+           data-quiz-target="num">15</div>
+    </div>
+    <span class="font-fredoka font-semibold text-[12px] text-gray-400 uppercase tracking-[.08em] leading-snug">
+      Segundos<br/>restantes
+    </span>
+  </div>
+
+  <%# Question text %>
+  <h2 class="font-fredoka font-semibold text-[22px] leading-snug text-ink px-[22px] pb-4">
+    <%= question.enunciado %>
+  </h2>
+
+  <%# Answer options %>
+  <%= form_with url: answer_games_path, method: :post, data: { quiz_target: "form" } do |f| %>
+    <%= f.hidden_field :answer_id, value: "", data: { quiz_target: "answerInput" } %>
+    <div class="flex flex-col gap-[11px] px-[18px] pb-[18px]">
+      <% question.answers.each_with_index do |answer, i| %>
+        <button type="button"
+                class="opt"
+                data-quiz-target="option"
+                data-action="click->quiz#select"
+                data-answer-id="<%= answer.id %>"
+                data-correct="<%= answer.correta ? 'true' : 'false' %>">
+          <span class="lt"><%= letters[i] %></span>
+          <%= answer.texto %>
+          <span class="res"></span>
+        </button>
+      <% end %>
+    </div>
   <% end %>
+
 </div>

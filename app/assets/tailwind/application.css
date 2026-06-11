@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --color-verde:      #009C3B;
+  --color-verde-esc:  #007a2e;
+  --color-amarelo:    #FFDF00;
+  --color-azul:       #002776;
+  --color-ink:        #0a1733;
+  --color-creme:      #fbfbf4;
+  --color-certo:      #16a34a;
+  --color-errado:     #e23636;
+
+  --font-fredoka: 'Fredoka', system-ui, sans-serif;
+  --font-nunito:  'Nunito',  system-ui, sans-serif;
+}

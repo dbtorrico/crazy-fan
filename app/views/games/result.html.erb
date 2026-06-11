@@ -1,35 +1,59 @@
 <% content_for :title, "Resultado — Torcedor Maluco" %>
+<% nome = @nickname.present? ? @nickname : "Craque" %>
 
-<div class="flex flex-col items-center justify-center min-h-screen px-4 text-center">
-  <p class="text-sm font-semibold text-green-600 uppercase tracking-widest mb-2">Torcedor Maluco</p>
+<div class="min-h-screen flex flex-col field-bg relative overflow-hidden">
+  <%# Confetti layer %>
+  <div class="absolute inset-0 overflow-hidden pointer-events-none z-10"
+       data-controller="confetti"></div>
 
-  <h1 class="text-2xl font-bold text-gray-800 mb-6">Fim de jogo!</h1>
+  <%= render "layouts/header" %>
 
-  <p class="text-6xl font-extrabold text-green-500 mb-2"><%= @score %> de 5</p>
+  <%# Score area %>
+  <div class="flex-1 flex flex-col items-center justify-center text-center px-6 py-5 relative z-20">
+    <p class="font-fredoka font-semibold text-white text-[15px] opacity-90">Mandou bem! 🎉</p>
 
-  <p class="text-base text-gray-500 mb-10">
-    <% if @score == 5 %>
-      Craque! Você mandou muito bem!
-    <% elsif @score >= 3 %>
-      Bom torcedor! Quase lá...
-    <% elsif @score >= 1 %>
-      Ainda dá pra melhorar — tenta de novo!
-    <% else %>
-      Não desanima, torcedor! Tenta de novo!
-    <% end %>
-  </p>
+    <div class="font-fredoka font-bold text-[84px] leading-none text-amarelo mt-1"
+         style="text-shadow: 0 5px 0 #002776, 0 6px 16px rgba(0,0,0,.3)">
+      <%= @score %>
+    </div>
+    <p class="font-fredoka font-bold text-white text-2xl lowercase">pontos</p>
 
-  <div data-controller="share"
-       data-share-text-value="Fiz <%= @score %> de 5 no Torcedor Maluco, e você?"
-       data-share-url-value="<%= new_game_url %>"
-       class="w-full max-w-xs mb-4">
-    <button data-action="click->share#share"
-            class="w-full bg-blue-500 text-white px-8 py-4 rounded-lg text-xl font-bold min-h-[44px]">
-      Compartilhar resultado
-    </button>
-    <p data-share-target="feedback" class="hidden text-sm text-green-600 mt-2 text-center"></p>
+    <div class="mt-5 bg-azul text-white font-fredoka font-semibold text-[15px] px-[18px] py-2 rounded-full"
+         style="box-shadow: 0 4px 0 rgba(0,0,0,.18)">
+      <%= nome %>, você é craque!
+    </div>
+
+    <div class="mt-5 flex flex-col items-center gap-2">
+      <p class="font-fredoka font-semibold text-white text-base whitespace-nowrap">
+        <span class="text-amarelo font-bold text-lg"><%= @correct %></span> de 5 corretas
+      </p>
+      <div class="flex gap-2">
+        <% 5.times do |i| %>
+          <span class="w-4 h-4 rounded-full border-2 inline-block <%= i < @correct ? 'bg-amarelo border-amarelo' : 'border-white/40' %>"
+                style="<%= i < @correct ? '' : 'background: rgba(0,0,0,.18)' %>"></span>
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <%= button_to "Jogar de novo", games_path, method: :post,
-      class: "bg-green-500 text-white px-8 py-4 rounded-lg text-xl font-bold min-h-[44px] w-full max-w-xs" %>
+  <%# Bottom card %>
+  <div class="bg-white rounded-t-[30px] px-6 pt-5 pb-6 shadow-[0_-10px_30px_rgba(0,0,0,.2)] relative z-20 flex flex-col gap-3">
+    <div data-controller="share"
+         data-share-text-value="Fiz <%= @correct %> de 5 e <%= @score %> pontos no Torcedor Maluco! E você? 🇧🇷⚽"
+         data-share-url-value="<%= new_game_url %>">
+      <button data-action="click->share#share" class="btn-share">
+        <span class="w-6 h-6 rounded-full bg-white flex items-center justify-center text-sm leading-none">⚽</span>
+        Compartilhar resultado
+      </button>
+      <p data-share-target="feedback" class="hidden text-sm text-verde mt-2 text-center font-bold"></p>
+    </div>
+
+    <%= button_to "🔁 Jogar de novo", games_path, method: :post,
+        class: "btn-replay",
+        form: { style: "display: contents" } %>
+
+    <div class="flex items-center justify-center gap-2 bg-gray-100 rounded-2xl p-3 text-[12.5px] font-extrabold text-gray-400">
+      🔒 Em breve: <span class="text-azul font-extrabold">ranking</span> — dispute o topo.
+    </div>
+  </div>
 </div>
