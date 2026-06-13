@@ -2,7 +2,9 @@
 
 **Design**: `.specs/features/quiz-mvp/design.md`
 **Testing**: `.specs/codebase/TESTING.md` (Minitest — confirmar)
-**Status**: Draft
+**Status**: DONE ✅
+
+> **Nota (2026-06-13):** Após T1–T11, foi implementada uma refatoração hi-fi seguindo o `design_handoff_torcedor_maluco/`. O fluxo `GamesController` foi substituído por `MatchesController` + `AnswersController` com namespace `Quiz::`, layout separado e CSS dedicado.
 
 ---
 
@@ -178,9 +180,9 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Layout em uma coluna, alternativas como botões grandes (~44px)
-- [ ] Envolto em `turbo_frame_tag` para troca sem reload
-- [ ] (Verificação visual coberta pelo system test T11)
+- [x] Layout em uma coluna, alternativas como botões grandes (~44px)
+- [x] Envolto em `turbo_frame_tag` para troca sem reload
+- [x] (Verificação visual coberta pelo system test T11)
 
 **Tests**: none · **Gate**: build
 **Commit**: `feat(quiz): tela da pergunta mobile-first com turbo frame`
@@ -198,10 +200,10 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Mostra contagem (ex.: 15s) e atualiza a cada segundo
-- [ ] Ao zerar, envia o form sem alternativa (timeout = erro)
-- [ ] Para ao responder antes do tempo
-- [ ] (Comportamento validado no system test T11 — cenário de timeout)
+- [x] Mostra contagem (ex.: 15s) e atualiza a cada segundo
+- [x] Ao zerar, envia o form sem alternativa (timeout = erro)
+- [x] Para ao responder antes do tempo
+- [x] (Comportamento validado no system test T11 — cenário de timeout)
 
 **Tests**: none (co-localizado no system test T11) · **Gate**: build
 **Commit**: `feat(quiz): cronômetro por pergunta com Stimulus`
@@ -219,9 +221,9 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Exibe a pontuação no formato "X de 5"
-- [ ] Botão "jogar de novo" inicia nova partida
-- [ ] (Fluxo coberto pelo system test T11)
+- [x] Exibe a pontuação no formato "X de 5"
+- [x] Botão "jogar de novo" inicia nova partida
+- [x] (Fluxo coberto pelo system test T11)
 
 **Tests**: none · **Gate**: build
 **Commit**: `feat(quiz): tela de resultado com jogar de novo`
@@ -239,9 +241,9 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Texto: "Fiz X de 5 no Torcedor Maluco, e você?"
-- [ ] Usa `navigator.share` no mobile; fallback copia o link
-- [ ] (Verificado no system test T11)
+- [x] Texto: "Fiz X de 5 no Torcedor Maluco, e você?"
+- [x] Usa `navigator.share` no mobile; fallback copia o link
+- [x] (Verificado no system test T11)
 
 **Tests**: none · **Gate**: build
 **Commit**: `feat(quiz): compartilhar resultado (Web Share + fallback)`
@@ -259,12 +261,12 @@ T7, T9 → T11
 **Tools**: MCP: NONE · Skill: NONE
 
 **Done when**:
-- [ ] Joga 5 perguntas e chega ao resultado "X de 5"
-- [ ] Cobre timeout de uma pergunta (vira erro e avança)
-- [ ] Cobre "jogar de novo" e o botão compartilhar visível
-- [ ] Roda em viewport estreito (mobile)
-- [ ] Gate passa: `bin/rails test:all`
-- [ ] Test count: 2+ system tests passam
+- [x] Joga 5 perguntas e chega ao resultado "X de 5"
+- [x] Cobre timeout de uma pergunta (vira erro e avança)
+- [x] Cobre "jogar de novo" e o botão compartilhar visível
+- [x] Roda em viewport estreito (mobile)
+- [x] Gate passa: `bin/rails test:all`
+- [x] Test count: 2+ system tests passam
 
 **Tests**: system · **Gate**: full
 **Commit**: `test(quiz): system test da partida completa mobile`

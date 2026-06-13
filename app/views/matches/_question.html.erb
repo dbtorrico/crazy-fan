@@ -1,0 +1,66 @@
+<%# Tela 2 — Pergunta. Fragmento trocado dentro de #match.
+    DOIS estados, controlados por `match.revealed?`:
+      • ativo    → cronômetro rodando, alternativas clicáveis (form);
+      • revelado → feedback verde/certo + vermelho/errado; advance_controller
+                   avança para a próxima pergunta após ~1,3 s. %>
+<% q        = match.current_question
+   revealed = match.revealed?
+   chosen   = match.last_choice
+   correct  = q.correct_index
+   letters  = %w[A B C D]
+   per_q    = Quiz::MatchState::PER_QUESTION_SECONDS %>
+
+<section class="screen countdown <%= "is-revealed" if revealed %>"
+         data-controller="<%= revealed ? "advance" : "countdown" %>"
+         <% if revealed %>
+           data-advance-url-value="<%= next_question_match_path %>"
+           data-advance-delay-value="1300"
+         <% else %>
+           data-countdown-duration-value="<%= per_q %>"
+           data-countdown-deadline-value="<%= (match.deadline_at.to_f * 1000).to_i %>"
+         <% end %>>
+
+  <div class="quiz">
+    <div class="subbar">
+      <div class="prog">Pergunta <b><%= match.position + 1 %></b> de <%= match.total %></div>
+      <div class="score-pill"><span class="dot-green"></span><%= match.score %> pts</div>
+    </div>
+    <div class="prog-track">
+      <div class="prog-fill" style="width: <%= match.progress_percent %>%"></div>
+    </div>
+
+    <div class="timer-row">
+      <div class="ring">
+        <svg width="78" height="78" aria-hidden="true">
+          <circle cx="39" cy="39" r="34" fill="none" stroke="#e7e9ef" stroke-width="7"></circle>
+          <circle data-countdown-target="ring" class="ring-bar"
+                  cx="39" cy="39" r="34" fill="none" stroke="#009C3B" stroke-width="7"
+                  stroke-linecap="round"></circle>
+        </svg>
+        <div class="num" data-countdown-target="number"><%= per_q %></div>
+      </div>
+      <div class="timer-cap">Segundos<br>restantes</div>
+    </div>
+
+    <h2 class="qtext"><%= q.text %></h2>
+
+    <%= form_with url: match_answers_path, method: :post,
+          data: { turbo_frame: "match", countdown_target: "form" } do |f| %>
+      <%= hidden_field_tag :timed_out, "0", data: { countdown_target: "timeout" } %>
+
+      <fieldset class="opts" <%= "disabled" if revealed %>>
+        <% q.options.each_with_index do |opt, i| %>
+          <% state = if !revealed then (chosen == i ? "chosen" : "")
+                     elsif i == correct then "correct"
+                     elsif i == chosen  then "wrong"
+                     else "dim" end %>
+          <button type="submit" name="choice" value="<%= i %>" class="opt <%= state %>">
+            <span class="lt"><%= letters[i] %></span>
+            <span class="opt-label"><%= opt %></span>
+            <span class="res"><%= "✓" if state == "correct" %><%= "✕" if state == "wrong" %></span>
+          </button>
+        <% end %>
+      </fieldset>
+    <% end %>
+  </div>
+</section>

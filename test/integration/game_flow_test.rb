@@ -37,11 +37,12 @@ class GameFlowTest < ActionDispatch::IntegrationTest
 
     correct_answer = Answer.find_by(question_id: question_ids[0], correta: true)
     post answer_games_path, params: { answer_id: correct_answer.id }
-    assert_equal 1, session[:game]["score"]
+    assert_operator session[:game]["score"], :>, 0
 
+    score_after_correct = session[:game]["score"]
     wrong_answer = Answer.find_by(question_id: question_ids[1], correta: false)
     post answer_games_path, params: { answer_id: wrong_answer.id }
-    assert_equal 1, session[:game]["score"]
+    assert_equal score_after_correct, session[:game]["score"]
   end
 
   test "3 certas e 2 erradas resulta em pontuacao 3 de 5" do

@@ -1,0 +1,11 @@
+<%# Página da partida — único request "cheio".
+    O <turbo-frame id="match"> é a região trocada a cada resposta.
+    O header fica FORA do frame: persiste igual em todas as telas.
+    @screen ∈ :home | :question | :result  (definido no controller) %>
+<main class="tm-app">
+  <%= render "matches/header" %>
+
+  <%= turbo_frame_tag "match" do %>
+    <%= render "matches/#{@screen}", match: @match %>
+  <% end %>
+</main>

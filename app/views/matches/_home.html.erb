@@ -1,0 +1,21 @@
+<%# Tela 1 — Home / Entrada. Renderizada dentro de #match.
+    O form de início posta para matches#start, que sorteia as perguntas,
+    grava o estado na sessão e re-renderiza este frame com a 1ª pergunta. %>
+<div class="home field">
+  <div class="home-hero">
+    <span class="logo-sticker">⚡ O quiz da torcida</span>
+    <h1 class="logo"><span class="l1">Torcedor</span><span class="l2">Maluco</span></h1>
+    <p class="home-sub">Prove que você <b>manja de futebol</b>.<br>5 perguntas, 1 minuto.</p>
+  </div>
+
+  <div class="home-card">
+    <%= form_with url: start_match_path, method: :post, data: { turbo_frame: "match" } do |f| %>
+      <%= f.label :nickname, "Seu apelido (opcional)", class: "field-lbl" %>
+      <%= f.text_field :nickname, value: match&.nickname,
+            maxlength: 18, autocomplete: "off",
+            placeholder: "Ex.: Craque do Bairro", class: "nick" %>
+      <%= f.submit "Jogar agora ⚽", class: "btn btn-play" %>
+    <% end %>
+    <p class="free-line"><span class="dot-green"></span> Grátis e sem anúncios</p>
+  </div>
+</div>

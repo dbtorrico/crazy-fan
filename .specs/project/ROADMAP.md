@@ -1,25 +1,25 @@
 # Roadmap
 
-**Current Milestone:** M1 — Quiz jogável (MVP)
+**Current Milestone:** M2 — Competição e contas
 **Status:** Planning
 
 ---
 
-## M1 — Quiz jogável (MVP)
+## M1 — Quiz jogável (MVP) ✅ DONE
 
 **Goal:** Um quiz de futebol jogável e compartilhável no celular, no ar e divulgável durante a Copa, sem exigir cadastro.
-**Target:** O quanto antes dentro da janela da Copa (até 19/07/2026). É o vertical slice que prova o valor do produto.
+**Concluído:** 2026-06-13
 
 ### Features
 
-**Quiz MVP** - IN PROGRESS (especificado)
+**Quiz MVP** - DONE ✅
 
 - Partida de 5 perguntas com 4 alternativas e timer
 - Cálculo e exibição de pontuação
 - Banco de perguntas vindo da planilha mestre
 - Jogar sem cadastro
 - Compartilhar resultado
-- UI mobile-first
+- UI mobile-first (design hi-fi com `torcedor_maluco.css`)
 
 ---
 
