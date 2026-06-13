@@ -1,0 +1,55 @@
+<%# Tela 3 — Resultado. Fragmento final trocado dentro de #match.
+    Confete renderizado pelo servidor (sem JS de geração). "Jogar de
+    novo" volta para a home (reset da sessão). Compartilhar abre o
+    WhatsApp com texto pré-preenchido. %>
+<% nome  = match.nickname.presence || "Craque"
+   share = "Fiz #{match.score} pontos no Torcedor Maluco! 🇧🇷⚽ Você consegue mais? #{root_url}"
+   wa    = "https://wa.me/?text=#{CGI.escape(share)}" %>
+
+<section class="screen">
+  <div class="result field">
+
+    <%# confete: ~46 peças com posição/cor/tempo sorteados no servidor %>
+    <div class="confetti" aria-hidden="true">
+      <% cols = %w[#FFDF00 #009C3B #002776 #ffffff #ff5d8f #3ec6ff] %>
+      <% 46.times do |i|
+           w = 6 + rand(6) %>
+        <span class="cf" style="
+          left: <%= rand(100) %>%;
+          width: <%= w %>px; height: <%= (w * 1.5).round %>px;
+          background: <%= cols[i % cols.size] %>;
+          animation-duration: <%= (2.6 + rand * 2.4).round(2) %>s;
+          animation-delay: <%= (-rand * 4).round(2) %>s;
+          transform: rotate(<%= rand(360) %>deg);"></span>
+      <% end %>
+    </div>
+
+    <div class="result-top">
+      <p class="res-kick">Mandou bem! 🎉</p>
+      <div class="res-score"><%= match.score %></div>
+      <div class="res-pts">pontos</div>
+      <div class="res-name"><%= nome %>, você é craque!</div>
+
+      <div class="recap">
+        <div class="recap-num"><b><%= match.correct_count %></b> de <%= match.total %> corretas</div>
+        <div class="recap-dots">
+          <% match.total.times do |i| %>
+            <span class="rd <%= i < match.correct_count ? "ok" : "no" %>"></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <%= link_to wa, class: "btn btn-share", target: "_blank", rel: "noopener",
+            data: { turbo: false } do %>
+        <span class="wa">⚽</span> Compartilhar resultado
+      <% end %>
+
+      <%= button_to "🔁 Jogar de novo", root_path(reset: "1"), method: :get,
+            class: "btn btn-replay", form: { data: { turbo_frame: "match" } } %>
+
+      <p class="teaser"><span class="lock">🔒</span> Em breve: <b>ranking</b> — dispute o topo.</p>
+    </div>
+  </div>
+</section>
