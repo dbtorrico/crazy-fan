@@ -6,6 +6,8 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
+/public/assets
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep

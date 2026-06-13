@@ -1,4 +1,36 @@
-<div class="flex flex-col items-center justify-center min-h-screen">
-  <h1 class="text-3xl font-bold mb-8">Torcedor Maluco</h1>
-  <%= button_to "Jogar", games_path, method: :post, class: "bg-green-500 text-white px-8 py-4 rounded-lg text-xl font-bold" %>
+<% content_for :title, "Torcedor Maluco" %>
+
+<div class="min-h-screen flex flex-col field-bg relative overflow-hidden">
+  <%= render "layouts/header" %>
+
+  <div class="flex-1 flex flex-col items-center justify-center text-center px-6 py-4 relative z-10">
+    <div class="logo-sticker mb-5">⚡ O quiz da torcida</div>
+    <div class="logo-text">
+      <span class="block">Torcedor</span>
+      <span class="block">Maluco</span>
+    </div>
+    <p class="mt-6 text-white font-bold text-lg leading-snug max-w-xs">
+      Prove que você <span class="text-amarelo">manja de futebol</span>.<br/>5 perguntas, 1 minuto.
+    </p>
+  </div>
+
+  <div class="bg-white rounded-t-[30px] px-6 pt-5 pb-7 shadow-[0_-10px_30px_rgba(0,0,0,.18)] relative z-20">
+    <%= form_with url: games_path, method: :post do |f| %>
+      <label class="block font-fredoka font-semibold text-[12.5px] text-gray-500 mb-2 ml-1" for="nickname">
+        Seu apelido (opcional)
+      </label>
+      <%= f.text_field :nickname, id: "nickname",
+          class: "nick-input",
+          placeholder: "Ex.: Craque do Bairro",
+          maxlength: 18,
+          autocomplete: "off" %>
+      <button type="submit" class="btn-play mt-4">
+        Jogar agora <span>⚽</span>
+      </button>
+    <% end %>
+    <div class="flex items-center justify-center gap-2 mt-4 font-extrabold text-sm text-verde">
+      <span class="w-2 h-2 rounded-full bg-verde inline-block"></span>
+      Grátis e sem anúncios
+    </div>
+  </div>
 </div>
