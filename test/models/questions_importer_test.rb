@@ -1,11 +1,11 @@
 require "test_helper"
 require Rails.root.join("lib/import/questions_importer")
 
-class QuestionsImporterTest < ActiveSupport::TestCase
+class Import::QuestionsImporterTest < ActiveSupport::TestCase
   FIXTURE_PATH = Rails.root.join("test/fixtures/files/questions_sample.xlsx").to_s
 
   test "importa perguntas validas e cria questions com answers" do
-    result = QuestionsImporter.new(FIXTURE_PATH).import
+    result = Import::QuestionsImporter.new(FIXTURE_PATH).import
     assert_equal 2, result[:imported]
     assert_equal 1, result[:skipped]
 
@@ -17,16 +17,16 @@ class QuestionsImporterTest < ActiveSupport::TestCase
   end
 
   test "linhas invalidas sao puladas sem quebrar a importacao" do
-    result = QuestionsImporter.new(FIXTURE_PATH).import
+    result = Import::QuestionsImporter.new(FIXTURE_PATH).import
     assert_equal 1, result[:skipped]
     assert_nil Question.find_by(enunciado: "Pergunta invalida sem correta")
   end
 
   test "rodar o importer duas vezes nao duplica perguntas" do
-    QuestionsImporter.new(FIXTURE_PATH).import
+    Import::QuestionsImporter.new(FIXTURE_PATH).import
     count_after_first = Question.count
 
-    QuestionsImporter.new(FIXTURE_PATH).import
+    Import::QuestionsImporter.new(FIXTURE_PATH).import
     assert_equal count_after_first, Question.count
   end
 end
