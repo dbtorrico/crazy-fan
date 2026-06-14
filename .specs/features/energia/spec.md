@@ -138,9 +138,9 @@ O quiz é jogável sem limite hoje. Para criar retorno diário (retenção) e, s
 | ENERGY-03 | P1: Respeitar `unlimited_energy?` (sem débito) | Pending |
 | ENERGY-04 | P1: Bloquear início com energia = 0 | Pending |
 | ENERGY-05 | P1: Tela "Sem energia" com próxima recarga + gancho de upgrade | Pending |
-| ENERGY-06 | P1: Regenerar 1 energia por intervalo, até o teto | Pending |
-| ENERGY-07 | P1: Saldo computado sob demanda (sem job de background) | Pending |
-| ENERGY-08 | P1: Configuração única de teto/intervalo/limite de convidado | Pending |
+| ENERGY-06 | P1: Regenerar 1 energia por intervalo, até o teto | Done (T1) |
+| ENERGY-07 | P1: Saldo computado sob demanda (sem job de background) | Done (T1) |
+| ENERGY-08 | P1: Configuração única de teto/intervalo/limite de convidado | Done (T1) |
 | ENERGY-09 | P1: Convidado — contador por sessão | Pending |
 | ENERGY-10 | P1: Convidado — bloqueio no limite + CTA login | Pending |
 | ENERGY-11 | P2: Indicador de energia no header/home | Pending |

@@ -3,8 +3,8 @@
 **Design:** `.specs/features/energia/design.md`
 **Spec:** `.specs/features/energia/spec.md`
 **Testing:** `.specs/codebase/TESTING.md` (Minitest)
-**Status:** Ready
-**Baseline:** 43 testes passando
+**Status:** Em execução — T1 ✅ done
+**Baseline:** 43 testes passando (não-system: 37 → 43 após T1)
 
 ---
 
