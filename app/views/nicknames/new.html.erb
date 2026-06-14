@@ -1,0 +1,32 @@
+<% content_for :title, "Escolha seu nickname — Torcedor Maluco" %>
+
+<div class="tm-app">
+  <%= render "matches/header" %>
+
+  <div class="home" style="padding: 2rem 1.5rem;">
+    <h1 class="font-fredoka font-bold text-2xl text-azul mb-2">Escolha seu nickname</h1>
+    <p class="text-sm text-gray-500 mb-6">Como você vai aparecer no ranking. Pode mudar depois.</p>
+
+    <%= form_with url: nickname_path, method: :post do |f| %>
+      <div class="flex flex-col gap-3">
+        <%= f.text_field :nickname,
+            value: @suggested,
+            placeholder: "Ex: Torcedor_10",
+            maxlength: 18,
+            autocomplete: "off",
+            class: "border-2 border-azul rounded-xl px-4 py-3 font-fredoka text-lg text-center focus:outline-none focus:border-verde" %>
+
+        <p class="text-xs text-gray-400 text-center">3–18 caracteres. Apenas letras, números, _ ou -</p>
+
+        <% if current_user.errors[:nickname].any? %>
+          <p class="error text-sm text-red-500 text-center font-semibold">
+            <%= current_user.errors[:nickname].first %>
+          </p>
+        <% end %>
+
+        <%= f.submit "Entrar no ranking →",
+            class: "btn font-fredoka font-bold text-lg bg-verde text-white rounded-2xl py-4 cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>
