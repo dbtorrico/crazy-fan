@@ -18,6 +18,27 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
+    <%# Flash messages (notices/alerts do Devise e controllers) %>
+    <% if notice.present? %>
+      <div style="background:#d4edda;color:#155724;padding:0.5rem 1rem;text-align:center;font-size:0.85rem;font-family:'Fredoka',sans-serif;">
+        <%= notice %>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div style="background:#f8d7da;color:#721c24;padding:0.5rem 1rem;text-align:center;font-size:0.85rem;font-family:'Fredoka',sans-serif;">
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <%# Logout discreto no topo quando logado (fora do turbo frame) %>
+    <% if user_signed_in? %>
+      <div style="position:absolute;top:0.5rem;right:0.75rem;z-index:100;display:flex;align-items:center;gap:0.5rem;">
+        <%= button_to "Sair", destroy_user_session_path, method: :delete,
+              data: { turbo: false },
+              style: "background:none;border:none;font-size:0.7rem;color:#888;cursor:pointer;font-family:'Fredoka',sans-serif;padding:0;" %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

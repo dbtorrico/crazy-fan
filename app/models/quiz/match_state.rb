@@ -53,7 +53,7 @@ module Quiz
       return if @revealed
       @last_choice = timed_out ? nil : choice.to_i
       if !timed_out && @last_choice == current_question.correct_index
-        seconds_left = [(@deadline_at - Time.current), 0].max
+        seconds_left = [ (@deadline_at - Time.current), 0 ].max
         bonus  = (seconds_left / PER_QUESTION_SECONDS * SPEED_BONUS_MAX).round
         @score += BASE_POINTS + bonus
         @correct_count += 1

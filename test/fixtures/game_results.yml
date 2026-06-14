@@ -1,0 +1,13 @@
+partida_joao:
+  user: joao
+  score: 400
+  correct_count: 4
+  questions_count: 5
+  played_at: 2026-06-13 12:00:00
+
+partida_maria:
+  user: maria
+  score: 200
+  correct_count: 2
+  questions_count: 5
+  played_at: 2026-06-13 13:00:00

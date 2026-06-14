@@ -10,6 +10,7 @@ class MatchesController < ApplicationController
     else
       @screen = @match.screen
     end
+    @is_guest = !user_signed_in?
   end
 
   def start
@@ -23,7 +24,18 @@ class MatchesController < ApplicationController
     return redirect_to(root_path) if @match.nil?
     @match.advance!
     save_match
-    @screen = @match.screen
+
+    if @match.finished? && user_signed_in?
+      GameResult.create(
+        user:            current_user,
+        score:           @match.score,
+        correct_count:   @match.correct_count,
+        questions_count: @match.total
+      )
+    end
+
+    @is_guest = !user_signed_in?
+    @screen   = @match.screen
     render :show
   end
 
