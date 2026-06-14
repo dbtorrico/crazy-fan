@@ -2,7 +2,7 @@
 
 **Design:** `.specs/features/autenticacao/design.md`
 **Testing:** `.specs/codebase/TESTING.md` (Minitest)
-**Status:** Draft
+**Status:** ✅ DONE (2026-06-13)
 
 ---
 
