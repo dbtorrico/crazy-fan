@@ -18,4 +18,19 @@
     <% end %>
     <p class="free-line"><span class="dot-green"></span> Grátis e sem anúncios</p>
   </div>
+
+  <%# Auth: convidado vê link de login; logado vê saudação e link para ranking %>
+  <div style="text-align:center; margin-top:1rem;">
+    <% if user_signed_in? %>
+      <p style="font-size:0.8rem; color:#555; font-family:'Fredoka',sans-serif;">
+        Olá, <b><%= current_user.nickname %></b>! ·
+        <%= link_to "Ver ranking", ranking_path, style: "color:#009C3B; font-weight:700;", data: { turbo: false } %>
+      </p>
+    <% else %>
+      <%= link_to "Login com Google para entrar no ranking",
+            user_google_oauth2_omniauth_authorize_path,
+            data: { turbo: false },
+            style: "font-size:0.75rem; color:#888; text-decoration:underline;" %>
+    <% end %>
+  </div>
 </div>
