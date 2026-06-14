@@ -13,6 +13,8 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **Estratégia de testes:** Minitest confirmado. OmniAuth test mode em `test_helper.rb`.
 - **GameResult** salvo em `MatchesController#next_question` (onde `finished?` é verdadeiro), não em `AnswersController`.
 - **Nickname:** obrigatório só após `nickname_set = true` — validações condicionais `with_options if: :nickname_set?`.
+- **Ranking geral entregue** (`ranking_controller.rb` + `/ranking`) junto com Auth no PR #14. Ranking semanal e badges ficam para depois.
+- **Próxima feature M2 (2026-06-14): Mecânica de energia (5 jogadas/dia)** — gancho da assinatura do M3.
 
 ## Open Decisions (confirmar)
 
@@ -31,10 +33,10 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 
 ## Todos / Deferred
 
-- Importar as perguntas da planilha mestre para o banco (seed) — coberto no Milestone 1.
+- ~~Importar as perguntas da planilha mestre para o banco (seed)~~ — DONE (M1).
 - Páginas institucionais (Sobre, Privacidade, Termos) para habilitar AdSense — Milestone 3.
-- Deploy para produção (Railway/Fly.io) — pendente.
-- Configurar Google OAuth app em console.cloud.google.com com domínio de produção.
+- ~~Deploy para produção (Railway/Fly.io)~~ — DONE: Railway configurado (commits 58c2472, 765b0e1).
+- Configurar Google OAuth app em console.cloud.google.com com domínio de produção — verificar se já aponta para a URL do Railway.
 - **[TECH DEBT - Deploy]** `ENV.fetch("GOOGLE_CLIENT_ID", "")` usa fallback vazio — o app sobe sem as variáveis de ambiente, sem erro. Antes do primeiro deploy, adicionar validação explícita em `config/initializers/` ou via `.env` + dotenv-rails para garantir que a ausência das vars seja detectada no boot de produção.
 - **[TECH DEBT - Auth]** `User.from_omniauth` usa `find_or_create_by` com bloco — não atualiza `email` ou `avatar_url` em re-logins caso mudem no Google. Migrar para `find_or_initialize_by` + `save` condicional antes de ter usuários em produção.
 - **[TECH DEBT - Auth]** Índice `nickname` no PostgreSQL é case-sensitive; validação de unicidade no model usa `case_sensitive: false`. Risco: `Joao` e `joao` coexistindo no banco. Fix: adicionar índice com `LOWER(nickname)` via migration ou normalizar o valor antes de salvar.

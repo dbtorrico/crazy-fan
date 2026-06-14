@@ -1,7 +1,7 @@
 # Roadmap
 
 **Current Milestone:** M2 — Competição e contas
-**Status:** Planning
+**Status:** In progress (Auth + Ranking entregues; Energia em Specify)
 
 ---
 
@@ -29,11 +29,14 @@
 
 ### Features
 
-**Autenticação (Devise)** - PLANNED
-**Ranking (geral e semanal)** - PLANNED
-**Badges / "Craque da Semana"** - PLANNED
+**Autenticação (Google OAuth)** - DONE ✅ (PR #14, 2026-06-13) — OAuth-only, nickname, `User.from_omniauth`
+**Ranking (geral)** - DONE ✅ (`ranking_controller.rb`, rota `/ranking`)
+**Mecânica de energia (5 jogadas/dia)** - IN PROGRESS 🔨 (Specify — 2026-06-14)
 **Categorias por tema (Copa 2026, História, Seleção, Craques)** - PLANNED
-**Mecânica de energia (5 jogadas/dia)** - PLANNED
+**Badges / "Craque da Semana"** - PLANNED
+**Ranking semanal** - PLANNED
+
+> Nota: ranking semanal e badges foram separados do ranking geral (já entregue).
 
 ---
 
