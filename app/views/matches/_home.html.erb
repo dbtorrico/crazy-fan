@@ -27,10 +27,11 @@
         <%= link_to "Ver ranking", ranking_path, style: "color:#009C3B; font-weight:700;", data: { turbo: false } %>
       </p>
     <% else %>
-      <%= link_to "Login com Google para entrar no ranking",
+      <%= button_to "Login com Google para entrar no ranking",
             user_google_oauth2_omniauth_authorize_path,
+            method: :post,
             data: { turbo: false },
-            style: "font-size:0.75rem; color:#888; text-decoration:underline;" %>
+            style: "background:none;border:none;font-size:0.75rem;color:#888;text-decoration:underline;cursor:pointer;padding:0;" %>
     <% end %>
   </div>
 </div>

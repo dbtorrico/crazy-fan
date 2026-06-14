@@ -26,7 +26,7 @@ class MatchesController < ApplicationController
     save_match
 
     if @match.finished? && user_signed_in?
-      GameResult.create!(
+      GameResult.create(
         user:            current_user,
         score:           @match.score,
         correct_count:   @match.correct_count,

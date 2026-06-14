@@ -13,8 +13,9 @@
           Entre no ranking!<br>
           <span class="font-normal text-gray-600">Faça login para salvar seus resultados.</span>
         </p>
-        <%= link_to "Login com Google",
+        <%= button_to "Login com Google",
               user_google_oauth2_omniauth_authorize_path,
+              method: :post,
               data: { turbo: false },
               class: "shrink-0 bg-azul text-white font-fredoka font-bold text-sm px-3 py-2 rounded-xl whitespace-nowrap" %>
       </div>

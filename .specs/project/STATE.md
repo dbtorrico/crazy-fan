@@ -35,4 +35,12 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - Páginas institucionais (Sobre, Privacidade, Termos) para habilitar AdSense — Milestone 3.
 - Deploy para produção (Railway/Fly.io) — pendente.
 - Configurar Google OAuth app em console.cloud.google.com com domínio de produção.
-- Avaliar trocar `link_to` (GET) por `button_to` (POST) nos CTAs de login OAuth — correto para OmniAuth 2.x em produção.
+- **[TECH DEBT - Deploy]** `ENV.fetch("GOOGLE_CLIENT_ID", "")` usa fallback vazio — o app sobe sem as variáveis de ambiente, sem erro. Antes do primeiro deploy, adicionar validação explícita em `config/initializers/` ou via `.env` + dotenv-rails para garantir que a ausência das vars seja detectada no boot de produção.
+- **[TECH DEBT - Auth]** `User.from_omniauth` usa `find_or_create_by` com bloco — não atualiza `email` ou `avatar_url` em re-logins caso mudem no Google. Migrar para `find_or_initialize_by` + `save` condicional antes de ter usuários em produção.
+- **[TECH DEBT - Auth]** Índice `nickname` no PostgreSQL é case-sensitive; validação de unicidade no model usa `case_sensitive: false`. Risco: `Joao` e `joao` coexistindo no banco. Fix: adicionar índice com `LOWER(nickname)` via migration ou normalizar o valor antes de salvar.
+- **[TECH DEBT - Auth]** `devise.rb` tem ~316 linhas de boilerplate gerado (comentários padrão). Config real são ~5 linhas. Pode ser limpo sem risco funcional.
+- **[TECH DEBT - Auth]** `config.mailer_sender` ainda é o placeholder padrão do Devise. Atualizar antes de qualquer feature que dispare e-mail.
+- **[TECH DEBT - Auth]** `@is_guest = !user_signed_in?` duplicado em `MatchesController#show` e `#next_question`. Extrair para `before_action :set_guest_flag`.
+- **[TECH DEBT - Auth]** Flash messages e logout no header (`layouts/matches.html.erb`) usam `style=""` inline; resto do app usa Tailwind. Unificar quando houver sprint de UI.
+- **[TECH DEBT - Tests]** System tests de auth (`auth_flow_test.rb`) usam `sleep 2` para aguardar animações. Substituir por `assert_selector` com timeout do Capybara para tornar os testes menos frágeis em CI.
+- **[TECH DEBT - Tests]** `game_result_saving_test.rb` não cobre "partida não terminada → `GameResult.count` permanece 0" (previsto na task spec T8). Adicionar quando houver tempo.

@@ -53,11 +53,12 @@
       <% if @is_guest %>
         <div class="teaser" style="display:flex; flex-direction:column; gap:0.5rem; align-items:center;">
           <p style="margin:0; font-size:0.78rem; color:#555;">Você jogou como convidado — resultado não salvo.</p>
-          <%= link_to "Entrar no ranking com Google →",
+          <%= button_to "Entrar no ranking com Google →",
                 user_google_oauth2_omniauth_authorize_path,
+                method: :post,
                 data: { turbo: false },
                 class: "btn",
-                style: "font-size:0.85rem; padding:0.6rem 1.2rem; background:#002776; color:#fff;" %>
+                style: "font-size:0.85rem; padding:0.6rem 1.2rem; background:#002776; color:#fff;border:none;cursor:pointer;" %>
         </div>
       <% else %>
         <p class="teaser" style="color:#009C3B; font-weight:700;">
