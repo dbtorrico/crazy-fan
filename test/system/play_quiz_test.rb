@@ -22,7 +22,7 @@ class PlayQuizTest < ApplicationSystemTestCase
       click_on "Certa"
     end
 
-    assert_text "Fim de jogo!"
+    assert_text "Mandou bem"
     assert_text "5 de 5"
     assert_selector "button", text: "Jogar de novo"
     assert_selector "button", text: "Compartilhar resultado"
@@ -36,7 +36,7 @@ class PlayQuizTest < ApplicationSystemTestCase
 
     # Simula o cronômetro zerando
     page.execute_script(
-      "document.querySelector('[data-timer-target=\"timeoutForm\"]').requestSubmit()"
+      "document.querySelector('[data-quiz-target=\"form\"]').requestSubmit()"
     )
 
     assert_text "Pergunta 2 de 5"
@@ -46,7 +46,7 @@ class PlayQuizTest < ApplicationSystemTestCase
       click_on "Certa"
     end
 
-    assert_text "Fim de jogo!"
+    assert_text "Mandou bem"
     assert_text "4 de 5"
   end
 
@@ -59,7 +59,7 @@ class PlayQuizTest < ApplicationSystemTestCase
       click_on "Certa"
     end
 
-    assert_text "Fim de jogo!"
+    assert_text "Mandou bem"
     click_on "Jogar de novo"
 
     assert_text "Pergunta 1 de 5"

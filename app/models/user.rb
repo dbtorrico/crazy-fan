@@ -12,6 +12,8 @@ class User < ApplicationRecord
               uniqueness: { case_sensitive: false }
   end
 
+  has_many :game_results, dependent: :destroy
+
   validates :provider, :uid, :email, presence: true
   validates :uid, uniqueness: { scope: :provider }
 
