@@ -1,0 +1,16 @@
+joao:
+  provider: google_oauth2
+  uid: "uid_joao_123"
+  email: joao@example.com
+  nickname: Joao10
+  nickname_set: true
+  avatar_url: https://example.com/joao.jpg
+  sign_in_count: 1
+
+maria:
+  provider: google_oauth2
+  uid: "uid_maria_456"
+  email: maria@example.com
+  nickname: ~
+  nickname_set: false
+  sign_in_count: 0
