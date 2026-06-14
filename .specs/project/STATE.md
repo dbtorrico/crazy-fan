@@ -30,6 +30,7 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - OmniAuth 2.x + `omniauth-rails_csrf_protection` exige POST para iniciar OAuth. Links `link_to` (GET) ficam presos no path do provider em system tests; usar `visit "/users/auth/[provider]/callback"` diretamente nos testes.
 - `has_many :game_results` deve estar no `User` model — ausência causa `NoMethodError` em testes de sistema.
 - System tests (Capybara) não são parallel-safe — rodam em processo único.
+- **Ambiente Postgres local:** o serviço `brew services` de Postgres ficou quebrado (data dir do `postgresql@14` ausente; alias `postgresql` aponta p/ `@18` sem service file). O data dir válido (v14) é `/opt/homebrew/var/postgres`. Subir manualmente com: `/opt/homebrew/bin/pg_ctl -D /opt/homebrew/var/postgres -l /opt/homebrew/var/log/postgres-manual.log start`. Sem isso, qualquer `bin/rails test` falha por `ActiveRecord::ConnectionNotEstablished` (o test_helper carrega `fixtures :all`).
 
 ## Todos / Deferred
 

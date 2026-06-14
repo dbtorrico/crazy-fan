@@ -24,4 +24,37 @@ class User < ApplicationRecord
       u.avatar_url = auth.info.image
     end
   end
+
+  # --- Energia (regra em Quiz::Energy) ---
+
+  # Energia atual (regenerada sob demanda; não persiste).
+  def current_energy(now = Time.current)
+    Quiz::Energy.current(stored: energy, updated_at: energy_updated_at, now: now)
+  end
+
+  # Instante da próxima recarga, ou nil se cheia.
+  def next_recharge_at(now = Time.current)
+    Quiz::Energy.next_recharge_at(stored: energy, updated_at: energy_updated_at, now: now)
+  end
+
+  # Gancho do M3 (assinante): por enquanto ninguém tem energia ilimitada.
+  def unlimited_energy?
+    false
+  end
+
+  # Debita 1 energia de forma atômica. Retorna true em sucesso, false sem saldo.
+  def debit_energy!
+    return true if unlimited_energy?
+
+    with_lock do
+      current, updated = Quiz::Energy.settle(stored: energy, updated_at: energy_updated_at, now: Time.current)
+      if current < 1
+        false
+      else
+        updated = Time.current if current >= Quiz::Energy::MAX
+        update!(energy: current - 1, energy_updated_at: updated)
+        true
+      end
+    end
+  end
 end

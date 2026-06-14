@@ -133,9 +133,9 @@ O quiz é jogável sem limite hoje. Para criar retorno diário (retenção) e, s
 
 | Requirement ID | Story | Status |
 |---------------|-------|--------|
-| ENERGY-01 | P1: Debitar 1 energia ao iniciar partida (logado) | Pending |
-| ENERGY-02 | P1: Não devolver energia em abandono/reinício | Pending |
-| ENERGY-03 | P1: Respeitar `unlimited_energy?` (sem débito) | Pending |
+| ENERGY-01 | P1: Debitar 1 energia ao iniciar partida (logado) | Partial (T2: `debit_energy!`; gate no controller em T3) |
+| ENERGY-02 | P1: Não devolver energia em abandono/reinício | Done (T2: débito definitivo no início) |
+| ENERGY-03 | P1: Respeitar `unlimited_energy?` (sem débito) | Done (T2) |
 | ENERGY-04 | P1: Bloquear início com energia = 0 | Pending |
 | ENERGY-05 | P1: Tela "Sem energia" com próxima recarga + gancho de upgrade | Pending |
 | ENERGY-06 | P1: Regenerar 1 energia por intervalo, até o teto | Done (T1) |
