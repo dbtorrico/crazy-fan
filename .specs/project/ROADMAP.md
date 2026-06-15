@@ -1,7 +1,7 @@
 # Roadmap
 
 **Current Milestone:** M2 — Competição e contas
-**Status:** In progress (Auth + Ranking entregues; Energia em Specify)
+**Status:** In progress (Auth, Ranking, Energia e Ranking semanal entregues)
 
 ---
 
@@ -30,13 +30,14 @@
 ### Features
 
 **Autenticação (Google OAuth)** - DONE ✅ (PR #14, 2026-06-13) — OAuth-only, nickname, `User.from_omniauth`
-**Ranking (geral)** - DONE ✅ (`ranking_controller.rb`, rota `/ranking`)
 **Mecânica de energia (5 jogadas/dia)** - DONE ✅ (2026-06-14) — regeneração 2h, gate logado/convidado, indicador ⚡
+**Ranking semanal** - DONE ✅ (2026-06-14) — por período (`Quiz::Leaderboard`), soma da semana, fuso BR, email mascarado, nickname uma vez
 **Categorias por tema (Copa 2026, História, Seleção, Craques)** - PLANNED
 **Badges / "Craque da Semana"** - PLANNED
-**Ranking semanal** - PLANNED
+**Ranking mensal / geral (agregado)** - PLANNED (infra de períodos pronta — ligar = +1 linha em `Quiz::Leaderboard::PERIODS`)
 
-> Nota: ranking semanal e badges foram separados do ranking geral (já entregue).
+> Nota: o ranking passou a ser **por período agregado** (soma por usuário). O ranking geral
+> antigo (por partida) foi substituído por esse modelo; mensal/geral ficam prontos para ligar.
 
 ---
 
