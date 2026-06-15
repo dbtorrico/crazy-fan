@@ -6,6 +6,17 @@
   <div style="padding: 1rem 1.25rem; flex: 1; overflow-y: auto;">
     <h2 class="font-fredoka font-bold text-xl text-azul mb-1">🏆 Ranking</h2>
 
+    <%# Toggle de período — só aparece quando há mais de um período habilitado. %>
+    <% if @periods.size > 1 %>
+      <div class="rank-tabs">
+        <% @periods.each do |p| %>
+          <%= link_to p.label, ranking_path(period: p.key),
+                class: "rank-tab #{'is-active' if p.key == @period.key}",
+                data: { turbo: false } %>
+        <% end %>
+      </div>
+    <% end %>
+
     <%# CTA para convidados %>
     <% unless user_signed_in? %>
       <div class="bg-amarelo/20 border border-amarelo rounded-xl p-3 mb-4 flex items-center justify-between gap-2">
@@ -21,30 +32,11 @@
       </div>
     <% end %>
 
-    <% if @results.any? %>
-      <div class="flex flex-col gap-2">
-        <% @results.each_with_index do |result, i| %>
-          <%
-            is_me = user_signed_in? && result.user_id == current_user.id
-            row_class = is_me ? "bg-verde/10 border-verde" : "bg-white border-gray-100"
-            medal = i == 0 ? "🥇" : i == 1 ? "🥈" : i == 2 ? "🥉" : "#{i + 1}."
-          %>
-          <div class="flex items-center gap-3 border-2 <%= row_class %> rounded-2xl px-4 py-3">
-            <span class="font-fredoka font-bold text-lg w-8 text-center"><%= medal %></span>
-            <div class="flex-1 min-w-0">
-              <p class="font-fredoka font-bold text-base text-azul truncate">
-                <%= result.user.nickname.presence || "Anônimo" %>
-                <%= " (você)" if is_me %>
-              </p>
-              <p class="text-xs text-gray-400"><%= result.correct_count %> de <%= result.questions_count %> corretas</p>
-            </div>
-            <span class="font-fredoka font-bold text-xl text-amarelo"><%= result.score %></span>
-          </div>
-        <% end %>
-      </div>
+    <% if @entries.any? %>
+      <%= render "ranking/ranking_list", entries: @entries %>
     <% else %>
       <p class="text-center text-gray-400 font-fredoka mt-8">
-        Nenhum resultado ainda.<br>Seja o primeiro! 🏆
+        Nenhum resultado nesta semana ainda.<br>Seja o primeiro! 🏆
       </p>
     <% end %>
 

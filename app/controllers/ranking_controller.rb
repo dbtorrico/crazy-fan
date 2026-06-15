@@ -2,6 +2,8 @@ class RankingController < ApplicationController
   layout "matches"
 
   def index
-    @results = GameResult.order(score: :desc).limit(50).includes(:user)
+    @periods = Quiz::Leaderboard.periods
+    @period  = Quiz::Leaderboard.find_period(params[:period])
+    @entries = Quiz::Leaderboard.for(@period.key)
   end
 end

@@ -59,6 +59,16 @@ body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);}
 .energy-home{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:.6rem;}
 .energy-next{font-family:'Fredoka',sans-serif;font-size:11px;color:#fff;opacity:.92;}
 
+/* toggle de período do ranking (Semanal / Mensal / Geral) */
+.rank-tabs{display:flex;gap:6px;margin:.5rem 0 1rem;}
+.rank-tab{
+  flex:1;text-align:center;text-decoration:none;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:13px;
+  color:var(--azul);background:#fff;border:2px solid var(--azul);
+  padding:7px 10px;border-radius:999px;
+}
+.rank-tab.is-active{background:var(--azul);color:#fff;}
+
 /* campo (linhas) sutil — usado em home e resultado */
 .field{background:var(--verde);position:relative;}
 .field::before{
