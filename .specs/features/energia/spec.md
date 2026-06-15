@@ -143,8 +143,8 @@ O quiz é jogável sem limite hoje. Para criar retorno diário (retenção) e, s
 | ENERGY-08 | P1: Configuração única de teto/intervalo/limite de convidado | Done (T1) |
 | ENERGY-09 | P1: Convidado — contador por sessão | Done (T3) |
 | ENERGY-10 | P1: Convidado — bloqueio no limite + CTA login | Done (T3) |
-| ENERGY-11 | P2: Indicador de energia no header/home | Pending |
-| ENERGY-12 | P2: Tempo até próxima recarga no indicador | Pending |
+| ENERGY-11 | P2: Indicador de energia no header/home | Done (T4) |
+| ENERGY-12 | P2: Tempo até próxima recarga no indicador | Done (T4) |
 
 ---
 

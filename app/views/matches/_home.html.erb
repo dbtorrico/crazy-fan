@@ -6,6 +6,9 @@
     <span class="logo-sticker">⚡ O quiz da torcida</span>
     <h1 class="logo"><span class="l1">Torcedor</span><span class="l2">Maluco</span></h1>
     <p class="home-sub">Prove que você <b>manja de futebol</b>.<br>5 perguntas, 1 minuto.</p>
+    <% if user_signed_in? %>
+      <div class="energy-home"><%= render "matches/energy", detailed: true %></div>
+    <% end %>
   </div>
 
   <div class="home-card">

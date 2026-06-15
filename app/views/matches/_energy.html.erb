@@ -1,0 +1,13 @@
+<%# Indicador de energia (apenas logado). `detailed: true` mostra o tempo
+    até a próxima recarga (usado na home); no header fica só a pílula. %>
+<% if user_signed_in? %>
+  <% detailed = local_assigns.fetch(:detailed, false) %>
+  <% unlimited = current_user.unlimited_energy? %>
+  <span class="energy-pill" title="Sua energia">
+    <%= unlimited ? "⚡ ∞" : "⚡ #{current_user.current_energy}/#{Quiz::Energy::MAX}" %>
+  </span>
+  <% if detailed && !unlimited && (next_at = current_user.next_recharge_at) %>
+    <% mins = [ ((next_at - Time.current) / 60.0).ceil, 1 ].max %>
+    <span class="energy-next">próxima em <%= mins >= 60 ? "#{mins / 60}h#{format('%02d', mins % 60)}" : "#{mins} min" %></span>
+  <% end %>
+<% end %>

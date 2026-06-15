@@ -51,6 +51,13 @@ body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);}
   flex-shrink:0;white-space:nowrap;font-family:'Fredoka',sans-serif;font-weight:600;font-size:11px;letter-spacing:.05em;
   background:var(--amarelo);color:var(--azul);padding:4px 10px;border-radius:999px;
 }
+.hdr-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.energy-pill{
+  flex-shrink:0;white-space:nowrap;font-family:'Fredoka',sans-serif;font-weight:700;font-size:11px;
+  background:#fff;color:var(--verde);padding:4px 9px;border-radius:999px;
+}
+.energy-home{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:.6rem;}
+.energy-next{font-family:'Fredoka',sans-serif;font-size:11px;color:#fff;opacity:.92;}
 
 /* campo (linhas) sutil — usado em home e resultado */
 .field{background:var(--verde);position:relative;}
