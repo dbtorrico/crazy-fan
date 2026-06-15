@@ -14,7 +14,7 @@ class MatchesController < ApplicationController
   end
 
   def start
-    return render :show unless enough_energy?
+    return render :show unless consume_energy!
 
     @match  = Quiz::MatchState.start(nickname: params[:nickname])
     save_match
@@ -46,10 +46,11 @@ class MatchesController < ApplicationController
     @is_guest = !user_signed_in?
   end
 
-  # Aplica a regra de energia antes de iniciar a partida.
-  # Logado: debita 1 (bloqueia em :no_energy). Convidado: conta na sessão
-  # (bloqueia em :no_energy_guest ao atingir Quiz::Energy::GUEST_MAX).
-  def enough_energy?
+  # Consome energia para iniciar a partida e retorna true se foi liberada.
+  # Tem efeito colateral: logado debita 1 (bloqueia em :no_energy); convidado
+  # incrementa o contador da sessão (bloqueia em :no_energy_guest ao atingir
+  # Quiz::Energy::GUEST_MAX).
+  def consume_energy!
     if user_signed_in?
       return true if current_user.unlimited_energy? || current_user.debit_energy!
 
