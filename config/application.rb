@@ -21,7 +21,9 @@ module CrazyFan
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    # Fuso de Brasília: define a virada da semana (segunda 00h) no ranking semanal.
+    # Armazenamento segue em UTC (config.active_record.default_timezone padrão = :utc).
+    config.time_zone = "America/Sao_Paulo"
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
