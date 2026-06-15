@@ -133,16 +133,16 @@ O quiz é jogável sem limite hoje. Para criar retorno diário (retenção) e, s
 
 | Requirement ID | Story | Status |
 |---------------|-------|--------|
-| ENERGY-01 | P1: Debitar 1 energia ao iniciar partida (logado) | Partial (T2: `debit_energy!`; gate no controller em T3) |
+| ENERGY-01 | P1: Debitar 1 energia ao iniciar partida (logado) | Done (T3: gate em `#start`) |
 | ENERGY-02 | P1: Não devolver energia em abandono/reinício | Done (T2: débito definitivo no início) |
-| ENERGY-03 | P1: Respeitar `unlimited_energy?` (sem débito) | Done (T2) |
-| ENERGY-04 | P1: Bloquear início com energia = 0 | Pending |
-| ENERGY-05 | P1: Tela "Sem energia" com próxima recarga + gancho de upgrade | Pending |
+| ENERGY-03 | P1: Respeitar `unlimited_energy?` (sem débito) | Done (T2/T3) |
+| ENERGY-04 | P1: Bloquear início com energia = 0 | Done (T3) |
+| ENERGY-05 | P1: Tela "Sem energia" com próxima recarga + gancho de upgrade | Done (T3) |
 | ENERGY-06 | P1: Regenerar 1 energia por intervalo, até o teto | Done (T1) |
 | ENERGY-07 | P1: Saldo computado sob demanda (sem job de background) | Done (T1) |
 | ENERGY-08 | P1: Configuração única de teto/intervalo/limite de convidado | Done (T1) |
-| ENERGY-09 | P1: Convidado — contador por sessão | Pending |
-| ENERGY-10 | P1: Convidado — bloqueio no limite + CTA login | Pending |
+| ENERGY-09 | P1: Convidado — contador por sessão | Done (T3) |
+| ENERGY-10 | P1: Convidado — bloqueio no limite + CTA login | Done (T3) |
 | ENERGY-11 | P2: Indicador de energia no header/home | Pending |
 | ENERGY-12 | P2: Tempo até próxima recarga no indicador | Pending |
 

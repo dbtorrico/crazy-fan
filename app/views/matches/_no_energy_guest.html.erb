@@ -1,0 +1,18 @@
+<%# Tela "Sem energia" (convidado). Atingiu o limite de jogadas da sessão.
+    Converte o limite em convite a logar — entrada do funil M2/M3. %>
+<div class="home field">
+  <div class="home-hero">
+    <span class="logo-sticker">⚡ Limite de convidado</span>
+    <h1 class="logo"><span class="l1">Quer jogar</span><span class="l2">mais?</span></h1>
+    <p class="home-sub">Faça login com o Google para ganhar <b>energia diária</b> e entrar no <b>ranking</b>.</p>
+  </div>
+
+  <div class="home-card">
+    <%= button_to "Faça login com Google para jogar mais",
+          user_google_oauth2_omniauth_authorize_path,
+          method: :post,
+          data: { turbo: false },
+          class: "btn btn-play" %>
+    <p class="free-line"><span class="dot-green"></span> Grátis · seu ranking começa aqui</p>
+  </div>
+</div>
