@@ -1,0 +1,25 @@
+<%# Tela "Sem energia" (usuário logado). Renderizada dentro de #match.
+    Mostra a próxima recarga, o gancho de assinatura (M3) e um caminho
+    para o ranking — para manter o jogador no app enquanto espera. %>
+<div class="home field">
+  <div class="home-hero">
+    <span class="logo-sticker">⚡ Sem energia</span>
+    <h1 class="logo"><span class="l1">Energia</span><span class="l2">no fim</span></h1>
+    <% if (next_at = current_user.next_recharge_at) %>
+      <% mins = [ ((next_at - Time.current) / 60.0).ceil, 1 ].max %>
+      <p class="home-sub">
+        Sua próxima energia chega em
+        <b><%= mins >= 60 ? "#{mins / 60}h#{format('%02d', mins % 60)}" : "#{mins} min" %></b>.
+      </p>
+    <% else %>
+      <p class="home-sub">Sua energia está se recarregando.</p>
+    <% end %>
+  </div>
+
+  <div class="home-card">
+    <p style="font-size:0.85rem; color:#555; font-family:'Fredoka',sans-serif; margin:0 0 0.75rem;">
+      🔓 Em breve: <b>jogadas ilimitadas</b> para assinantes.
+    </p>
+    <%= link_to "Ver ranking 🏆", ranking_path, class: "btn btn-play", data: { turbo: false } %>
+  </div>
+</div>

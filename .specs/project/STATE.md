@@ -13,6 +13,8 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **Estratégia de testes:** Minitest confirmado. OmniAuth test mode em `test_helper.rb`.
 - **GameResult** salvo em `MatchesController#next_question` (onde `finished?` é verdadeiro), não em `AnswersController`.
 - **Nickname:** obrigatório só após `nickname_set = true` — validações condicionais `with_options if: :nickname_set?`.
+- **Ranking geral entregue** (`ranking_controller.rb` + `/ranking`) junto com Auth no PR #14. Ranking semanal e badges ficam para depois.
+- **Próxima feature M2 (2026-06-14): Mecânica de energia (5 jogadas/dia)** — gancho da assinatura do M3.
 
 ## Open Decisions (confirmar)
 
@@ -28,13 +30,14 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - OmniAuth 2.x + `omniauth-rails_csrf_protection` exige POST para iniciar OAuth. Links `link_to` (GET) ficam presos no path do provider em system tests; usar `visit "/users/auth/[provider]/callback"` diretamente nos testes.
 - `has_many :game_results` deve estar no `User` model — ausência causa `NoMethodError` em testes de sistema.
 - System tests (Capybara) não são parallel-safe — rodam em processo único.
+- **Ambiente Postgres local:** o serviço `brew services` de Postgres ficou quebrado (data dir do `postgresql@14` ausente; alias `postgresql` aponta p/ `@18` sem service file). O data dir válido (v14) é `/opt/homebrew/var/postgres`. Subir manualmente com: `/opt/homebrew/bin/pg_ctl -D /opt/homebrew/var/postgres -l /opt/homebrew/var/log/postgres-manual.log start`. Sem isso, qualquer `bin/rails test` falha por `ActiveRecord::ConnectionNotEstablished` (o test_helper carrega `fixtures :all`).
 
 ## Todos / Deferred
 
-- Importar as perguntas da planilha mestre para o banco (seed) — coberto no Milestone 1.
+- ~~Importar as perguntas da planilha mestre para o banco (seed)~~ — DONE (M1).
 - Páginas institucionais (Sobre, Privacidade, Termos) para habilitar AdSense — Milestone 3.
-- Deploy para produção (Railway/Fly.io) — pendente.
-- Configurar Google OAuth app em console.cloud.google.com com domínio de produção.
+- ~~Deploy para produção (Railway/Fly.io)~~ — DONE: Railway configurado (commits 58c2472, 765b0e1).
+- Configurar Google OAuth app em console.cloud.google.com com domínio de produção — verificar se já aponta para a URL do Railway.
 - **[TECH DEBT - Deploy]** `ENV.fetch("GOOGLE_CLIENT_ID", "")` usa fallback vazio — o app sobe sem as variáveis de ambiente, sem erro. Antes do primeiro deploy, adicionar validação explícita em `config/initializers/` ou via `.env` + dotenv-rails para garantir que a ausência das vars seja detectada no boot de produção.
 - **[TECH DEBT - Auth]** `User.from_omniauth` usa `find_or_create_by` com bloco — não atualiza `email` ou `avatar_url` em re-logins caso mudem no Google. Migrar para `find_or_initialize_by` + `save` condicional antes de ter usuários em produção.
 - **[TECH DEBT - Auth]** Índice `nickname` no PostgreSQL é case-sensitive; validação de unicidade no model usa `case_sensitive: false`. Risco: `Joao` e `joao` coexistindo no banco. Fix: adicionar índice com `LOWER(nickname)` via migration ou normalizar o valor antes de salvar.

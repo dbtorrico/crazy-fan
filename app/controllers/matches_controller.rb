@@ -1,6 +1,7 @@
 class MatchesController < ApplicationController
   layout "matches"
   before_action :load_match
+  before_action :set_guest_flag
 
   def show
     if params[:reset] || @match.nil? || @match.finished?
@@ -10,10 +11,11 @@ class MatchesController < ApplicationController
     else
       @screen = @match.screen
     end
-    @is_guest = !user_signed_in?
   end
 
   def start
+    return render :show unless consume_energy!
+
     @match  = Quiz::MatchState.start(nickname: params[:nickname])
     save_match
     @screen = :question
@@ -34,12 +36,34 @@ class MatchesController < ApplicationController
       )
     end
 
-    @is_guest = !user_signed_in?
-    @screen   = @match.screen
+    @screen = @match.screen
     render :show
   end
 
   private
+
+  def set_guest_flag
+    @is_guest = !user_signed_in?
+  end
+
+  # Consome energia para iniciar a partida e retorna true se foi liberada.
+  # Tem efeito colateral: logado debita 1 (bloqueia em :no_energy); convidado
+  # incrementa o contador da sessão (bloqueia em :no_energy_guest ao atingir
+  # Quiz::Energy::GUEST_MAX).
+  def consume_energy!
+    if user_signed_in?
+      return true if current_user.unlimited_energy? || current_user.debit_energy!
+
+      @screen = :no_energy
+      false
+    elsif session[:guest_plays].to_i >= Quiz::Energy::GUEST_MAX
+      @screen = :no_energy_guest
+      false
+    else
+      session[:guest_plays] = session[:guest_plays].to_i + 1
+      true
+    end
+  end
 
   def load_match
     @match = Quiz::MatchState.load(session[:match])

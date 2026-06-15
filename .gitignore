@@ -15,3 +15,8 @@
 /tmp/*
 !/tmp/.keep
 .env
+
+# macOS / artefatos locais não versionados
+.DS_Store
+/Torcedor Maluco.zip
+/design_handoff_torcedor_maluco/

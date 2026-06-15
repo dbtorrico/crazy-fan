@@ -61,4 +61,43 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.valid?
     assert user.errors[:nickname].any?
   end
+
+  # --- energia ---
+
+  test "debit_energy! decrementa a energia e retorna true" do
+    user = users(:joao) # energia cheia por default
+    assert user.debit_energy!
+    assert_equal Quiz::Energy::MAX - 1, user.reload.energy
+  end
+
+  test "debit_energy! retorna false e mantém o saldo quando energia é 0" do
+    user = users(:joao)
+    user.update!(energy: 0, energy_updated_at: Time.current)
+    assert_not user.debit_energy!
+    assert_equal 0, user.reload.energy
+  end
+
+  test "unlimited_energy? é false (gancho do M3)" do
+    assert_not users(:joao).unlimited_energy?
+  end
+
+  test "current_energy regenera com o passar do tempo" do
+    user = users(:joao)
+    user.update!(energy: 2, energy_updated_at: Time.current)
+    assert_equal 3, user.current_energy(Time.current + Quiz::Energy::RECHARGE_INTERVAL)
+  end
+
+  test "current_energy com energy_updated_at nulo é tratado como cheia" do
+    user = users(:joao)
+    user.update!(energy: 0, energy_updated_at: nil)
+    assert_equal Quiz::Energy::MAX, user.current_energy
+  end
+
+  test "dois debit_energy! a partir de 1 não deixam o saldo negativo" do
+    user = users(:joao)
+    user.update!(energy: 1, energy_updated_at: Time.current)
+    assert user.debit_energy!
+    assert_not user.debit_energy!
+    assert_equal 0, user.reload.energy
+  end
 end
