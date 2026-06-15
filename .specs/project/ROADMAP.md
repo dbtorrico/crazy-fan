@@ -31,7 +31,7 @@
 
 **Autenticação (Google OAuth)** - DONE ✅ (PR #14, 2026-06-13) — OAuth-only, nickname, `User.from_omniauth`
 **Ranking (geral)** - DONE ✅ (`ranking_controller.rb`, rota `/ranking`)
-**Mecânica de energia (5 jogadas/dia)** - IN PROGRESS 🔨 (Specify — 2026-06-14)
+**Mecânica de energia (5 jogadas/dia)** - DONE ✅ (2026-06-14) — regeneração 2h, gate logado/convidado, indicador ⚡
 **Categorias por tema (Copa 2026, História, Seleção, Craques)** - PLANNED
 **Badges / "Craque da Semana"** - PLANNED
 **Ranking semanal** - PLANNED

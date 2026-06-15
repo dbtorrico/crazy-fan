@@ -3,8 +3,8 @@
 **Design:** `.specs/features/energia/design.md`
 **Spec:** `.specs/features/energia/spec.md`
 **Testing:** `.specs/codebase/TESTING.md` (Minitest)
-**Status:** Em execução — T1 ✅ · T2 ✅ · T3 ✅ · T4 ✅ done
-**Baseline:** 43 testes passando (não-system: 37 → 43 T1 → 49 T2 → 53 T3; full c/ system: 59)
+**Status:** ✅ DONE — T1 · T2 · T3 · T4 · T5 (2026-06-14)
+**Baseline:** 43 → full c/ system **61 testes** (T1+6 unit · T2+6 unit · T3+4 integ · T5+2 system)
 
 ---
 
