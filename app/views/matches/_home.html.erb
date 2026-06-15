@@ -12,12 +12,31 @@
   </div>
 
   <div class="home-card">
-    <%= form_with url: start_match_path, method: :post, data: { turbo_frame: "match" } do |f| %>
-      <%= f.label :nickname, "Seu apelido (opcional)", class: "field-lbl" %>
-      <%= f.text_field :nickname, value: match&.nickname,
-            maxlength: 18, autocomplete: "off",
-            placeholder: "Ex.: Craque do Bairro", class: "nick" %>
-      <%= f.submit "Jogar agora ⚽", class: "btn btn-play" %>
+    <% if user_signed_in? %>
+      <%# Logado: o apelido vem do cadastro — não pede de novo. %>
+      <%= form_with url: start_match_path, method: :post, data: { turbo_frame: "match" } do |f| %>
+        <%= f.submit "Jogar agora ⚽", class: "btn btn-play" %>
+      <% end %>
+    <% else %>
+      <%# Convidado: pede o apelido uma vez (fica na sessão); depois só reusa. %>
+      <% guest_nick = session[:nickname].presence %>
+      <% editing    = params[:edit_nick].present? || guest_nick.nil? %>
+      <%= form_with url: start_match_path, method: :post, data: { turbo_frame: "match" } do |f| %>
+        <% if editing %>
+          <%= f.label :nickname, "Seu apelido (opcional)", class: "field-lbl" %>
+          <%= f.text_field :nickname, value: guest_nick,
+                maxlength: 18, autocomplete: "off",
+                placeholder: "Ex.: Craque do Bairro", class: "nick" %>
+        <% else %>
+          <p class="field-lbl">Jogando como <b><%= guest_nick %></b></p>
+        <% end %>
+        <%= f.submit "Jogar agora ⚽", class: "btn btn-play" %>
+      <% end %>
+      <% unless editing %>
+        <%= link_to "Trocar apelido", root_path(edit_nick: 1),
+              style: "display:inline-block;margin-top:.5rem;font-size:0.75rem;color:#888;text-decoration:underline;",
+              data: { turbo: false } %>
+      <% end %>
     <% end %>
     <p class="free-line"><span class="dot-green"></span> Grátis e sem anúncios</p>
   </div>
@@ -28,6 +47,8 @@
       <p style="font-size:0.8rem; color:#555; font-family:'Fredoka',sans-serif;">
         Olá, <b><%= current_user.nickname %></b>! ·
         <%= link_to "Ver ranking", ranking_path, style: "color:#009C3B; font-weight:700;", data: { turbo: false } %>
+        ·
+        <%= link_to "Mudar apelido", new_nickname_path, style: "color:#888; text-decoration:underline;", data: { turbo: false } %>
       </p>
     <% else %>
       <%= button_to "Login com Google para entrar no ranking",
