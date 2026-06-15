@@ -15,6 +15,10 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **Nickname:** obrigatório só após `nickname_set = true` — validações condicionais `with_options if: :nickname_set?`.
 - **Ranking geral entregue** (`ranking_controller.rb` + `/ranking`) junto com Auth no PR #14. Ranking semanal e badges ficam para depois.
 - **Próxima feature M2 (2026-06-14): Mecânica de energia (5 jogadas/dia)** — gancho da assinatura do M3.
+- **Fuso do app: `America/Sao_Paulo`** (2026-06-14) — define a virada da semana (segunda 00h) no ranking; armazenamento segue UTC.
+- **Ranking por período (2026-06-14):** rankings são por janela de tempo, agregando `SUM(score)` por usuário. Registro plugável `Quiz::Leaderboard::PERIODS` (key/label/window) — só `:weekly` habilitado; mensal/geral = +1 linha. O ranking geral por partida foi **substituído** por esse modelo.
+- **Email no ranking público: mascarado** (`d***@dominio`) — nunca expor PII completa.
+- **Nickname digitado uma única vez** — logado usa o do cadastro; convidado guarda em `session[:nickname]`; trocar é ação explícita.
 
 ## Open Decisions (confirmar)
 
@@ -43,7 +47,7 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **[TECH DEBT - Auth]** Índice `nickname` no PostgreSQL é case-sensitive; validação de unicidade no model usa `case_sensitive: false`. Risco: `Joao` e `joao` coexistindo no banco. Fix: adicionar índice com `LOWER(nickname)` via migration ou normalizar o valor antes de salvar.
 - **[TECH DEBT - Auth]** `devise.rb` tem ~316 linhas de boilerplate gerado (comentários padrão). Config real são ~5 linhas. Pode ser limpo sem risco funcional.
 - **[TECH DEBT - Auth]** `config.mailer_sender` ainda é o placeholder padrão do Devise. Atualizar antes de qualquer feature que dispare e-mail.
-- **[TECH DEBT - Auth]** `@is_guest = !user_signed_in?` duplicado em `MatchesController#show` e `#next_question`. Extrair para `before_action :set_guest_flag`.
+- ~~**[TECH DEBT - Auth]** `@is_guest = !user_signed_in?` duplicado em `MatchesController#show` e `#next_question`. Extrair para `before_action :set_guest_flag`.~~ — DONE (feature de energia).
 - **[TECH DEBT - Auth]** Flash messages e logout no header (`layouts/matches.html.erb`) usam `style=""` inline; resto do app usa Tailwind. Unificar quando houver sprint de UI.
 - **[TECH DEBT - Tests]** System tests de auth (`auth_flow_test.rb`) usam `sleep 2` para aguardar animações. Substituir por `assert_selector` com timeout do Capybara para tornar os testes menos frágeis em CI.
 - **[TECH DEBT - Tests]** `game_result_saving_test.rb` não cobre "partida não terminada → `GameResult.count` permanece 0" (previsto na task spec T8). Adicionar quando houver tempo.

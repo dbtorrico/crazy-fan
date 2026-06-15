@@ -1,0 +1,29 @@
+<%# Lista de ranking — itera Entry uniformes (Quiz::Leaderboard).
+    Cada linha: posição/medalha, nickname + email mascarado, total de pontos e nº de partidas. %>
+<div class="flex flex-col gap-2">
+  <% entries.each do |entry| %>
+    <%
+      is_me     = user_signed_in? && entry.user_id == current_user.id
+      row_class = is_me ? "bg-verde/10 border-verde" : "bg-white border-gray-100"
+      medal     = case entry.rank
+                  when 1 then "🥇"
+                  when 2 then "🥈"
+                  when 3 then "🥉"
+                  else "#{entry.rank}."
+                  end
+    %>
+    <div class="flex items-center gap-3 border-2 <%= row_class %> rounded-2xl px-4 py-3">
+      <span class="font-fredoka font-bold text-lg w-8 text-center"><%= medal %></span>
+      <div class="flex-1 min-w-0">
+        <p class="font-fredoka font-bold text-base text-azul truncate">
+          <%= entry.nickname %>
+          <%= " (você)" if is_me %>
+        </p>
+        <p class="text-xs text-gray-400 truncate">
+          <%= entry.masked_email %> · <%= entry.detail %>
+        </p>
+      </div>
+      <span class="font-fredoka font-bold text-xl text-amarelo"><%= entry.value %></span>
+    </div>
+  <% end %>
+</div>
