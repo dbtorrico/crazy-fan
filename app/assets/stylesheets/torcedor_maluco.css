@@ -1,33 +1,54 @@
 /* ============================================================
-   Torcedor Maluco — folha de estilo compartilhada
-   Extraída 1:1 do protótipo de design (Torcedor Maluco.html).
-   Serve às 3 telas (home / pergunta / resultado) e a todos os
-   estados. As fontes Fredoka + Nunito vêm do Google Fonts
-   carregadas no layout matches.html.erb.
+   Torcedor Maluco — fonte única de estilo (layout matches)
+   Camadas: Tokens · Palco+Backdrop · Header · Componentes ·
+            Telas (home/quiz/resultado/sem-energia) · Conteúdo
+   Fontes Fredoka + Nunito carregadas no layout matches.html.erb.
    ============================================================ */
 
 :root{
+  /* --- Paleta --- */
   --verde:#009C3B;
   --verde-esc:#007a2e;
   --amarelo:#FFDF00;
   --amarelo-esc:#f4c800;
   --azul:#002776;
   --branco:#ffffff;
-  --ink:#0a1733;          /* texto escuro sobre claro/amarelo */
+  --ink:#0a1733;
   --creme:#fbfbf4;
   --certo:#16a34a;
   --errado:#e23636;
+
+  /* --- Tokens responsivos (ajustar aqui = responsividade muda em cascata) --- */
+  --stage-max:  430px;        /* largura do palco — bumped por breakpoint abaixo */
+  --fs-logo:    clamp(40px, 12cqi, 60px);
+  --fs-qtext:   clamp(20px, 6.2cqi, 27px);
+  --fs-score:   clamp(64px, 22cqi, 104px);
+  --fs-btn:     clamp(18px, 5.4cqi, 23px);
+  --fs-opt:     clamp(14px, 4.5cqi, 18px);
+  --ring-size:  clamp(72px, 20cqi, 96px);
+  --pad-screen: clamp(14px, 4cqi, 22px);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
-html,body{background:#0c0d12;}
-body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);}
-
-/* ---------- Shell mobile (substitui o frame de celular do protótipo) ---------- */
-.tm-app{
-  max-width:430px;min-height:100dvh;margin:0 auto;
-  display:flex;flex-direction:column;background:var(--creme);
-  position:relative;overflow:hidden;
+html{background:var(--verde-esc);}
+body{
+  font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
+  /* backdrop de estádio — aparece ao redor do palco em telas largas */
+  background:
+    radial-gradient(ellipse 55% 80% at 50% 50%, rgba(0,0,0,.0) 30%, rgba(0,0,0,.55) 100%),
+    repeating-linear-gradient(180deg, transparent 0 52px, rgba(255,255,255,.06) 52px 54px),
+    var(--verde-esc);
 }
+
+/* ---------- Palco responsivo (central scalado) ---------- */
+.tm-app{
+  max-width:var(--stage-max);width:100%;min-height:100dvh;margin-inline:auto;
+  display:flex;flex-direction:column;background:var(--creme);
+  position:relative;overflow-x:clip;
+  container-type:inline-size; /* habilita cqi nos tokens de tipo */
+}
+/* breakpoints do palco — ≤640px fica literalmente idêntico ao baseline mobile */
+@media(min-width:700px){:root{--stage-max:480px;}}
+@media(min-width:1024px){:root{--stage-max:560px;}}
 
 /* ---------- Header consistente (estático, fora do <turbo-frame>) ---------- */
 .hdr{
