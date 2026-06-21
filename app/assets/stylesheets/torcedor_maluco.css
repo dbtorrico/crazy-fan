@@ -258,6 +258,7 @@ body{
 .countdown.is-low .ring-bar{stroke:var(--errado)!important;}
 .countdown.is-low .num{color:var(--errado);}
 
+.tema-badge{display:inline-flex;align-items:center;gap:5px;background:#f0f2f8;border-radius:999px;padding:3px 12px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:12px;color:#6b7180;margin:4px 18px 0;}
 .qtext{font-family:'Fredoka',sans-serif;font-weight:600;font-size:var(--fs-qtext);line-height:1.2;color:var(--ink);padding:8px 22px 16px;text-wrap:balance;}
 .opts{display:flex;flex-direction:column;gap:11px;padding:0 18px 18px;margin:0;border:0;}
 .opt{

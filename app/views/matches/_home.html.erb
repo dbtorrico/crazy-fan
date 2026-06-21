@@ -15,7 +15,6 @@
     <% if user_signed_in? %>
       <%# Logado: o apelido vem do cadastro — não pede de novo. %>
       <%= form_with url: start_match_path, method: :post, data: { turbo_frame: "match" } do |f| %>
-        <%= render "matches/category_picker", f: f, category_counts: @category_counts %>
         <%= f.submit "Jogar agora ⚽", class: "btn btn-play" %>
       <% end %>
     <% else %>
@@ -31,7 +30,6 @@
         <% else %>
           <p class="field-lbl">Jogando como <b><%= guest_nick %></b></p>
         <% end %>
-        <%= render "matches/category_picker", f: f, category_counts: @category_counts %>
         <%= f.submit "Jogar agora ⚽", class: "btn btn-play" %>
       <% end %>
       <% unless editing %>

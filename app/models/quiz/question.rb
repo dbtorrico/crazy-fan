@@ -12,13 +12,14 @@ module Quiz
       { key: "Craques",       label: "Craques",            emoji: "⭐" },
     ].freeze
 
-    attr_reader :id, :text, :options, :correct_index
+    attr_reader :id, :text, :options, :correct_index, :tema
 
-    def initialize(id:, text:, options:, correct_index:)
+    def initialize(id:, text:, options:, correct_index:, tema: nil)
       @id            = id
       @text          = text
       @options       = options
       @correct_index = correct_index
+      @tema          = tema
     end
 
     def self.from_record(record)
@@ -27,7 +28,8 @@ module Quiz
         id:            record.id,
         text:          record.enunciado,
         options:       sorted.map(&:texto),
-        correct_index: sorted.index(&:correta) || 0
+        correct_index: sorted.index(&:correta) || 0,
+        tema:          record.tema
       )
     end
 
