@@ -42,9 +42,10 @@ module Quiz
     def self.category_counts
       ::Question
         .joins(:answers)
-        .group(:tema)
+        .group("questions.id", "questions.tema")
         .having("COUNT(answers.id) >= 4")
-        .count
+        .pluck("questions.tema")
+        .tally
         .select { |_, v| v >= 5 }
     end
 

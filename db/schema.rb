@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_06_14_183701) do
+ActiveRecord::Schema[7.2].define(version: 2026_06_21_221629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_14_183701) do
     t.index ["enunciado"], name: "index_questions_on_enunciado", unique: true
   end
 
+  create_table "user_achievements", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "badge_key", null: false
+    t.string "week", default: "", null: false
+    t.datetime "earned_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "badge_key", "week"], name: "index_user_achievements_on_user_id_and_badge_key_and_week", unique: true
+    t.index ["user_id"], name: "index_user_achievements_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", null: false
     t.string "uid", null: false
@@ -69,4 +80,5 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_14_183701) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "game_results", "users"
+  add_foreign_key "user_achievements", "users"
 end

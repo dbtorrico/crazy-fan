@@ -58,6 +58,35 @@ class Quiz::LeaderboardTest < ActiveSupport::TestCase
     assert_not_includes joao.masked_email, "joao@example.com"
   end
 
+  # --- períodos mensal e geral ---
+
+  test "for(:monthly) inclui partidas do mês mas exclui mês anterior" do
+    GameResult.delete_all
+    month_start = NOW.beginning_of_month
+    play(users(:joao), 400, month_start + 1.day)
+    play(users(:joao), 100, month_start - 1.day)  # mês anterior — não entra
+
+    entries = Quiz::Leaderboard.for(:monthly, now: NOW)
+    joao = entries.find { |e| e.user_id == users(:joao).id }
+    assert_equal 400, joao.value
+  end
+
+  test "for(:all_time) agrega todas as partidas sem filtro de data" do
+    GameResult.delete_all
+    play(users(:joao), 300, 1.year.ago)
+    play(users(:joao), 200, 1.week.ago)
+
+    entries = Quiz::Leaderboard.for(:all_time, now: NOW)
+    joao = entries.find { |e| e.user_id == users(:joao).id }
+    assert_equal 500, joao.value
+    assert_equal "2 partidas", joao.detail
+  end
+
+  test "periods inclui weekly, monthly e all_time nessa ordem" do
+    keys = Quiz::Leaderboard.periods.map(&:key)
+    assert_equal [ :weekly, :monthly, :all_time ], keys
+  end
+
   # --- mascaramento ---
 
   test "mask_email oculta o local" do

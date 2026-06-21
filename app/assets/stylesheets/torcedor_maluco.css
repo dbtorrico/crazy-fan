@@ -140,6 +140,9 @@ body{
   color:var(--amarelo-esc);flex:0 0 auto;
 }
 
+/* badges no ranking */
+.rank-badges{font-size:14px;margin:2px 0 0;letter-spacing:.05em;}
+
 /* estado vazio e link de volta */
 .rank-empty{text-align:center;font-family:'Fredoka',sans-serif;font-size:15px;color:#9499a8;margin-top:2rem;line-height:1.5;}
 .rank-back{
@@ -306,6 +309,27 @@ body{
 .teaser{margin-top:4px;text-align:center;font-weight:800;font-size:12.5px;color:#7c8294;background:#f2f3f7;border-radius:14px;padding:11px;display:flex;align-items:center;justify-content:center;gap:7px;}
 .teaser b{color:var(--azul);}
 .lock{font-size:13px;}
+
+/* ---------- Badges na tela de resultado ---------- */
+.craque-callout{
+  background:var(--amarelo);color:var(--azul);font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:15px;text-align:center;padding:10px 16px;border-radius:16px;
+  box-shadow:0 4px 0 var(--amarelo-esc);
+}
+.badge-strip{
+  background:#f7f8fa;border:2px solid #e3e5ec;border-radius:16px;
+  padding:12px 14px;display:flex;flex-direction:column;gap:7px;
+}
+.badge-strip-title{
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:12.5px;
+  color:#6b7180;margin:0;
+}
+.badge-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.badge-chip{
+  background:#fff;border:1.5px solid #e3e5ec;border-radius:999px;
+  padding:4px 10px;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:12.5px;color:var(--ink);white-space:nowrap;
+}
 
 /* confete (renderizado pelo servidor em _result) */
 .confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;}

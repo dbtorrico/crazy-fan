@@ -33,9 +33,9 @@
     <% end %>
 
     <% if @entries.any? %>
-      <%= render "ranking/ranking_list", entries: @entries %>
+      <%= render "ranking/ranking_list", entries: @entries, period_key: @period.key %>
     <% else %>
-      <p class="rank-empty">Nenhum resultado nesta semana ainda.<br>Seja o primeiro! 🏆</p>
+      <p class="rank-empty">Nenhum resultado <%= @period.key == :all_time ? "ainda" : "neste período" %>.<br>Seja o primeiro! 🏆</p>
     <% end %>
 
     <%= link_to "← Jogar agora", root_path, class: "rank-back" %>

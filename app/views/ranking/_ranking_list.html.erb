@@ -14,8 +14,17 @@
     <div class="rank-row<%= ' is-me' if is_me %>">
       <span class="rank-medal"><%= medal %></span>
       <div class="rank-info">
-        <p class="rank-name"><%= entry.nickname %><%= " (você)" if is_me %></p>
+        <p class="rank-name">
+          <%= "👑 " if entry.rank == 1 && period_key == :weekly %><%= entry.nickname %><%= " (você)" if is_me %>
+        </p>
         <p class="rank-detail"><%= entry.masked_email %> · <%= entry.detail %></p>
+        <% if entry.badges.present? %>
+          <p class="rank-badges">
+            <% entry.badges.first(5).each do |b| %>
+              <span title="<%= b.label %>"><%= b.emoji %></span>
+            <% end %>
+          </p>
+        <% end %>
       </div>
       <span class="rank-score"><%= entry.value %></span>
     </div>

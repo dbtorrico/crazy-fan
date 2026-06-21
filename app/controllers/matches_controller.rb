@@ -29,12 +29,14 @@ class MatchesController < ApplicationController
     save_match
 
     if @match.finished? && user_signed_in?
-      GameResult.create(
+      result = GameResult.create(
         user:            current_user,
         score:           @match.score,
         correct_count:   @match.correct_count,
         questions_count: @match.total
       )
+      @newly_earned = Quiz::Badge.check_and_award!(current_user, result)
+      @is_craque    = Quiz::Leaderboard.for(:weekly).first&.user_id == current_user.id
     end
 
     @screen = @match.screen
