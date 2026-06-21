@@ -9,3 +9,43 @@ two:
   tema: Copa do Mundo
   dificuldade: medio
   enunciado: Em que país foi a Copa do Mundo de 2014?
+
+three:
+  tema: Copa do Mundo
+  dificuldade: facil
+  enunciado: Quantas Copas o Brasil ganhou?
+
+four:
+  tema: Copa do Mundo
+  dificuldade: medio
+  enunciado: Quem foi artilheiro da Copa de 2002?
+
+five:
+  tema: Copa do Mundo
+  dificuldade: facil
+  enunciado: Em que ano foi a primeira Copa do Mundo?
+
+hist_one:
+  tema: História
+  dificuldade: facil
+  enunciado: Em que ano a Copa do Mundo foi criada?
+
+hist_two:
+  tema: História
+  dificuldade: medio
+  enunciado: Qual país sediou a primeira Copa do Mundo?
+
+hist_three:
+  tema: História
+  dificuldade: facil
+  enunciado: Quem ganhou a Copa do Mundo de 1950?
+
+hist_four:
+  tema: História
+  dificuldade: medio
+  enunciado: Qual foi o placar do jogo Brasil x Uruguai na Copa de 1950?
+
+hist_five:
+  tema: História
+  dificuldade: dificil
+  enunciado: Quantos times participaram da primeira Copa do Mundo?

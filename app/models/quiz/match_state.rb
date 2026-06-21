@@ -7,20 +7,21 @@ module Quiz
     SPEED_BONUS_MAX      = 40
     TOTAL_QUESTIONS      = 5
 
-    attr_reader :nickname, :position, :score, :correct_count,
+    attr_reader :nickname, :tema, :position, :score, :correct_count,
                 :question_ids, :last_choice, :revealed, :deadline_at
 
-    def self.start(nickname:)
-      ids = Quiz::Question.sample_ids(TOTAL_QUESTIONS)
+    def self.start(nickname:, tema: nil)
+      ids = Quiz::Question.sample_ids(TOTAL_QUESTIONS, tema: tema)
       new(
-        nickname:     nickname.to_s.strip[0, 18],
-        position:     0,
-        score:        0,
+        nickname:      nickname.to_s.strip[0, 18],
+        tema:          tema.presence,
+        position:      0,
+        score:         0,
         correct_count: 0,
-        question_ids: ids,
-        last_choice:  nil,
-        revealed:     false,
-        deadline_at:  Time.current + PER_QUESTION_SECONDS
+        question_ids:  ids,
+        last_choice:   nil,
+        revealed:      false,
+        deadline_at:   Time.current + PER_QUESTION_SECONDS
       )
     end
 
@@ -31,8 +32,9 @@ module Quiz
     end
 
     def initialize(nickname:, position:, score:, correct_count:, question_ids:,
-                   last_choice:, revealed:, deadline_at:)
+                   last_choice:, revealed:, deadline_at:, tema: nil)
       @nickname      = nickname
+      @tema          = tema
       @position      = position
       @score         = score
       @correct_count = correct_count
@@ -69,7 +71,7 @@ module Quiz
     end
 
     def to_h
-      { nickname: @nickname, position: @position, score: @score,
+      { nickname: @nickname, tema: @tema, position: @position, score: @score,
         correct_count: @correct_count, question_ids: @question_ids,
         last_choice: @last_choice, revealed: @revealed,
         deadline_at: @deadline_at&.to_f }
