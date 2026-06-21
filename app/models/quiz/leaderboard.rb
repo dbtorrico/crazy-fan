@@ -10,7 +10,7 @@ module Quiz
     Period = Struct.new(:key, :label, :window, keyword_init: true)
 
     # Linha de exibição uniforme — a view não precisa saber qual período é.
-    Entry = Struct.new(:rank, :user_id, :nickname, :masked_email, :value, :detail, keyword_init: true)
+    Entry = Struct.new(:rank, :user_id, :nickname, :masked_email, :value, :detail, :badges, keyword_init: true)
 
     # Registro de períodos. A ordem aqui é a ordem do toggle.
     # Inicialmente só o semanal está habilitado; ligar os demais = descomentar/+1 linha.
@@ -37,6 +37,10 @@ module Quiz
       period = find_period(period_key)
       rows   = GameResult.leaderboard(window: period.window.call(now), limit: limit)
 
+      # Carrega badges em batch (1 query) para evitar N+1
+      user_ids     = rows.map(&:user_id)
+      badges_by_user = badges_for(user_ids)
+
       rows.each_with_index.map do |row, i|
         plays = row.plays.to_i
         Entry.new(
@@ -45,9 +49,23 @@ module Quiz
           nickname:     row.nickname.presence || "Anônimo",
           masked_email: mask_email(row.email),
           value:        row.total_score.to_i,
-          detail:       "#{plays} #{plays == 1 ? 'partida' : 'partidas'}"
+          detail:       "#{plays} #{plays == 1 ? 'partida' : 'partidas'}",
+          badges:       badges_by_user[row.user_id] || []
         )
       end
+    end
+
+    # Retorna { user_id => [BadgeInfo, ...] } para os user_ids fornecidos (1 query).
+    def badges_for(user_ids)
+      return {} if user_ids.empty?
+
+      UserAchievement
+        .where(user_id: user_ids)
+        .pluck(:user_id, :badge_key)
+        .each_with_object(Hash.new { |h, k| h[k] = [] }) do |(uid, key), h|
+          info = Quiz::Badge.find(key)
+          h[uid] << info if info
+        end
     end
 
     # Email ofuscado para exibição pública: 1ª letra do local + ***@ + domínio.

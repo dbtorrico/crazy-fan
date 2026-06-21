@@ -40,6 +40,23 @@
       </div>
     </div>
 
+    <%# Craque da Semana %>
+    <% if @is_craque %>
+      <div class="craque-callout">🏆 Craque da Semana!</div>
+    <% end %>
+
+    <%# Badges recém-conquistados %>
+    <% if @newly_earned.present? %>
+      <div class="badge-strip">
+        <p class="badge-strip-title">Conquistas desbloqueadas 🎉</p>
+        <div class="badge-chips">
+          <% @newly_earned.each do |b| %>
+            <span class="badge-chip"><%= b.emoji %> <%= b.label %></span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
     <div class="result-card">
       <%= link_to wa, class: "btn btn-share", target: "_blank", rel: "noopener",
             data: { turbo: false } do %>
