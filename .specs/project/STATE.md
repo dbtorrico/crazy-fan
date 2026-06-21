@@ -51,3 +51,4 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **[TECH DEBT - Auth]** Flash messages e logout no header (`layouts/matches.html.erb`) usam `style=""` inline; resto do app usa Tailwind. Unificar quando houver sprint de UI.
 - **[TECH DEBT - Tests]** System tests de auth (`auth_flow_test.rb`) usam `sleep 2` para aguardar animações. Substituir por `assert_selector` com timeout do Capybara para tornar os testes menos frágeis em CI.
 - **[TECH DEBT - Tests]** `game_result_saving_test.rb` não cobre "partida não terminada → `GameResult.count` permanece 0" (previsto na task spec T8). Adicionar quando houver tempo.
+- **[TECH DEBT - Design]** Retirar `games/*` e `application.css` quando o layout legado for descontinuado. `application.css` está marcado como exclusivo do layout `application` (games/*) — não carregar nas páginas ativas do Quiz.

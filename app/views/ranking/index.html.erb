@@ -3,8 +3,8 @@
 <div class="tm-app">
   <%= render "matches/header" %>
 
-  <div style="padding: 1rem 1.25rem; flex: 1; overflow-y: auto;">
-    <h2 class="font-fredoka font-bold text-xl text-azul mb-1">🏆 Ranking</h2>
+  <div class="rank-wrap">
+    <h2 class="rank-title">🏆 Ranking</h2>
 
     <%# Toggle de período — só aparece quando há mais de um período habilitado. %>
     <% if @periods.size > 1 %>
@@ -19,29 +19,25 @@
 
     <%# CTA para convidados %>
     <% unless user_signed_in? %>
-      <div class="bg-amarelo/20 border border-amarelo rounded-xl p-3 mb-4 flex items-center justify-between gap-2">
-        <p class="font-fredoka text-sm text-azul font-semibold leading-tight">
+      <div class="rank-cta">
+        <p class="rank-cta-text">
           Entre no ranking!<br>
-          <span class="font-normal text-gray-600">Faça login para salvar seus resultados.</span>
+          <small>Faça login para salvar seus resultados.</small>
         </p>
         <%= button_to "Login com Google",
               user_google_oauth2_omniauth_authorize_path,
               method: :post,
               data: { turbo: false },
-              class: "shrink-0 bg-azul text-white font-fredoka font-bold text-sm px-3 py-2 rounded-xl whitespace-nowrap" %>
+              class: "rank-cta-btn" %>
       </div>
     <% end %>
 
     <% if @entries.any? %>
       <%= render "ranking/ranking_list", entries: @entries %>
     <% else %>
-      <p class="text-center text-gray-400 font-fredoka mt-8">
-        Nenhum resultado nesta semana ainda.<br>Seja o primeiro! 🏆
-      </p>
+      <p class="rank-empty">Nenhum resultado nesta semana ainda.<br>Seja o primeiro! 🏆</p>
     <% end %>
 
-    <div class="mt-6 text-center">
-      <%= link_to "← Jogar agora", root_path, class: "font-fredoka text-sm text-verde font-semibold underline" %>
-    </div>
+    <%= link_to "← Jogar agora", root_path, class: "rank-back" %>
   </div>
 </div>

@@ -2,6 +2,12 @@
  *= require_self
  */
 
+/*
+ * LEGADO — exclusivo do layout `application` (games/*)
+ * Não usar em páginas ativas do Torcedor Maluco Quiz.
+ * Fonte única do app ativo: torcedor_maluco.css
+ */
+
 /* --- Base --- */
 body {
   font-family: 'Nunito', system-ui, sans-serif;
