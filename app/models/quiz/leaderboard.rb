@@ -17,7 +17,7 @@ module Quiz
     PERIODS = [
       Period.new(key: :weekly,   label: "Semanal", window: ->(now) { now.beginning_of_week.. }),
       Period.new(key: :monthly,  label: "Mensal",  window: ->(now) { now.beginning_of_month.. }),
-      Period.new(key: :all_time, label: "Geral",   window: ->(_now) { nil }),
+      Period.new(key: :all_time, label: "Geral",   window: ->(_now) { nil })
     ].freeze
 
     module_function

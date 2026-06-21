@@ -42,6 +42,10 @@
       <div class="timer-cap">Segundos<br>restantes</div>
     </div>
 
+    <% cat = Quiz::Question::CATEGORIES.find { |c| c[:key] == q.tema } %>
+    <% if cat&.fetch(:key).present? %>
+      <p class="tema-badge"><%= cat[:emoji] %> <%= cat[:label] %></p>
+    <% end %>
     <h2 class="qtext"><%= q.text %></h2>
 
     <%= form_with url: match_answers_path, method: :post,

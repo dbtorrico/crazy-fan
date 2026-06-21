@@ -8,7 +8,6 @@ class MatchesController < ApplicationController
       reset_match
       @match  = nil
       @screen = :home
-      @category_counts = Quiz::Question.category_counts
     else
       @screen = @match.screen
     end
@@ -17,7 +16,7 @@ class MatchesController < ApplicationController
   def start
     return render :show unless consume_energy!
 
-    @match  = Quiz::MatchState.start(nickname: match_nickname, tema: params[:tema].presence)
+    @match  = Quiz::MatchState.start(nickname: match_nickname)
     save_match
     @screen = :question
     render :show
@@ -35,8 +34,9 @@ class MatchesController < ApplicationController
         correct_count:   @match.correct_count,
         questions_count: @match.total
       )
-      @newly_earned = Quiz::Badge.check_and_award!(current_user, result)
-      @is_craque    = Quiz::Leaderboard.for(:weekly).first&.user_id == current_user.id
+      weekly_leader    = Quiz::Leaderboard.for(:weekly).first
+      @newly_earned    = Quiz::Badge.check_and_award!(current_user, result, weekly_leader_id: weekly_leader&.user_id)
+      @is_craque       = weekly_leader&.user_id == current_user.id
     end
 
     @screen = @match.screen
