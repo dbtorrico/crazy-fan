@@ -43,6 +43,6 @@ class RankingTest < ActionDispatch::IntegrationTest
     play(users(:joao), 300, Time.current.beginning_of_week - 1.day)  # semana passada
     get ranking_path
     assert_response :success
-    assert_match(/Nenhum resultado nesta semana/i, response.body)
+    assert_match(/Nenhum resultado neste período/i, response.body)
   end
 end
