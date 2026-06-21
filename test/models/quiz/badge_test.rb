@@ -62,6 +62,7 @@ class Quiz::BadgeTest < ActiveSupport::TestCase
     assert_includes earned.map(&:key), "fifty_games"
   end
 
+
   # --- craque_semanal (recorrente por semana) ---
 
   test "craque_semanal pode ser concedido em semanas diferentes" do
