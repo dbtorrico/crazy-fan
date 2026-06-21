@@ -37,3 +37,163 @@ two_wrong_3:
   question: two
   texto: França
   correta: false
+
+three_correct:
+  question: three
+  texto: 5 vezes
+  correta: true
+
+three_wrong_1:
+  question: three
+  texto: 3 vezes
+  correta: false
+
+three_wrong_2:
+  question: three
+  texto: 4 vezes
+  correta: false
+
+three_wrong_3:
+  question: three
+  texto: 6 vezes
+  correta: false
+
+four_correct:
+  question: four
+  texto: Ronaldo
+  correta: true
+
+four_wrong_1:
+  question: four
+  texto: Rivaldo
+  correta: false
+
+four_wrong_2:
+  question: four
+  texto: Ronaldinho
+  correta: false
+
+four_wrong_3:
+  question: four
+  texto: Cafu
+  correta: false
+
+five_correct:
+  question: five
+  texto: 1930
+  correta: true
+
+five_wrong_1:
+  question: five
+  texto: 1920
+  correta: false
+
+five_wrong_2:
+  question: five
+  texto: 1934
+  correta: false
+
+five_wrong_3:
+  question: five
+  texto: 1938
+  correta: false
+
+hist_one_correct:
+  question: hist_one
+  texto: 1930
+  correta: true
+
+hist_one_wrong_1:
+  question: hist_one
+  texto: 1920
+  correta: false
+
+hist_one_wrong_2:
+  question: hist_one
+  texto: 1934
+  correta: false
+
+hist_one_wrong_3:
+  question: hist_one
+  texto: 1940
+  correta: false
+
+hist_two_correct:
+  question: hist_two
+  texto: Uruguai
+  correta: true
+
+hist_two_wrong_1:
+  question: hist_two
+  texto: Brasil
+  correta: false
+
+hist_two_wrong_2:
+  question: hist_two
+  texto: Argentina
+  correta: false
+
+hist_two_wrong_3:
+  question: hist_two
+  texto: França
+  correta: false
+
+hist_three_correct:
+  question: hist_three
+  texto: Uruguai
+  correta: true
+
+hist_three_wrong_1:
+  question: hist_three
+  texto: Brasil
+  correta: false
+
+hist_three_wrong_2:
+  question: hist_three
+  texto: Argentina
+  correta: false
+
+hist_three_wrong_3:
+  question: hist_three
+  texto: Itália
+  correta: false
+
+hist_four_correct:
+  question: hist_four
+  texto: 2x1 para o Uruguai
+  correta: true
+
+hist_four_wrong_1:
+  question: hist_four
+  texto: 1x0 para o Brasil
+  correta: false
+
+hist_four_wrong_2:
+  question: hist_four
+  texto: 3x1 para o Uruguai
+  correta: false
+
+hist_four_wrong_3:
+  question: hist_four
+  texto: 2x0 para o Brasil
+  correta: false
+
+hist_five_correct:
+  question: hist_five
+  texto: 13 times
+  correta: true
+
+hist_five_wrong_1:
+  question: hist_five
+  texto: 8 times
+  correta: false
+
+hist_five_wrong_2:
+  question: hist_five
+  texto: 16 times
+  correta: false
+
+hist_five_wrong_3:
+  question: hist_five
+  texto: 32 times
+  correta: false

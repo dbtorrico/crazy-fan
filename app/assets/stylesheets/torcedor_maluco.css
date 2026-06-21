@@ -204,6 +204,19 @@ body{
 .nick::placeholder{color:#aeb3c0;font-weight:600;}
 .nick:focus{border-color:var(--verde);background:#fff;}
 
+/* ---------- Seletor de categoria ---------- */
+.cat-label{font-family:'Fredoka',sans-serif;font-weight:600;font-size:12.5px;color:#6b7180;margin:0 4px 8px;display:block;}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.cat-pill input[type="radio"]{position:absolute;opacity:0;pointer-events:none;}
+.cat-pill{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;padding:10px 8px;border-radius:16px;border:2px solid #e3e5ec;background:#f7f8fa;
+  cursor:pointer;text-align:center;transition:.13s;user-select:none;}
+.cat-pill:has(input:checked){border-color:var(--verde);background:#edf8f1;}
+.cat-pill.is-disabled{opacity:.45;cursor:not-allowed;pointer-events:none;}
+.cat-pill-emoji{font-size:22px;line-height:1;}
+.cat-pill-label{font-family:'Fredoka',sans-serif;font-weight:700;font-size:12.5px;color:var(--ink);line-height:1.1;}
+.cat-pill-soon{font-size:10px;font-family:'Fredoka',sans-serif;color:#9499a8;letter-spacing:.04em;}
+
 /* ---------- Botões ---------- */
 .btn{
   width:100%;border:none;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:700;white-space:nowrap;

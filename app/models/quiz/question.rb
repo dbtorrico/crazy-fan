@@ -4,6 +4,14 @@ module Quiz
   # #text, #options, #correct_index) sem tocar no modelo AR nem migrar nada.
   # Quando o banco está vazio, cai para o FALLBACK in-memory.
   class Question
+    CATEGORIES = [
+      { key: nil,             label: "Qualquer tema",      emoji: "⚽" },
+      { key: "Copa do Mundo", label: "Copa 2026",          emoji: "🏆" },
+      { key: "História",      label: "História",           emoji: "📖" },
+      { key: "Seleção",       label: "Seleção Brasileira", emoji: "🇧🇷" },
+      { key: "Craques",       label: "Craques",            emoji: "⭐" },
+    ].freeze
+
     attr_reader :id, :text, :options, :correct_index
 
     def initialize(id:, text:, options:, correct_index:)
@@ -30,14 +38,20 @@ module Quiz
       FALLBACK_BY_ID.fetch(id)
     end
 
-    def self.sample_ids(n)
-      ids = ::Question
-              .joins(:answers)
-              .group("questions.id")
-              .having("COUNT(answers.id) >= 4")
-              .order("RANDOM()")
-              .limit(n)
-              .pluck(:id)
+    # Retorna hash { tema => count } para categorias com ≥5 perguntas válidas.
+    def self.category_counts
+      ::Question
+        .joins(:answers)
+        .group(:tema)
+        .having("COUNT(answers.id) >= 4")
+        .count
+        .select { |_, v| v >= 5 }
+    end
+
+    def self.sample_ids(n, tema: nil)
+      scope = ::Question.joins(:answers).group("questions.id").having("COUNT(answers.id) >= 4")
+      scope = scope.where(tema: tema) if tema.present?
+      ids   = scope.order("RANDOM()").limit(n).pluck(:id)
       return ids if ids.size >= n
       FALLBACK.sample(n).map(&:id)
     end

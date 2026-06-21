@@ -8,6 +8,7 @@ class MatchesController < ApplicationController
       reset_match
       @match  = nil
       @screen = :home
+      @category_counts = Quiz::Question.category_counts
     else
       @screen = @match.screen
     end
@@ -16,7 +17,7 @@ class MatchesController < ApplicationController
   def start
     return render :show unless consume_energy!
 
-    @match  = Quiz::MatchState.start(nickname: match_nickname)
+    @match  = Quiz::MatchState.start(nickname: match_nickname, tema: params[:tema].presence)
     save_match
     @screen = :question
     render :show
