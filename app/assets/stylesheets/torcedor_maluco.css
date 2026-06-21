@@ -199,7 +199,7 @@ body{
 .opt.dim{opacity:.5;}
 
 /* ---------- RESULTADO ---------- */
-.result{flex:1;position:relative;display:flex;flex-direction:column;color:#fff;overflow:hidden;}
+.result{flex:1;position:relative;display:flex;flex-direction:column;color:#fff;}
 .result-top{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px 24px;position:relative;z-index:2;}
 .res-kick{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:#fff;opacity:.92;}
 .res-score{font-family:'Fredoka',sans-serif;font-weight:700;font-size:var(--fs-score);line-height:.86;color:var(--amarelo);text-shadow:0 5px 0 var(--azul),0 6px 16px rgba(0,0,0,.3);margin:4px 0 2px;}
@@ -231,9 +231,22 @@ body{
 @keyframes fall{
   0%{transform:translateY(-20px) rotate(0deg);opacity:0;}
   10%{opacity:1;}
-  100%{transform:translateY(880px) rotate(540deg);opacity:1;}
+  100%{transform:translateY(105dvh) rotate(540deg);opacity:1;}
 }
 @media (prefers-reduced-motion: reduce){.cf{animation:none;}}
+
+/* ---------- Paisagem / pouca altura (≤480px de alto, ex.: 740×360) ---------- */
+@media (max-height: 480px){
+  .home-hero{padding-top:8px;padding-bottom:2px;}
+  .logo-sticker{margin-bottom:8px;}
+  .home-sub{margin-top:10px;}
+  .home-card{padding-top:14px;padding-bottom:calc(14px + env(safe-area-inset-bottom));}
+  .btn-play{height:52px;margin-top:10px;}
+  .result-top{padding:10px 24px;}
+  .res-name{margin-top:10px;}
+  .recap{margin-top:10px;gap:6px;}
+  .result-card{padding-top:14px;padding-bottom:calc(14px + env(safe-area-inset-bottom));gap:8px;}
+}
 
 .toast{
   position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
