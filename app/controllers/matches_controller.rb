@@ -16,7 +16,7 @@ class MatchesController < ApplicationController
   def start
     return render :show unless consume_energy!
 
-    @match  = Quiz::MatchState.start(nickname: params[:nickname])
+    @match  = Quiz::MatchState.start(nickname: match_nickname)
     save_match
     @screen = :question
     render :show
@@ -44,6 +44,16 @@ class MatchesController < ApplicationController
 
   def set_guest_flag
     @is_guest = !user_signed_in?
+  end
+
+  # Apelido da partida sem re-solicitar a cada rodada:
+  # logado usa o nickname do cadastro; convidado usa/persiste o da sessão.
+  def match_nickname
+    if user_signed_in?
+      current_user.nickname
+    else
+      session[:nickname] = params[:nickname].presence || session[:nickname]
+    end
   end
 
   # Consome energia para iniciar a partida e retorna true se foi liberada.
