@@ -33,7 +33,7 @@
 **Mecânica de energia (5 jogadas/dia)** - DONE ✅ (2026-06-14) — regeneração 2h, gate logado/convidado, indicador ⚡
 **Ranking semanal** - DONE ✅ (2026-06-14) — por período (`Quiz::Leaderboard`), soma da semana, fuso BR, email mascarado, nickname uma vez
 **Categorias por tema (Copa 2026, História, Seleção, Craques)** - PLANNED
-**Badges / "Craque da Semana"** - PLANNED
+**Badges / "Craque da Semana"** - DONE ✅ — 5 conquistas acumuladas, craque_semanal por semana, coroa no ranking, callout no resultado
 **Ranking mensal / geral (agregado)** - DONE ✅ — `PERIODS` com `:weekly`, `:monthly`, `:all_time`; toggle automático na view
 
 > Nota: o ranking passou a ser **por período agregado** (soma por usuário). O ranking geral
