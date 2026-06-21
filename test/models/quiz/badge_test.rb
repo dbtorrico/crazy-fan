@@ -53,6 +53,15 @@ class Quiz::BadgeTest < ActiveSupport::TestCase
     assert_includes earned.map(&:key), "ten_games"
   end
 
+  # --- fifty_games ---
+
+  test "fifty_games concedido exatamente na 50ª partida" do
+    49.times { make_result(users(:joao)) }
+    result50 = make_result(users(:joao))
+    earned = Quiz::Badge.check_and_award!(users(:joao), result50)
+    assert_includes earned.map(&:key), "fifty_games"
+  end
+
   # --- craque_semanal (recorrente por semana) ---
 
   test "craque_semanal pode ser concedido em semanas diferentes" do

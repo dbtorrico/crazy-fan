@@ -9,6 +9,6 @@ class CreateUserAchievements < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :user_achievements, [:user_id, :badge_key, :week], unique: true
+    add_index :user_achievements, [ :user_id, :badge_key, :week ], unique: true
   end
 end

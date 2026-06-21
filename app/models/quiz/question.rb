@@ -9,7 +9,7 @@ module Quiz
       { key: "Copa do Mundo", label: "Copa 2026",          emoji: "🏆" },
       { key: "História",      label: "História",           emoji: "📖" },
       { key: "Seleção",       label: "Seleção Brasileira", emoji: "🇧🇷" },
-      { key: "Craques",       label: "Craques",            emoji: "⭐" },
+      { key: "Craques",       label: "Craques",            emoji: "⭐" }
     ].freeze
 
     attr_reader :id, :text, :options, :correct_index, :tema
