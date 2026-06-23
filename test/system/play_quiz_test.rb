@@ -62,6 +62,7 @@ class PlayQuizTest < ApplicationSystemTestCase
     assert_text "Mandou bem"
     click_on "Jogar de novo"
 
+    assert_selector ".opt", wait: 5
     assert_text "Pergunta 1 de 5"
   end
 end

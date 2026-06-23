@@ -35,6 +35,7 @@
 **Categorias por tema (Copa 2026, História, Seleção, Craques)** - PLANNED
 **Badges / "Craque da Semana"** - DONE ✅ — 5 conquistas acumuladas, craque_semanal por semana, coroa no ranking, callout no resultado
 **Ranking mensal / geral (agregado)** - DONE ✅ — `PERIODS` com `:weekly`, `:monthly`, `:all_time`; toggle automático na view
+**Redesign visual (Landing + Ranking + retheme global)** - DONE ✅ (2026-06-23) — Baloo 2 + paleta Copa 2026, Landing com saudação/prova social/Google login, Ranking com pódio 2-1-3 + loginbar, avatares-monograma. 115 testes verdes.
 
 > Nota: o ranking passou a ser **por período agregado** (soma por usuário). O ranking geral
 > antigo (por partida) foi substituído por esse modelo; mensal/geral ficam prontos para ligar.
