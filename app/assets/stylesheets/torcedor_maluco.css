@@ -223,6 +223,19 @@ body{
 .cat-pill-label{font-family:var(--font-display);font-weight:700;font-size:12.5px;color:var(--ink);line-height:1.1;}
 .cat-pill-soon{font-size:10px;font-family:var(--font-display);color:#9499a8;letter-spacing:.04em;}
 
+/* ---------- Avatar monograma ---------- */
+.avatar{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:50%;flex:0 0 auto;
+  font-family:var(--font-display);font-weight:800;font-size:15px;color:#fff;
+  text-transform:uppercase;user-select:none;
+}
+.avatar--podium{
+  width:54px;height:54px;font-size:20px;
+  border:3px solid var(--amarelo);box-shadow:0 2px 6px rgba(0,0,0,.18);
+}
+.avatar--sm{width:28px;height:28px;font-size:11px;}
+
 /* ---------- Botões ---------- */
 .btn{
   width:100%;border:none;cursor:pointer;font-family:var(--font-display);font-weight:700;white-space:nowrap;
