@@ -55,6 +55,8 @@
       </div>
     <% end %>
 
+    <%= link_to "🏆 Ver ranking", ranking_path, class: "ranking-link", data: { turbo: false } %>
+
     <% unless user_signed_in? %>
       <%= button_to user_google_oauth2_omniauth_authorize_path,
             method: :post,

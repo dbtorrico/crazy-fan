@@ -236,7 +236,13 @@ turbo-frame#match{flex:1;display:flex;flex-direction:column;}
 .social-avs{display:flex;}
 .social-avs .avatar--sm{margin-left:-8px;border:2px solid #fff;}
 .social-avs .avatar--sm:first-child{margin-left:0;}
-.gbtn-wrap{max-width:360px;width:100%;margin:22px auto 0;}
+.ranking-link{
+  display:block;text-align:center;margin:18px auto 0;
+  font-family:var(--font-display);font-weight:700;font-size:14px;
+  color:var(--azul);text-decoration:none;opacity:.8;
+}
+.ranking-link:hover{opacity:1;text-decoration:underline;}
+.gbtn-wrap{max-width:360px;width:100%;margin:16px auto 0;}
 .gbtn{
   display:flex;align-items:center;justify-content:center;gap:11px;width:100%;
   background:#fff;border:1.5px solid #dfe3ea;border-radius:14px;padding:14px;
