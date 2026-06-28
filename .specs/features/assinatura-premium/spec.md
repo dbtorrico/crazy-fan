@@ -43,19 +43,20 @@ O app tem um teto de 5 jogadas/dia que frustra usuários engajados — esse atri
 
 ### SUB-P1: Pagamento Pix e ativação automática ⭐ MVP
 
-**User Story:** Como jogador logado sem energia, quero pagar R$5 via Pix e ter jogadas ilimitadas ativadas automaticamente, para não precisar esperar 2h entre partidas.
+**User Story:** Como jogador engajado, quero pagar R$5 via Pix e participar do ranking competitivo com prêmios, para ter reconhecimento além do jogo casual.
+
+> **Decisão (2026-06-28):** o benefício do premium é **acesso ao ranking competitivo**, não energia ilimitada. O limite de 5 jogadas/dia se aplica igualmente a todos. `User#unlimited_energy?` permanece `false` para premium e free.
 
 **Acceptance Criteria:**
 
 1. WHEN o usuário logado está na tela `:no_energy` THEN um CTA "🏆 Assinar por R$5/mês" SHALL aparecer abaixo do contador de recarga
 2. WHEN o usuário clica no CTA THEN o app SHALL criar um pagamento Pix no Mercado Pago e redirecionar para uma tela exibindo o QR code e o código copia-e-cola
 3. WHEN o pagamento é aprovado pelo Mercado Pago THEN o webhook SHALL ser chamado e o app SHALL definir `user.premium_until = Time.current + 30.days` e salvar
-4. WHEN `premium_until > Time.current` THEN `User#unlimited_energy?` SHALL retornar `true`
-5. WHEN `unlimited_energy?` é `true` THEN `User#debit_energy!` SHALL retornar `true` sem debitar energia (comportamento já implementado)
-6. WHEN o premium expirou (`premium_until` no passado ou `nil`) THEN `unlimited_energy?` SHALL retornar `false` e as regras normais de energia se aplicam
-7. WHEN o webhook recebe uma notificação que não é de pagamento aprovado THEN o app SHALL responder HTTP 200 e não alterar o usuário
+4. WHEN `premium_until > Time.current` THEN `User#premium?` SHALL retornar `true` e o usuário SHALL ter acesso ao ranking competitivo
+5. WHEN o premium expirou (`premium_until` no passado ou `nil`) THEN `premium?` SHALL retornar `false` e o acesso ao ranking é removido
+6. WHEN o webhook recebe uma notificação que não é de pagamento aprovado THEN o app SHALL responder HTTP 200 e não alterar o usuário
 
-**Independent Test:** Pagar via sandbox do MP → webhook dispara → `premium_until` setado → tela de energia recarregada mostra "Energia ilimitada".
+**Independent Test:** Pagar via sandbox do MP → webhook dispara → `premium_until` setado → badge "⭐ Premium" aparece no header e acesso ao ranking ativado.
 
 ---
 
@@ -66,7 +67,7 @@ O app tem um teto de 5 jogadas/dia que frustra usuários engajados — esse atri
 **Acceptance Criteria:**
 
 1. WHEN o usuário é premium THEN o header SHALL exibir um badge "⭐ Premium" no lugar ou ao lado do indicador de energia
-2. WHEN o usuário é premium THEN a tela de energia (`:no_energy`) SHALL mostrar "Energia ilimitada ✅" em vez do contador de recarga e do CTA de assinatura
+2. WHEN o usuário é premium THEN a tela de energia (`:no_energy`) SHALL ocultar o CTA de assinatura (usuário já é premium) e exibir a data de expiração
 3. WHEN faltam ≤ 3 dias para expirar THEN o app SHALL exibir "Premium expira em N dia(s)" na tela de energia ou no header
 4. WHEN o premium expirou THEN o badge desaparece e o comportamento volta ao normal (sem tela de erro)
 

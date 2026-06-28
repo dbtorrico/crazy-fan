@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   # Pagamentos (Mercado Pago Pix)
   post "/payments/create",  to: "payments#create",  as: :create_payments
+  get  "/payments/pix",    to: "payments#show",    as: :payment_pix
   post "/payments/webhook", to: "payments#webhook", as: :payments_webhook
   get "up" => "rails/health#show", as: :rails_health_check
 

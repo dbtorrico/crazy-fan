@@ -29,7 +29,7 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **Assinatura premium = Pix avulso mensal (2026-06-28)** — modelo sem recorrência automática. Usuário paga R$5/mês manualmente; `premium_until` é setado com +30 dias no webhook. Sem `Payment` model separado por ora (coluna na `users` é suficiente para Pix avulso).
 - **MpGateway wrapper (2026-06-28)** — gem `mercadopago` v2.3.0 usa `client_id + client_secret` (não `access_token` direto). Wrapper próprio `MpGateway` em `lib/mp_gateway.rb` aceita `sdk:` para injeção em testes. Env vars: `MP_CLIENT_ID` e `MP_CLIENT_SECRET`.
 - **external_reference do webhook = `"user_<id>_<timestamp>"` (2026-06-28)** — formato simples para vincular pagamento ao usuário sem tabela de pagamentos. Webhook faz re-query na API do MP para confirmar status antes de ativar premium (segurança sem HMAC por ora).
-- **premium? delegado em unlimited_energy? (2026-06-28)** — `User#unlimited_energy?` agora delega para `premium?`. O gancho do M3 que estava hardcoded `false` está ativo. Fluxo de partida (`MatchesController#consume_energy!`) não precisou de alteração.
+- **Benefício do premium = acesso ao ranking competitivo, não energia ilimitada (2026-06-28)** — decisão definitiva: `User#unlimited_energy?` permanece `false` para todos os usuários, incluindo premium. O limite de 5 jogadas/dia se aplica igualmente. O único diferencial do premium é participar do ranking semanal e concorrer a prêmios. `premium?` controla esse acesso; nunca deve delegar `unlimited_energy?`. Energia ilimitada foi considerada e explicitamente descartada.
 
 ## Open Decisions (confirmar)
 

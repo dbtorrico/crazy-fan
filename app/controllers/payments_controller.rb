@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   layout "matches"
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, only: [:create, :show]
   skip_before_action :verify_authenticity_token, only: [:webhook]
 
   # POST /payments/create
@@ -9,13 +9,27 @@ class PaymentsController < ApplicationController
     result  = MpGateway.new.create_pix_payment(user: current_user, external_reference: ext_ref)
 
     if result[:ok]
-      @payment_id     = result[:id]
-      @qr_code        = result[:qr_code]
-      @qr_code_base64 = result[:qr_code_base64]
-      render :show
+      session[:pending_pix] = {
+        "payment_id"     => result[:id],
+        "qr_code"        => result[:qr_code],
+        "qr_code_base64" => result[:qr_code_base64]
+      }
+      redirect_to payment_pix_path
     else
       redirect_to root_path, alert: "Erro ao gerar Pix. Tente novamente."
     end
+  end
+
+  # GET /payments/pix
+  def show
+    pix = session.delete(:pending_pix)
+    if pix.nil?
+      redirect_to root_path, alert: "Sessão de pagamento expirada. Tente novamente."
+      return
+    end
+    @payment_id     = pix["payment_id"]
+    @qr_code        = pix["qr_code"]
+    @qr_code_base64 = pix["qr_code_base64"]
   end
 
   # POST /payments/webhook  (sem CSRF — chamado pelo Mercado Pago)
@@ -48,7 +62,7 @@ class PaymentsController < ApplicationController
       return
     end
 
-    user.update!(premium_until: Time.current + 30.days)
+    user.update!(premium_until: [user.premium_until || Time.current, Time.current].max + 30.days)
     Rails.logger.info("[Webhook] Premium ativado: user #{user_id} até #{user.premium_until}")
   end
 end
