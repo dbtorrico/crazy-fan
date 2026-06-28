@@ -24,6 +24,7 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **Prova social da Landing = contagem real (2026-06-23)** — "+N torcedores já jogaram hoje" usa `GameResult` distintos do dia (`@players_today`); renderiza só se `> 0` (evita "+0"). Sem número fabricado.
 - **Regra de marca: amarelo `#ffd000` só no CTA (2026-06-23)** — chip "COPA 2026" passa a **contornado** (borda/texto amarelos, fundo transparente) app-wide. Não perseguir os demais usos de amarelo em quiz/result (fora de escopo).
 - **Ranking model/controller inalterados no redesign** — pódio é fatiamento de `@entries.first(3)` na view; `Quiz::Leaderboard` entrega tudo que o novo layout precisa.
+- **Sem seleção de categoria pelo jogador (2026-06-28)** — decisão do dono: o jogo é sempre com perguntas aleatórias de todos os temas. O `tema` serve só como metadado/organização do banco de perguntas, não como filtro na UI. A feature "Categorias por tema" do M2 foi **descartada** (não adiada). A infraestrutura de filtro já existente (`Quiz::Question.sample_ids(tema:)`, `category_counts`, `CATEGORIES`) fica dormente no código — não remover, mas também não expor. Isso **encerra o escopo do M2**; próximo foco é M3 (monetização).
 
 ## Open Decisions (confirmar)
 

@@ -62,8 +62,11 @@ ID | Tema | Dificuldade | Pergunta | Alternativa A | B | C | D | Resposta Corret
   | Seleção Brasileira        | Seleção        |
   | Craques e curiosidades    | Craques        |
 
-  Essas chaves são as que `Quiz::Question::CATEGORIES` usa para filtrar perguntas por
-  categoria. Uma categoria só fica jogável quando tem **≥ 5 perguntas** válidas.
+  Hoje o `tema` é apenas **metadado de organização do banco** — o jogador não escolhe
+  categoria, e as partidas sorteiam perguntas aleatórias de todos os temas. A
+  infraestrutura de filtro por tema (`sample_ids(tema:)`, `category_counts`,
+  `CATEGORIES`) existe no código, mas está dormente. Manter os temas consistentes é o
+  que deixa essa porta aberta caso a decisão mude no futuro.
 
 ## Adicionando perguntas
 
