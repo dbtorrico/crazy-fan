@@ -12,7 +12,7 @@
 
 ## Problem Statement
 
-O app tem um teto de 5 jogadas/dia que frustra usuários engajados — esse atrito é o gancho de conversão para o premium. Hoje não há nenhum caminho de pagamento: `unlimited_energy?` está hardcoded como `false`. A feature ativa esse caminho: o usuário paga R$5 via Pix, recebe confirmação automática via webhook do Mercado Pago, e passa a ter jogadas ilimitadas por 30 dias.
+O app tem um teto de 5 jogadas/dia que frustra usuários engajados — esse atrito é o gancho de conversão para o premium. Hoje não há nenhum caminho de pagamento nem distinção entre usuários. A feature ativa esse caminho: o usuário paga R$5 via Pix, recebe confirmação automática via webhook do Mercado Pago, e passa a participar do ranking competitivo com prêmios por 30 dias. O limite de energia permanece igual para todos.
 
 ---
 
@@ -21,8 +21,8 @@ O app tem um teto de 5 jogadas/dia que frustra usuários engajados — esse atri
 - [ ] Usuário logado pode iniciar um pagamento Pix de R$5 direto no app
 - [ ] App exibe QR code + código copia-e-cola gerado pelo Mercado Pago
 - [ ] Webhook do MP confirma o pagamento e ativa premium (`premium_until`) automaticamente
-- [ ] `User#unlimited_energy?` passa a verificar `premium_until > Time.current`
-- [ ] UI indica status premium (header ou tela de energia)
+- [ ] `User#premium?` retorna `true` quando `premium_until > Time.current`; acesso ao ranking ativado
+- [ ] UI indica status premium (badge no header; CTA oculto para assinantes)
 - [ ] Tela de energia esgotada (`:no_energy`) exibe o CTA "Assinar por R$5"
 
 ## Out of Scope
