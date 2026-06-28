@@ -77,8 +77,47 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 0, user.reload.energy
   end
 
-  test "unlimited_energy? é false (gancho do M3)" do
-    assert_not users(:joao).unlimited_energy?
+  # --- premium ---
+
+  test "premium? é false quando premium_until é nil" do
+    user = users(:joao)
+    user.premium_until = nil
+    assert_not user.premium?
+  end
+
+  test "premium? é false quando premium_until está no passado" do
+    user = users(:joao)
+    user.premium_until = 1.day.ago
+    assert_not user.premium?
+  end
+
+  test "premium? é true quando premium_until está no futuro" do
+    user = users(:joao)
+    user.premium_until = 30.days.from_now
+    assert user.premium?
+  end
+
+  test "unlimited_energy? delega para premium?" do
+    user = users(:joao)
+    user.premium_until = nil
+    assert_not user.unlimited_energy?
+
+    user.premium_until = 30.days.from_now
+    assert user.unlimited_energy?
+  end
+
+  test "debit_energy! retorna true sem debitar quando usuário é premium" do
+    user = users(:joao)
+    user.update!(energy: 0, energy_updated_at: Time.current, premium_until: 30.days.from_now)
+    assert user.debit_energy!
+    assert_equal 0, user.reload.energy
+  end
+
+  test "debit_energy! debita normalmente quando premium expirou" do
+    user = users(:joao)
+    user.update!(energy: Quiz::Energy::MAX, energy_updated_at: Time.current, premium_until: 1.day.ago)
+    assert user.debit_energy!
+    assert_equal Quiz::Energy::MAX - 1, user.reload.energy
   end
 
   test "current_energy regenera com o passar do tempo" do

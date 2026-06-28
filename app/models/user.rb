@@ -38,9 +38,12 @@ class User < ApplicationRecord
     Quiz::Energy.next_recharge_at(stored: energy, updated_at: energy_updated_at, now: now)
   end
 
-  # Gancho do M3 (assinante): por enquanto ninguém tem energia ilimitada.
+  def premium?
+    premium_until.present? && premium_until > Time.current
+  end
+
   def unlimited_energy?
-    false
+    premium?
   end
 
   # Debita 1 energia de forma atômica. Retorna true em sucesso, false sem saldo.
