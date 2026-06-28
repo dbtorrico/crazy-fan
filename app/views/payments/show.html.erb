@@ -1,0 +1,24 @@
+<%# Tela de pagamento Pix — estilo completo em T4a %>
+<div class="pay-wrap">
+  <h2 class="pay-title">Pague R$5 via Pix</h2>
+  <p class="pay-sub">Jogadas ilimitadas por 30 dias • Ativação automática</p>
+
+  <% if @qr_code_base64.present? %>
+    <img src="data:image/png;base64,<%= @qr_code_base64 %>"
+         alt="QR Code Pix" class="pay-qr">
+  <% end %>
+
+  <p class="pay-label">Ou copie o código Pix:</p>
+  <div class="pay-copy">
+    <input readonly value="<%= @qr_code %>" class="pay-input" id="pix-code">
+    <button onclick="navigator.clipboard.writeText(document.getElementById('pix-code').value);this.textContent='Copiado ✓'"
+            class="pay-btn">Copiar</button>
+  </div>
+
+  <p class="pay-hint">
+    Após pagar, aguarde alguns segundos — a ativação é automática.<br>
+    <strong>Pagamento ID: <%= @payment_id %></strong>
+  </p>
+
+  <%= link_to "← Voltar ao jogo", root_path, class: "pay-back", data: { turbo: false } %>
+</div>

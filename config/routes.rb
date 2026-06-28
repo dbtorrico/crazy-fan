@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   # Ranking
   get "/ranking", to: "ranking#index", as: :ranking
+
+  # Pagamentos (Mercado Pago Pix)
+  post "/payments/create",  to: "payments#create",  as: :create_payments
+  post "/payments/webhook", to: "payments#webhook", as: :payments_webhook
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
