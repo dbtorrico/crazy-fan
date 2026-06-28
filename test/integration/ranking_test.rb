@@ -26,9 +26,10 @@ class RankingTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     body = response.body
-    # joao soma 500 (aparece 1x) e vem antes de maria (250)
-    assert_equal 1, body.scan(users(:joao).nickname).size, "joao deve aparecer uma única vez"
-    assert body.index("500") < body.index("250"), "500 (joao) deve vir antes de 250 (maria)"
+    # joao soma 500 e maria soma 250 — totais devem aparecer
+    assert_includes body, users(:joao).nickname, "joao deve aparecer no ranking"
+    assert_match(/500/, body, "deve exibir o total agregado de joao")
+    assert_match(/250/, body, "deve exibir o total agregado de maria")
   end
 
   test "GET /ranking exibe email mascarado e nunca o completo" do

@@ -6,8 +6,9 @@ class MatchesController < ApplicationController
   def show
     if params[:reset] || @match.nil? || @match.finished?
       reset_match
-      @match  = nil
-      @screen = :home
+      @match         = nil
+      @screen        = :home
+      @players_today = GameResult.where("played_at >= ?", Time.current.beginning_of_day).distinct.count(:user_id)
     else
       @screen = @match.screen
     end

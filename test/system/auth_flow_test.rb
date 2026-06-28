@@ -22,7 +22,7 @@ class AuthFlowTest < ApplicationSystemTestCase
     visit root_path
 
     # Home: deve ver link de login
-    assert_text "Login com Google"
+    assert_text "Entrar com Google"
 
     # Trigger OAuth callback direto (OmniAuth test mode; link é GET mas provider exige POST)
     visit "/users/auth/google_oauth2/callback"
@@ -63,7 +63,7 @@ class AuthFlowTest < ApplicationSystemTestCase
 
   test "convidado joga, vê aviso de convidado e ranking com CTA" do
     visit root_path
-    assert_text "Login com Google"
+    assert_text "Entrar com Google"
 
     click_on "Jogar agora"
 
@@ -78,7 +78,7 @@ class AuthFlowTest < ApplicationSystemTestCase
 
     # Visita ranking
     visit ranking_path
-    assert_text "Login com Google"  # CTA de login presente
+    assert_text "Entre pra valer ponto."  # loginbar presente para convidado
   end
 
   # --- Cenário 3: Logout ---
@@ -99,7 +99,7 @@ class AuthFlowTest < ApplicationSystemTestCase
     click_on "Sair"
 
     # Deslogado — vê link de login
-    assert_text "Login com Google"
+    assert_text "Entrar com Google"
     assert_no_text "Sair"
   end
 end

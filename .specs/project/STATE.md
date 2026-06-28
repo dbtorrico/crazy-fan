@@ -19,6 +19,12 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **Ranking por período (2026-06-14):** rankings são por janela de tempo, agregando `SUM(score)` por usuário. Registro plugável `Quiz::Leaderboard::PERIODS` (key/label/window) — só `:weekly` habilitado; mensal/geral = +1 linha. O ranking geral por partida foi **substituído** por esse modelo.
 - **Email no ranking público: mascarado** (`d***@dominio`) — nunca expor PII completa.
 - **Nickname digitado uma única vez** — logado usa o do cadastro; convidado guarda em `session[:nickname]`; trocar é ação explícita.
+- **Redesign visual = retheme do app inteiro (2026-06-23)** — a partir do design handoff (`~/Downloads/design_handoff_torcedor_maluco/`), a nova paleta e a fonte de display **Baloo 2** (antes Fredoka) viram tokens globais em `:root` de `torcedor_maluco.css`; quiz e resultado **herdam** por cascata. Foco do handoff: Landing + Ranking. Specs em `.specs/features/redesign-visual/`.
+- **Avatares = monograma determinístico (2026-06-23)** — pódio/lista/prova social usam a inicial do apelido (helper `avatar_monogram` + `avatar_color` por hash). Sem foto/emoji/coluna nova; estável por usuário. (Protótipo usava emojis 🦁🐯🦅 — descartado.)
+- **Prova social da Landing = contagem real (2026-06-23)** — "+N torcedores já jogaram hoje" usa `GameResult` distintos do dia (`@players_today`); renderiza só se `> 0` (evita "+0"). Sem número fabricado.
+- **Regra de marca: amarelo `#ffd000` só no CTA (2026-06-23)** — chip "COPA 2026" passa a **contornado** (borda/texto amarelos, fundo transparente) app-wide. Não perseguir os demais usos de amarelo em quiz/result (fora de escopo).
+- **Ranking model/controller inalterados no redesign** — pódio é fatiamento de `@entries.first(3)` na view; `Quiz::Leaderboard` entrega tudo que o novo layout precisa.
+- **Sem seleção de categoria pelo jogador (2026-06-28)** — decisão do dono: o jogo é sempre com perguntas aleatórias de todos os temas. O `tema` serve só como metadado/organização do banco de perguntas, não como filtro na UI. A feature "Categorias por tema" do M2 foi **descartada** (não adiada). A infraestrutura de filtro já existente (`Quiz::Question.sample_ids(tema:)`, `category_counts`, `CATEGORIES`) fica dormente no código — não remover, mas também não expor. Isso **encerra o escopo do M2**; próximo foco é M3 (monetização).
 
 ## Open Decisions (confirmar)
 
@@ -42,6 +48,7 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - Páginas institucionais (Sobre, Privacidade, Termos) para habilitar AdSense — Milestone 3.
 - ~~Deploy para produção (Railway/Fly.io)~~ — DONE: Railway configurado (commits 58c2472, 765b0e1).
 - Configurar Google OAuth app em console.cloud.google.com com domínio de produção — verificar se já aponta para a URL do Railway.
+- **[Verificação - OAuth local]** Login Google em `localhost:3000` retorna `Erro 400: invalid_request` porque a redirect URI `http://localhost:3000/users/auth/google_oauth2/callback` não está autorizada no Google Cloud Console (as credenciais em `.env` são de produção). Para validar visualmente os estados *logados* do redesign (T3/T5), adicionar essa URI nas "Authorized redirect URIs" do OAuth Client, ou testar os estados logados via fixtures/sessão em vez do fluxo OAuth real.
 - **[TECH DEBT - Deploy]** `ENV.fetch("GOOGLE_CLIENT_ID", "")` usa fallback vazio — o app sobe sem as variáveis de ambiente, sem erro. Antes do primeiro deploy, adicionar validação explícita em `config/initializers/` ou via `.env` + dotenv-rails para garantir que a ausência das vars seja detectada no boot de produção.
 - **[TECH DEBT - Auth]** `User.from_omniauth` usa `find_or_create_by` com bloco — não atualiza `email` ou `avatar_url` em re-logins caso mudem no Google. Migrar para `find_or_initialize_by` + `save` condicional antes de ter usuários em produção.
 - **[TECH DEBT - Auth]** Índice `nickname` no PostgreSQL é case-sensitive; validação de unicidade no model usa `case_sensitive: false`. Risco: `Joao` e `joao` coexistindo no banco. Fix: adicionar índice com `LOWER(nickname)` via migration ou normalizar o valor antes de salvar.

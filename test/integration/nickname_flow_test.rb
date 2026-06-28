@@ -18,14 +18,14 @@ class NicknameFlowTest < ActionDispatch::IntegrationTest
     assert_equal users(:joao).nickname, session[:match][:nickname]
   end
 
-  test "home do logado não pede apelido e oferece 'Mudar apelido'" do
+  test "home do logado não pede apelido e oferece 'Trocar apelido'" do
     sign_in_as(users(:joao))
 
     get root_path
 
     assert_response :success
     assert_select "input[name=?]", "nickname", false, "logado não deve ver campo de apelido"
-    assert_match "Mudar apelido", response.body
+    assert_match "Trocar apelido", response.body
   end
 
   # --- convidado ---

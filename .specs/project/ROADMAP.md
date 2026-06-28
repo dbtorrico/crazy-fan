@@ -32,9 +32,10 @@
 **Autenticação (Google OAuth)** - DONE ✅ (PR #14, 2026-06-13) — OAuth-only, nickname, `User.from_omniauth`
 **Mecânica de energia (5 jogadas/dia)** - DONE ✅ (2026-06-14) — regeneração 2h, gate logado/convidado, indicador ⚡
 **Ranking semanal** - DONE ✅ (2026-06-14) — por período (`Quiz::Leaderboard`), soma da semana, fuso BR, email mascarado, nickname uma vez
-**Categorias por tema (Copa 2026, História, Seleção, Craques)** - PLANNED
+**Categorias por tema (Copa 2026, História, Seleção, Craques)** - DESCARTADO ❌ (2026-06-28) — não haverá seleção de categoria pelo jogador. O tema fica apenas como metadado no banco (coluna `tema` em `Question`); as partidas seguem sorteando perguntas aleatórias de todos os temas. A infra de filtro (`sample_ids(tema:)`, `category_counts`, `CATEGORIES`) permanece no código, dormente, caso a decisão mude.
 **Badges / "Craque da Semana"** - DONE ✅ — 5 conquistas acumuladas, craque_semanal por semana, coroa no ranking, callout no resultado
 **Ranking mensal / geral (agregado)** - DONE ✅ — `PERIODS` com `:weekly`, `:monthly`, `:all_time`; toggle automático na view
+**Redesign visual (Landing + Ranking + retheme global)** - DONE ✅ (2026-06-23) — Baloo 2 + paleta Copa 2026, Landing com saudação/prova social/Google login, Ranking com pódio 2-1-3 + loginbar, avatares-monograma. 115 testes verdes.
 
 > Nota: o ranking passou a ser **por período agregado** (soma por usuário). O ranking geral
 > antigo (por partida) foi substituído por esse modelo; mensal/geral ficam prontos para ligar.

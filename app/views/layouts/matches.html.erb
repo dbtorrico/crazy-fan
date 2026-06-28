@@ -13,19 +13,19 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag "torcedor_maluco", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
   <body>
     <%# Flash messages (notices/alerts do Devise e controllers) %>
     <% if notice.present? %>
-      <div style="background:#d4edda;color:#155724;padding:0.5rem 1rem;text-align:center;font-size:0.85rem;font-family:'Fredoka',sans-serif;">
+      <div style="background:#d4edda;color:#155724;padding:0.5rem 1rem;text-align:center;font-size:0.85rem;font-family:'Baloo 2',sans-serif;">
         <%= notice %>
       </div>
     <% end %>
     <% if alert.present? %>
-      <div style="background:#f8d7da;color:#721c24;padding:0.5rem 1rem;text-align:center;font-size:0.85rem;font-family:'Fredoka',sans-serif;">
+      <div style="background:#f8d7da;color:#721c24;padding:0.5rem 1rem;text-align:center;font-size:0.85rem;font-family:'Baloo 2',sans-serif;">
         <%= alert %>
       </div>
     <% end %>
@@ -35,7 +35,7 @@
       <div style="position:absolute;top:0.5rem;right:0.75rem;z-index:100;display:flex;align-items:center;gap:0.5rem;">
         <%= button_to "Sair", destroy_user_session_path, method: :delete,
               data: { turbo: false },
-              style: "background:none;border:none;font-size:0.7rem;color:#888;cursor:pointer;font-family:'Fredoka',sans-serif;padding:0;" %>
+              style: "background:none;border:none;font-size:0.7rem;color:#888;cursor:pointer;font-family:'Baloo 2',sans-serif;padding:0;" %>
       </div>
     <% end %>
 
