@@ -1,12 +1,20 @@
-<%# Cabeçalho consistente — estático, fora do <turbo-frame id="match">.
-    Idêntico nas 3 telas (mesma paleta, mesma marca). %>
+<%# Cabeçalho consistente — estático, fora do <turbo-frame id="match">. %>
 <header class="hdr">
   <div class="hdr-brand">
     <span class="ball" aria-hidden="true"></span>
     <b>TORCEDOR MALUCO</b>
   </div>
   <div class="hdr-right">
-    <%= render "matches/energy" %>
+    <% if user_signed_in? && current_user.premium? %>
+      <% days_left = ((current_user.premium_until - Time.current) / 1.day).ceil %>
+      <% if days_left <= 3 %>
+        <span class="badge-premium badge-premium--expiring">⭐ <%= days_left %>d</span>
+      <% else %>
+        <span class="badge-premium">⭐ Premium</span>
+      <% end %>
+    <% else %>
+      <%= render "matches/energy" %>
+    <% end %>
     <span class="hdr-tag">COPA 2026</span>
   </div>
 </header>

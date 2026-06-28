@@ -236,6 +236,51 @@ turbo-frame#match{flex:1;display:flex;flex-direction:column;}
 .social-avs{display:flex;}
 .social-avs .avatar--sm{margin-left:-8px;border:2px solid #fff;}
 .social-avs .avatar--sm:first-child{margin-left:0;}
+/* ---------- PREMIUM ---------- */
+.badge-premium{
+  flex-shrink:0;white-space:nowrap;font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:.06em;
+  background:var(--amarelo);color:var(--azul);padding:4px 10px;border-radius:999px;
+}
+.badge-premium--expiring{background:var(--errado-bg);color:var(--errado);}
+.sub-cta{text-align:center;margin-bottom:.25rem;}
+.btn-premium{
+  width:100%;height:56px;border-radius:18px;border:none;cursor:pointer;
+  font-family:var(--font-display);font-weight:800;font-size:16px;letter-spacing:.02em;
+  background:linear-gradient(135deg,var(--verde),var(--verde-2));color:#fff;
+  box-shadow:0 4px 14px rgba(22,163,74,.35);transition:.15s;
+}
+.btn-premium:hover{filter:brightness(1.06);}
+.sub-hint{font-size:12px;color:var(--muted);margin:.5rem 0 0;font-weight:600;}
+
+/* ---------- TELA PIX ---------- */
+.pay-wrap{
+  max-width:var(--stage-max);width:100%;margin:0 auto;
+  padding:2rem var(--pad-screen) calc(2rem + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+}
+.pay-title{font-family:var(--font-display);font-weight:800;font-size:clamp(20px,6cqi,26px);color:var(--ink);margin:0;}
+.pay-sub{font-size:13px;color:var(--muted);font-weight:600;margin:0;}
+.pay-qr{width:min(240px,80%);border-radius:16px;border:3px solid var(--linha);box-shadow:0 4px 16px rgba(0,0,0,.08);}
+.pay-label{font-weight:700;font-size:13px;color:var(--ink);margin:0;}
+.pay-copy{display:flex;gap:8px;width:100%;max-width:420px;}
+.pay-input{
+  flex:1;height:44px;border-radius:12px;border:2px solid var(--linha);
+  background:#f7f8fa;padding:0 12px;font-size:12px;color:var(--ink);font-family:monospace;
+  outline:none;
+}
+.pay-btn{
+  flex-shrink:0;height:44px;padding:0 16px;border-radius:12px;border:none;cursor:pointer;
+  background:var(--verde);color:#fff;font-family:var(--font-display);font-weight:800;font-size:13px;
+  transition:.12s;
+}
+.pay-btn:hover{background:var(--verde-2);}
+.pay-hint{font-size:12px;color:var(--muted);text-align:center;line-height:1.5;margin:0;}
+.pay-back{
+  font-family:var(--font-display);font-weight:700;font-size:13px;
+  color:var(--azul);text-decoration:none;opacity:.7;
+}
+.pay-back:hover{opacity:1;}
+
 .ranking-link{
   display:block;text-align:center;margin:18px auto 0;
   font-family:var(--font-display);font-weight:700;font-size:14px;
