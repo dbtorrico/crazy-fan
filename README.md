@@ -1,24 +1,30 @@
-# README
+# Torcedor Maluco
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Quiz de futebol rápido e competitivo, feito para o torcedor casual brasileiro no
+clima da Copa do Mundo de 2026. Partidas de 5 perguntas, ranking semanal, energia
+diária e conquistas. Mobile-first.
 
-Things you may want to cover:
+## Stack
 
-* Ruby version
+- **Ruby** 3.3.6 · **Rails** 7.2
+- **PostgreSQL**
+- **Hotwire** (Turbo + Stimulus) · **Tailwind CSS**
+- **Devise** (Google OAuth) · **Minitest** + Capybara
 
-* System dependencies
+## Rodando localmente
 
-* Configuration
+```bash
+bin/setup            # instala dependências e prepara o banco
+bin/dev              # sobe o servidor + watch do Tailwind (http://localhost:3000)
+bin/rails db:seed    # popula o banco de perguntas (ver seção abaixo)
+bin/rails test       # suíte de testes (unit + integração)
+```
 
-* Database creation
+> Postgres local: se `bin/rails` falhar com `ConnectionNotEstablished`, suba o
+> serviço manualmente — ver `.specs/project/STATE.md` (seção Lessons).
 
-* Database initialization
+## Banco de perguntas
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+As perguntas do jogo vivem numa planilha que é importada para o banco de dados — não
+no código. Para adicionar ou corrigir perguntas, veja
+[docs/banco-de-perguntas.md](docs/banco-de-perguntas.md).
