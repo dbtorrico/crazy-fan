@@ -7,19 +7,19 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
     clear_google_mock
   end
 
-  class FakeSdk
-    def initialize(post_response: {}, notification_response: {})
-      @post_response         = post_response
-      @notification_response = notification_response
+  class FakeHttp
+    def initialize(post_response: {}, get_response: {})
+      @post_response = post_response
+      @get_response  = get_response
     end
 
     def post(*, **) = @post_response
-    def notification(*) = @notification_response
+    def get(*) = @get_response
   end
 
-  def fake_gateway(post_response: {}, notification_response: {})
-    sdk = FakeSdk.new(post_response: post_response, notification_response: notification_response)
-    MpGateway.new(sdk: sdk)
+  def fake_gateway(post_response: {}, get_response: {})
+    http = FakeHttp.new(post_response: post_response, get_response: get_response)
+    MpGateway.new(http: http)
   end
 
   # --- POST /payments/create ---
@@ -67,7 +67,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
   test "webhook ativa premium quando pagamento é aprovado" do
     user     = users(:joao)
     approved = { "status" => "approved", "external_reference" => "user_#{user.id}_1000" }
-    gw       = fake_gateway(notification_response: approved)
+    gw       = fake_gateway(get_response: approved)
     MpGateway.stub(:new, gw) do
       post payments_webhook_path, params: { type: "payment", data: { id: "123" } }
     end
@@ -78,7 +78,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
   test "webhook não ativa premium quando pagamento está pendente" do
     user    = users(:joao)
     pending = { "status" => "pending", "external_reference" => "user_#{user.id}_1000" }
-    gw      = fake_gateway(notification_response: pending)
+    gw      = fake_gateway(get_response: pending)
     MpGateway.stub(:new, gw) do
       post payments_webhook_path, params: { type: "payment", data: { id: "123" } }
     end
@@ -88,7 +88,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
 
   test "webhook não ativa premium quando get_payment retorna nil" do
     user = users(:joao)
-    gw   = fake_gateway(notification_response: nil)
+    gw   = fake_gateway(get_response: nil)
     MpGateway.stub(:new, gw) do
       post payments_webhook_path, params: { type: "payment", data: { id: "999" } }
     end
@@ -98,7 +98,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
 
   test "webhook não ativa premium para external_reference inválido" do
     approved = { "status" => "approved", "external_reference" => "invalid_ref" }
-    gw       = fake_gateway(notification_response: approved)
+    gw       = fake_gateway(get_response: approved)
     MpGateway.stub(:new, gw) do
       post payments_webhook_path, params: { type: "payment", data: { id: "123" } }
     end
@@ -108,7 +108,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
 
   test "webhook não ativa premium para user_id inexistente" do
     approved = { "status" => "approved", "external_reference" => "user_99999_1000" }
-    gw       = fake_gateway(notification_response: approved)
+    gw       = fake_gateway(get_response: approved)
     MpGateway.stub(:new, gw) do
       post payments_webhook_path, params: { type: "payment", data: { id: "123" } }
     end

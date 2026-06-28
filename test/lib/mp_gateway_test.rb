@@ -2,13 +2,13 @@ require "test_helper"
 require Rails.root.join("lib/mp_gateway")
 
 class MpGatewayTest < ActiveSupport::TestCase
-  # SDK falso para injeção — não chama a API real.
-  class FakeSdk
-    attr_reader :last_post_path, :last_post_data, :last_notification_id
+  # HTTP client falso para injeção — não chama a API real.
+  class FakeHttp
+    attr_reader :last_post_path, :last_post_data, :last_get_path
 
-    def initialize(post_response: {}, notification_response: {})
-      @post_response         = post_response
-      @notification_response = notification_response
+    def initialize(post_response: {}, get_response: {})
+      @post_response = post_response
+      @get_response  = get_response
     end
 
     def post(path, data)
@@ -17,9 +17,9 @@ class MpGatewayTest < ActiveSupport::TestCase
       @post_response
     end
 
-    def notification(id)
-      @last_notification_id = id
-      @notification_response
+    def get(path)
+      @last_get_path = path
+      @get_response
     end
   end
 
@@ -39,8 +39,8 @@ class MpGatewayTest < ActiveSupport::TestCase
   # --- create_pix_payment ---
 
   test "create_pix_payment retorna ok:true com id e qr_code em sucesso" do
-    sdk     = FakeSdk.new(post_response: pix_success_response)
-    gateway = MpGateway.new(sdk: sdk)
+    http    = FakeHttp.new(post_response: pix_success_response)
+    gateway = MpGateway.new(http: http)
     user    = users(:joao)
 
     result = gateway.create_pix_payment(user: user, external_reference: "user_1_1000")
@@ -52,21 +52,21 @@ class MpGatewayTest < ActiveSupport::TestCase
   end
 
   test "create_pix_payment envia payment_method_id pix e valor correto" do
-    sdk     = FakeSdk.new(post_response: pix_success_response)
-    gateway = MpGateway.new(sdk: sdk)
+    http    = FakeHttp.new(post_response: pix_success_response)
+    gateway = MpGateway.new(http: http)
 
     gateway.create_pix_payment(user: users(:joao), external_reference: "user_1_1000")
 
-    assert_equal "/v1/payments",  sdk.last_post_path
-    assert_equal "pix",           sdk.last_post_data[:payment_method_id]
-    assert_equal 5.0,             sdk.last_post_data[:transaction_amount]
-    assert_equal "user_1_1000",   sdk.last_post_data[:external_reference]
+    assert_equal "/v1/payments",  http.last_post_path
+    assert_equal "pix",           http.last_post_data[:payment_method_id]
+    assert_equal 5.0,             http.last_post_data[:transaction_amount]
+    assert_equal "user_1_1000",   http.last_post_data[:external_reference]
   end
 
   test "create_pix_payment retorna ok:false quando API retorna erro" do
     error_response = { "error" => "bad_request", "message" => "Invalid payer email" }
-    sdk     = FakeSdk.new(post_response: error_response)
-    gateway = MpGateway.new(sdk: sdk)
+    http    = FakeHttp.new(post_response: error_response)
+    gateway = MpGateway.new(http: http)
 
     result = gateway.create_pix_payment(user: users(:joao), external_reference: "user_1_1000")
 
@@ -75,9 +75,9 @@ class MpGatewayTest < ActiveSupport::TestCase
   end
 
   test "create_pix_payment retorna ok:false em exceção" do
-    sdk = FakeSdk.new
-    def sdk.post(*, **) = raise "connection refused"
-    gateway = MpGateway.new(sdk: sdk)
+    http = FakeHttp.new
+    def http.post(*, **) = raise "connection refused"
+    gateway = MpGateway.new(http: http)
 
     result = gateway.create_pix_payment(user: users(:joao), external_reference: "user_1_1000")
 
@@ -89,20 +89,20 @@ class MpGatewayTest < ActiveSupport::TestCase
 
   test "get_payment retorna o hash do pagamento" do
     payment = { "id" => 123456, "status" => "approved", "external_reference" => "user_1_1000" }
-    sdk     = FakeSdk.new(notification_response: payment)
-    gateway = MpGateway.new(sdk: sdk)
+    http    = FakeHttp.new(get_response: payment)
+    gateway = MpGateway.new(http: http)
 
     result = gateway.get_payment(123456)
 
-    assert_equal "approved",    result["status"]
-    assert_equal "user_1_1000", result["external_reference"]
-    assert_equal "123456",      sdk.last_notification_id
+    assert_equal "approved",              result["status"]
+    assert_equal "user_1_1000",           result["external_reference"]
+    assert_equal "/v1/payments/123456",   http.last_get_path
   end
 
   test "get_payment retorna nil em exceção" do
-    sdk = FakeSdk.new
-    def sdk.notification(*) = raise "timeout"
-    gateway = MpGateway.new(sdk: sdk)
+    http = FakeHttp.new
+    def http.get(*) = raise "timeout"
+    gateway = MpGateway.new(http: http)
 
     assert_nil gateway.get_payment(999)
   end

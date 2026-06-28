@@ -157,9 +157,6 @@ GEM
       net-smtp
     marcel (1.2.1)
     matrix (0.4.3)
-    mercadopago (2.3.0)
-      faraday (>= 0.9.0)
-      json (>= 1.4.6)
     mini_mime (1.1.5)
     minitest (5.27.0)
     msgpack (1.8.3)
@@ -411,7 +408,6 @@ DEPENDENCIES
   devise
   importmap-rails
   jbuilder
-  mercadopago
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pg (~> 1.1)

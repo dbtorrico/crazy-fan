@@ -19,7 +19,6 @@ gem "tailwindcss-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 gem "roo", "~> 2.10"
-gem "mercadopago"
 
 # Authentication
 gem "devise"
