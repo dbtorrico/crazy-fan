@@ -51,6 +51,17 @@
     <% end %>
   </div>
 
+  <%# CTA Premium — usuário logado sem assinatura %>
+  <% if user_signed_in? && !current_user.premium? %>
+    <div class="loginbar">
+      <p class="loginbar-text"><b>Concorra a prêmios.</b><br>Assinantes em 1º lugar ganham prêmios todo mês.</p>
+      <%= button_to "Assinar Premium · R$5/mês", create_payments_path,
+            method: :post, data: { turbo: false },
+            form: { class: "loginbar-form" },
+            class: "loginbar-btn" %>
+    </div>
+  <% end %>
+
   <%# Faixa de login — apenas para convidados %>
   <% unless user_signed_in? %>
     <div class="loginbar">

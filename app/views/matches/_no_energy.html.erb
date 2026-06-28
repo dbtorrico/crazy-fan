@@ -1,35 +1,20 @@
 <%# Tela "Sem energia" (usuário logado). Renderizada dentro de #match. %>
 <div class="home field">
   <div class="home-hero">
-    <% if current_user.premium? %>
-      <span class="logo-sticker">⭐ Premium ativo</span>
-      <h1 class="logo"><span class="l1">Energia</span><span class="l2">ilimitada</span></h1>
-      <p class="home-sub">Você tem jogadas ilimitadas. Aproveite! ✅</p>
+    <span class="logo-sticker">⚡ Sem energia</span>
+    <h1 class="logo"><span class="l1">Energia</span><span class="l2">no fim</span></h1>
+    <% if (next_at = current_user.next_recharge_at) %>
+      <% mins = [ ((next_at - Time.current) / 60.0).ceil, 1 ].max %>
+      <p class="home-sub">
+        Próxima energia em
+        <b><%= mins >= 60 ? "#{mins / 60}h#{format('%02d', mins % 60)}" : "#{mins} min" %></b>.
+      </p>
     <% else %>
-      <span class="logo-sticker">⚡ Sem energia</span>
-      <h1 class="logo"><span class="l1">Energia</span><span class="l2">no fim</span></h1>
-      <% if (next_at = current_user.next_recharge_at) %>
-        <% mins = [ ((next_at - Time.current) / 60.0).ceil, 1 ].max %>
-        <p class="home-sub">
-          Próxima energia em
-          <b><%= mins >= 60 ? "#{mins / 60}h#{format('%02d', mins % 60)}" : "#{mins} min" %></b>.
-        </p>
-      <% else %>
-        <p class="home-sub">Sua energia está se recarregando.</p>
-      <% end %>
+      <p class="home-sub">Sua energia está se recarregando.</p>
     <% end %>
   </div>
 
   <div class="home-card">
-    <% unless current_user.premium? %>
-      <div class="sub-cta">
-        <%= button_to "🏆 Assinar por R$5/mês", create_payments_path,
-              method: :post,
-              class: "btn btn-premium",
-              data: { turbo: false } %>
-        <p class="sub-hint">Jogadas ilimitadas por 30 dias · Pix instantâneo</p>
-      </div>
-    <% end %>
-    <%= link_to "Ver ranking 🏆", ranking_path, class: "btn btn-play", style: "margin-top:0.75rem;", data: { turbo: false } %>
+    <%= link_to "Ver ranking 🏆", ranking_path, class: "btn btn-play", data: { turbo: false } %>
   </div>
 </div>

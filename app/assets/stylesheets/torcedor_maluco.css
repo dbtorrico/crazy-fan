@@ -465,6 +465,54 @@ turbo-frame#match{flex:1;display:flex;flex-direction:column;}
   .result-card{padding-top:14px;padding-bottom:calc(14px + env(safe-area-inset-bottom));gap:8px;}
 }
 
+/* ---------- CTA Premium (home + ranking) ---------- */
+.premium-cta{
+  margin-top:14px;background:#fffdf0;border:2px solid var(--amarelo);border-radius:16px;
+  padding:14px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;
+}
+.premium-cta-text{font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--azul);}
+.btn-premium{
+  width:100%;height:50px;padding:0 20px;background:var(--amarelo);color:var(--azul);border:none;border-radius:14px;
+  font-family:var(--font-display);font-weight:900;font-size:15px;cursor:pointer;
+  box-shadow:0 4px 0 var(--amarelo-esc);transition:.12s;
+}
+.btn-premium:active{box-shadow:0 2px 0 var(--amarelo-esc);transform:translateY(2px);}
+
+/* ---------- Tela de pagamento Pix ---------- */
+.pay-wrap{flex:1;display:flex;flex-direction:column;}
+.pay-hero{
+  background:
+    radial-gradient(ellipse 80% 90% at 50% 50%, rgba(0,0,0,0) 30%, rgba(0,0,0,.45) 100%),
+    repeating-linear-gradient(180deg, transparent 0 52px, rgba(255,255,255,.05) 52px 54px),
+    var(--verde-esc);
+  padding:28px 22px 48px;display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+.pay-badge{
+  display:inline-block;background:rgba(255,208,0,.18);border:1.5px solid var(--amarelo);
+  border-radius:99px;padding:5px 14px;font-size:11px;font-weight:900;color:var(--amarelo);
+  letter-spacing:.06em;margin-bottom:16px;
+}
+.pay-per{font-size:13px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:2px;}
+.pay-price{font-size:64px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.02em;}
+.pay-currency{font-size:22px;font-weight:800;vertical-align:super;margin-right:2px;}
+.pay-period{font-size:14px;font-weight:700;color:rgba(255,255,255,.65);margin-top:4px;}
+.pay-hook{
+  background:rgba(255,208,0,.15);border:1px solid rgba(255,208,0,.4);border-radius:99px;
+  padding:8px 18px;margin-top:16px;font-size:13px;font-weight:800;color:var(--amarelo);line-height:1.6;
+}
+.pay-card{
+  background:var(--creme);border-radius:26px 26px 0 0;padding:24px 18px calc(28px + env(safe-area-inset-bottom));
+  margin-top:-22px;flex:1;display:flex;flex-direction:column;gap:14px;
+}
+.pay-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;background:#fff;border:2px solid var(--linha);border-radius:16px;padding:16px;}
+.pay-qr{width:180px;height:180px;}
+.pay-qr-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;}
+.pay-copy{display:flex;gap:8px;}
+.pay-input{flex:1;background:#f0f4f8;border:1.5px solid #dde3ec;border-radius:10px;padding:10px 12px;font-size:12px;color:var(--muted);font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pay-btn{background:var(--verde);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;}
+.pay-hint{background:#e9faf0;border-radius:10px;padding:10px 12px;font-size:13px;color:var(--verde-esc);font-weight:700;text-align:center;}
+.pay-back{display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);font-weight:700;text-decoration:none;}
+
 .toast{
   position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
   background:var(--ink);color:#fff;font-weight:800;font-size:13px;padding:11px 18px;border-radius:14px;

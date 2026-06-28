@@ -43,7 +43,7 @@ class User < ApplicationRecord
   end
 
   def unlimited_energy?
-    premium?
+    false
   end
 
   # Debita 1 energia de forma atômica. Retorna true em sucesso, false sem saldo.

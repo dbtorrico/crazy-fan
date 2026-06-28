@@ -50,8 +50,9 @@ class MpGateway
     return @http.post(path, data) if @http
     uri = URI("#{BASE_URL}#{path}")
     req = Net::HTTP::Post.new(uri)
-    req["Authorization"] = "Bearer #{@token}"
-    req["Content-Type"]  = "application/json"
+    req["Authorization"]    = "Bearer #{@token}"
+    req["Content-Type"]     = "application/json"
+    req["X-Idempotency-Key"] = SecureRandom.uuid
     req.body = data.to_json
     res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |h| h.request(req) }
     JSON.parse(res.body)
