@@ -1,7 +1,7 @@
 class PaymentsController < ApplicationController
   layout "matches"
-  before_action :authenticate_user!, only: [:create, :show]
-  skip_before_action :verify_authenticity_token, only: [:webhook]
+  before_action :authenticate_user!, only: [ :create, :show ]
+  skip_before_action :verify_authenticity_token, only: [ :webhook ]
 
   # POST /payments/create
   def create
@@ -62,7 +62,7 @@ class PaymentsController < ApplicationController
       return
     end
 
-    user.update!(premium_until: [user.premium_until || Time.current, Time.current].max + 30.days)
+    user.update!(premium_until: [ user.premium_until || Time.current, Time.current ].max + 30.days)
     Rails.logger.info("[Webhook] Premium ativado: user #{user_id} até #{user.premium_until}")
   end
 end

@@ -34,7 +34,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil flash[:alert]
   end
 
-  test "create renderiza show com QR code em sucesso" do
+  test "create redireciona para tela Pix e show exibe QR code em sucesso" do
     sign_in_as(users(:joao))
     pix_response = {
       "id"                   => 999,
@@ -46,6 +46,8 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
     MpGateway.stub(:new, gw) do
       post create_payments_path
     end
+    assert_redirected_to payment_pix_path
+    follow_redirect!
     assert_response :success
     assert_match "00020126", response.body
   end
