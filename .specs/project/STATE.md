@@ -26,6 +26,11 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **Ranking model/controller inalterados no redesign** — pódio é fatiamento de `@entries.first(3)` na view; `Quiz::Leaderboard` entrega tudo que o novo layout precisa.
 - **Sem seleção de categoria pelo jogador (2026-06-28)** — decisão do dono: o jogo é sempre com perguntas aleatórias de todos os temas. O `tema` serve só como metadado/organização do banco de perguntas, não como filtro na UI. A feature "Categorias por tema" do M2 foi **descartada** (não adiada). A infraestrutura de filtro já existente (`Quiz::Question.sample_ids(tema:)`, `category_counts`, `CATEGORIES`) fica dormente no código — não remover, mas também não expor. Isso **encerra o escopo do M2**; próximo foco é M3 (monetização).
 
+- **Assinatura premium = Pix avulso mensal (2026-06-28)** — modelo sem recorrência automática. Usuário paga R$5/mês manualmente; `premium_until` é setado com +30 dias no webhook. Sem `Payment` model separado por ora (coluna na `users` é suficiente para Pix avulso).
+- **MpGateway wrapper (2026-06-28)** — gem `mercadopago` v2.3.0 usa `client_id + client_secret` (não `access_token` direto). Wrapper próprio `MpGateway` em `lib/mp_gateway.rb` aceita `sdk:` para injeção em testes. Env vars: `MP_CLIENT_ID` e `MP_CLIENT_SECRET`.
+- **external_reference do webhook = `"user_<id>_<timestamp>"` (2026-06-28)** — formato simples para vincular pagamento ao usuário sem tabela de pagamentos. Webhook faz re-query na API do MP para confirmar status antes de ativar premium (segurança sem HMAC por ora).
+- **Benefício do premium = acesso ao ranking competitivo, não energia ilimitada (2026-06-28)** — decisão definitiva: `User#unlimited_energy?` permanece `false` para todos os usuários, incluindo premium. O limite de 5 jogadas/dia se aplica igualmente. O único diferencial do premium é participar do ranking semanal e concorrer a prêmios. `premium?` controla esse acesso; nunca deve delegar `unlimited_energy?`. Energia ilimitada foi considerada e explicitamente descartada.
+
 ## Open Decisions (confirmar)
 
 - **Domínio:** verificar disponibilidade (ex.: `torcedormaluco.com.br`).
@@ -43,6 +48,10 @@ Memória persistente do projeto: decisões, bloqueios, lições, todos e ideias 
 - **Ambiente Postgres local:** o serviço `brew services` de Postgres ficou quebrado (data dir do `postgresql@14` ausente; alias `postgresql` aponta p/ `@18` sem service file). O data dir válido (v14) é `/opt/homebrew/var/postgres`. Subir manualmente com: `/opt/homebrew/bin/pg_ctl -D /opt/homebrew/var/postgres -l /opt/homebrew/var/log/postgres-manual.log start`. Sem isso, qualquer `bin/rails test` falha por `ActiveRecord::ConnectionNotEstablished` (o test_helper carrega `fixtures :all`).
 
 ## Todos / Deferred
+
+- **[M3 - e2e sandbox MP]** Verificar fluxo completo com credenciais sandbox do Mercado Pago: `MP_CLIENT_ID` + `MP_CLIENT_SECRET` de teste → criar pagamento Pix → simular aprovação no painel sandbox → confirmar webhook ativa `premium_until`. Registrar URL do webhook no painel MP (sandbox e produção).
+- **[M3 - próximas features]** Páginas institucionais (Privacidade, Termos, Sobre) com conteúdo real → pré-requisito para Google AdSense. Remoção de anúncios para premium fica deferred até AdSense estar ativo.
+
 
 - ~~Importar as perguntas da planilha mestre para o banco (seed)~~ — DONE (M1).
 - Páginas institucionais (Sobre, Privacidade, Termos) para habilitar AdSense — Milestone 3.

@@ -1,0 +1,35 @@
+<%# Tela de pagamento Pix %>
+<div class="tm-app">
+<div class="pay-wrap">
+  <div class="pay-hero">
+    <span class="pay-badge">⭐ PREMIUM</span>
+    <p class="pay-per">por apenas</p>
+    <div class="pay-price"><span class="pay-currency">R$</span>5</div>
+    <p class="pay-period">por mês · menos que um café</p>
+    <div class="pay-hook">
+      🥇 Concorra a prêmios ficando em 1º no ranking<br>
+      🏆 Destaque especial entre os assinantes
+    </div>
+  </div>
+
+  <div class="pay-card">
+    <% if @qr_code_base64.present? %>
+      <div class="pay-qr-wrap">
+        <img src="data:image/png;base64,<%= @qr_code_base64 %>"
+             alt="QR Code Pix" class="pay-qr">
+        <p class="pay-qr-label">Escaneie com o app do banco</p>
+      </div>
+    <% end %>
+
+    <div class="pay-copy">
+      <input readonly value="<%= @qr_code %>" class="pay-input" id="pix-code">
+      <button onclick="navigator.clipboard.writeText(document.getElementById('pix-code').value);this.textContent='Copiado ✓'"
+              class="pay-btn">Copiar</button>
+    </div>
+
+    <p class="pay-hint">Pague e aguarde — ativação automática em segundos ✅</p>
+
+    <%= link_to "← Voltar ao jogo", root_path, class: "pay-back", data: { turbo: false } %>
+  </div>
+</div>
+</div>

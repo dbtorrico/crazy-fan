@@ -57,6 +57,14 @@
 
     <%= link_to "🏆 Ver ranking", ranking_path, class: "ranking-link", data: { turbo: false } %>
 
+    <% if user_signed_in? && !current_user.premium? %>
+      <div class="premium-cta">
+        <p class="premium-cta-text">🥇 Concorra a prêmios ficando em 1º no ranking</p>
+        <%= button_to "Assinar Premium · R$5/mês", create_payments_path,
+              method: :post, class: "btn-premium", data: { turbo: false } %>
+      </div>
+    <% end %>
+
     <% unless user_signed_in? %>
       <%= button_to user_google_oauth2_omniauth_authorize_path,
             method: :post,

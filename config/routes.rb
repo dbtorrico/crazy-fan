@@ -13,6 +13,11 @@ Rails.application.routes.draw do
 
   # Ranking
   get "/ranking", to: "ranking#index", as: :ranking
+
+  # Pagamentos (Mercado Pago Pix)
+  post "/payments/create",  to: "payments#create",  as: :create_payments
+  get  "/payments/pix",    to: "payments#show",    as: :payment_pix
+  post "/payments/webhook", to: "payments#webhook", as: :payments_webhook
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
@@ -34,4 +39,15 @@ Rails.application.routes.draw do
   get  "games/result", to: "games#result", as: :result_games
 
   root "matches#show"
+
+  if Rails.env.development?
+    scope :dev do
+      get :login,            to: "dev#login",            as: :dev_login
+      get :activate_premium, to: "dev#activate_premium", as: :dev_activate_premium
+      get :expire_premium,   to: "dev#expire_premium",   as: :dev_expire_premium
+      get :zero_energy,      to: "dev#zero_energy",      as: :dev_zero_energy
+      get :full_energy,      to: "dev#full_energy",      as: :dev_full_energy
+      get :payment,          to: "dev#payment",           as: :dev_payment
+    end
+  end
 end

@@ -48,10 +48,10 @@
 
 ### Features
 
-**Assinatura R$5/mês via Pix (Mercado Pago)** - PLANNED
-**Jogadas ilimitadas para assinantes** - PLANNED
-**Remoção de anúncios no premium** - PLANNED
-**Integração com Google AdSense (nível gratuito)** - PLANNED
+**Assinatura R$5/mês via Pix (Mercado Pago)** - DONE ✅ (2026-06-28) — `premium_until` em `users`, `MpGateway` wrapper, `PaymentsController` (create + webhook), tela Pix QR code. Pendente: e2e com sandbox MP.
+**Jogadas ilimitadas para assinantes** - DESCARTADO — decisão: benefício do premium é acesso ao ranking competitivo; energia permanece limitada para todos (5 jogadas/dia). Badge no header e CTA de conversão entregues como parte da feature de assinatura.
+**Remoção de anúncios no premium** - PLANNED (aguarda AdSense)
+**Integração com Google AdSense (nível gratuito)** - PLANNED (requer páginas institucionais primeiro)
 
 ---
 
