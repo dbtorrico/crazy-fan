@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   # Ranking
   get "/ranking", to: "ranking#index", as: :ranking
 
+  # Regras do jogo
+  get "/rules", to: "rules#index", as: :rules
+
   # Pagamentos (Mercado Pago Pix)
   post "/payments/create",  to: "payments#create",  as: :create_payments
   get  "/payments/pix",    to: "payments#show",    as: :payment_pix

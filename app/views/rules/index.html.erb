@@ -1,0 +1,91 @@
+<div class="tm-app">
+  <div class="pay-wrap">
+
+    <div class="pay-hero">
+      <span class="pay-badge">📋 REGRAS</span>
+      <p class="pay-per">como funciona</p>
+      <div class="pay-price" style="font-size: 2.8rem;">o jogo</div>
+      <p class="pay-period">tudo que você precisa saber antes de jogar</p>
+    </div>
+
+    <div class="pay-card" style="gap: 1.4rem;">
+
+      <div class="rules-section">
+        <h2 class="rules-title">⚽ A Partida</h2>
+        <ul class="rules-list">
+          <li>Cada partida tem <strong>5 perguntas</strong> de futebol</li>
+          <li>Você tem <strong>15 segundos</strong> para responder cada pergunta</li>
+          <li>As perguntas são sorteadas aleatoriamente do banco</li>
+        </ul>
+      </div>
+
+      <div class="rules-section">
+        <h2 class="rules-title">🏅 Pontuação</h2>
+        <ul class="rules-list">
+          <li><strong>60 pontos</strong> por resposta correta</li>
+          <li><strong>+até 40 pontos</strong> de bônus por velocidade (quanto mais rápido, mais pontos)</li>
+          <li>Resposta errada ou tempo esgotado: <strong>0 pontos</strong></li>
+          <li>Pontuação máxima por partida: <strong>500 pontos</strong></li>
+        </ul>
+      </div>
+
+      <div class="rules-section">
+        <h2 class="rules-title">⚡ Energia</h2>
+        <ul class="rules-list">
+          <li><strong>Convidado:</strong> 3 jogadas por sessão</li>
+          <li><strong>Logado:</strong> 5 jogadas por dia — recarrega 1 a cada 2 horas</li>
+          <li><strong>Premium ⭐:</strong> 5 jogadas por dia + acesso ao ranking competitivo</li>
+        </ul>
+      </div>
+
+      <div class="rules-section">
+        <h2 class="rules-title">🏆 Ranking</h2>
+        <ul class="rules-list">
+          <li>O ranking soma os pontos de todas as partidas da semana</li>
+          <li>Apenas jogadores <strong>logados</strong> aparecem no ranking</li>
+          <li>Assinantes <strong>Premium ⭐</strong> concorrem a prêmios ficando em 1º lugar</li>
+          <li>O ranking reinicia toda <strong>segunda-feira</strong> à meia-noite (horário de Brasília)</li>
+        </ul>
+      </div>
+
+      <div class="rules-section">
+        <h2 class="rules-title">🎖️ Conquistas</h2>
+        <ul class="rules-list">
+          <li>🎯 <strong>Primeiro gol</strong> — primeira partida completa</li>
+          <li>🔥 <strong>Hat-trick</strong> — 3 partidas completas</li>
+          <li>⚡ <strong>Velocista</strong> — resposta em menos de 5 segundos</li>
+          <li>🧠 <strong>Craque</strong> — 5 acertos em uma partida</li>
+          <li>👑 <strong>Craque da Semana</strong> — 1º no ranking ao fim da semana</li>
+        </ul>
+      </div>
+
+      <%= link_to "← Voltar ao jogo", root_path, class: "pay-back", data: { turbo: false } %>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .rules-section { width: 100%; }
+  .rules-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #002776;
+    margin: 0 0 0.5rem;
+  }
+  .rules-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .rules-list li {
+    font-size: 0.9rem;
+    color: #333;
+    padding-left: 0.75rem;
+    border-left: 3px solid #009C3B;
+    line-height: 1.4;
+  }
+</style>
