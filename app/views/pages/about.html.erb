@@ -1,0 +1,62 @@
+<div class="tm-app">
+  <div class="pay-wrap">
+    <div class="pay-hero">
+      <span class="pay-badge">🇧🇷 SOBRE</span>
+      <p class="pay-per">o projeto</p>
+      <div class="pay-price" style="font-size: 2.4rem;">Torcedor<br>Maluco</div>
+    </div>
+
+    <div class="pay-card" style="gap: 1.4rem; text-align: left;">
+
+      <div class="rules-section">
+        <h2 class="rules-title">O que é o Torcedor Maluco?</h2>
+        <p class="page-text">
+          Torcedor Maluco é um quiz de futebol criado para a Copa do Mundo de 2026.
+          O jogo testa seus conhecimentos sobre história do futebol, seleções, craques e Copa do Mundo —
+          5 perguntas por rodada, com timer e pontuação por velocidade.
+        </p>
+        <p class="page-text">
+          Jogadores logados entram para o ranking semanal e concorrem a prêmios.
+          Assinantes Premium têm acesso ao ranking competitivo por apenas R$5/mês.
+        </p>
+      </div>
+
+      <div class="rules-section">
+        <h2 class="rules-title">Quem fez?</h2>
+        <p class="page-text">
+          O Torcedor Maluco foi desenvolvido por <strong>Daniel Borges Torrico Villarreal</strong>,
+          desenvolvedor independente apaixonado por futebol e tecnologia.
+        </p>
+        <p class="page-text">
+          O projeto nasceu como uma forma de unir torcedores brasileiros durante o maior evento
+          do futebol mundial.
+        </p>
+      </div>
+
+      <div class="rules-section">
+        <h2 class="rules-title">Contato</h2>
+        <p class="page-text">
+          Para dúvidas, sugestões ou questões sobre privacidade, entre em contato:
+          <br>
+          <a href="mailto:dbtorrico@gmail.com" class="page-link">dbtorrico@gmail.com</a>
+        </p>
+      </div>
+
+      <div class="rules-section">
+        <h2 class="rules-title">Tecnologia</h2>
+        <p class="page-text">
+          Desenvolvido com Ruby on Rails, Hotwire e Tailwind CSS.
+          Hospedado no Railway. Banco de dados PostgreSQL.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem;">
+        <%= link_to "Política de Privacidade", privacy_path, class: "page-link", data: { turbo: false } %>
+        <span style="color: #ccc;">·</span>
+        <%= link_to "Termos de Uso", terms_path, class: "page-link", data: { turbo: false } %>
+      </div>
+
+      <%= link_to "← Voltar ao jogo", root_path, class: "pay-back", data: { turbo: false } %>
+    </div>
+  </div>
+</div>

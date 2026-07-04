@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   # Regras do jogo
   get "/rules", to: "rules#index", as: :rules
 
+  # Páginas institucionais
+  get "/about",   to: "pages#about",   as: :about
+  get "/privacy", to: "pages#privacy", as: :privacy
+  get "/terms",   to: "pages#terms",   as: :terms
+
   # Pagamentos (Mercado Pago Pix)
   post "/payments/create",  to: "payments#create",  as: :create_payments
   get  "/payments/pix",    to: "payments#show",    as: :payment_pix

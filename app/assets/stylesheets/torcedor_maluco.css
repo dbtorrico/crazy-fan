@@ -475,6 +475,15 @@ turbo-frame#match{flex:1;display:flex;flex-direction:column;}
 .pay-hint{background:#e9faf0;border-radius:10px;padding:10px 12px;font-size:13px;color:var(--verde-esc);font-weight:700;text-align:center;}
 .pay-back{display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);font-weight:700;text-decoration:none;}
 
+/* Páginas institucionais (Sobre, Privacidade, Termos, Regras) */
+.rules-section{width:100%;}
+.rules-title{font-size:1rem;font-weight:700;color:#002776;margin:0 0 0.5rem;}
+.rules-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.35rem;}
+.rules-list li{font-size:.9rem;color:#333;padding-left:.75rem;border-left:3px solid #009C3B;line-height:1.4;}
+.page-text{font-size:.9rem;color:#333;line-height:1.6;margin:0;}
+.page-link{color:#009C3B;font-weight:700;text-decoration:none;}
+.page-link:hover{text-decoration:underline;}
+
 .toast{
   position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
   background:var(--ink);color:#fff;font-weight:800;font-size:13px;padding:11px 18px;border-radius:14px;
