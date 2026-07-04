@@ -66,6 +66,8 @@
       <%= button_to "🔁 Jogar de novo", root_path(reset: "1"), method: :get,
             class: "btn btn-replay", form: { data: { turbo_frame: "match" } } %>
 
+      <%= link_to "Como funciona? 📋", rules_path, class: "ranking-link", style: "margin-top: 0.25rem;", data: { turbo: false } %>
+
       <%# Bloco de auth: convidado → CTA login; logado → confirmação %>
       <% if @is_guest %>
         <div class="teaser" style="display:flex; flex-direction:column; gap:0.5rem; align-items:center;">

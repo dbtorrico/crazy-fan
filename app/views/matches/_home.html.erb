@@ -56,6 +56,7 @@
     <% end %>
 
     <%= link_to "🏆 Ver ranking", ranking_path, class: "ranking-link", data: { turbo: false } %>
+    <%= link_to "Como funciona? 📋", rules_path, class: "ranking-link", data: { turbo: false } %>
 
     <% if user_signed_in? && !current_user.premium? %>
       <div class="premium-cta">
