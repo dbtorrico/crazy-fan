@@ -312,5 +312,6 @@ Devise.setup do |config|
   config.omniauth :google_oauth2,
                   ENV.fetch("GOOGLE_CLIENT_ID", ""),
                   ENV.fetch("GOOGLE_CLIENT_SECRET", ""),
-                  scope: "email,profile"
+                  scope: "email,profile",
+                  redirect_uri: ENV["GOOGLE_CALLBACK_URL"]
 end
