@@ -61,13 +61,13 @@
 
 ### Features
 
-**Página "Regras do Jogo"** - PLANNED — Rota `/rules`, `RulesController`, view com pontuação (60 pts + bônus velocidade até 40 pts), timer 15s, energia, badges. Link "Como funciona?" na home e no resultado.
+**Página "Regras do Jogo"** - DONE ✅ (PR #27, 2026-07-04) — Rota `/rules`, `RulesController`, view com pontuação (60 pts + bônus velocidade até 40 pts), timer 15s, energia, badges. Link "Como funciona?" na home e no resultado. Bônus: páginas institucionais `/about`, `/privacy`, `/terms` + footer + script de verificação AdSense.
 
-**Qualidade de conteúdo: siglas** - PLANNED — Rake task `content:check_acronyms` que varre `questions.enunciado` e `answers.texto` e gera CSV de candidatos. Siglas que recebem explicação entre parênteses: CBF, UEFA, CONMEBOL, CONCACAF, CAF, AFC, OFC, IFFHS, FPF. Mantidas sem explicação: FIFA, VAR. Revisão manual → migration de dados.
+**Qualidade de conteúdo: siglas** - DONE ✅ (PR #28, 2026-07-04) — Rake task `content:check_acronyms` (auditoria reutilizável) + migration de dados com as correções revisadas: CAF, AFC e CBF explicadas nos enunciados; CONMEBOL, CONCACAF, UEFA e AFC explicadas nas respostas. Auditoria pós-correção: 0 candidatos.
 
-**Qualidade de conteúdo: tempo verbal 2026** - PLANNED — Rake task `content:check_future_tense` que identifica perguntas com verbos no futuro + "2026" e gera CSV com sugestão de reescrita para o presente. Revisão manual → migration de dados.
+**Qualidade de conteúdo: tempo verbal 2026** - DONE ✅ (PR #28, 2026-07-04) — Rake task `content:check_future_tense` (auditoria reutilizável) + migration de dados: 6 perguntas reescritas do futuro para o presente. Auditoria pós-correção: 0 candidatos.
 
-**Anti-repetição de perguntas por jogador** - PLANNED — Adicionar `question_ids` (JSON) a `game_results`; ao iniciar partida, excluir IDs vistos nos últimos 10 jogos do usuário logado via `exclude_ids` em `Quiz::Question.sample_ids`. Fallback para pool completo quando o pool filtrado for insuficiente. Guests: sem mudança.
+**Anti-repetição de perguntas por jogador** - DONE ✅ (PR #27, 2026-07-04) — `question_ids` (jsonb) em `game_results`; ao iniciar partida, exclui IDs vistos nos últimos 10 jogos do usuário logado via `exclude_ids` em `Quiz::Question.sample_ids`. Fallback para pool completo quando o pool filtrado é insuficiente. Guests: sem mudança.
 
 > Ver especificação detalhada em `.specs/features/polimento-qualidade/`.
 
