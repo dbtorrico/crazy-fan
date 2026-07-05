@@ -63,9 +63,9 @@
 
 **Página "Regras do Jogo"** - DONE ✅ (PR #27, 2026-07-04) — Rota `/rules`, `RulesController`, view com pontuação (60 pts + bônus velocidade até 40 pts), timer 15s, energia, badges. Link "Como funciona?" na home e no resultado. Bônus: páginas institucionais `/about`, `/privacy`, `/terms` + footer + script de verificação AdSense.
 
-**Qualidade de conteúdo: siglas** - IN PROGRESS — Rake task `content:check_acronyms` implementada; gera CSV de candidatos em `tmp/acronyms_candidates.csv`. Siglas que recebem explicação entre parênteses: CBF, UEFA, CONMEBOL, CONCACAF, CAF, AFC, OFC, IFFHS, FPF. Mantidas sem explicação: FIFA, VAR. Pendente: revisão manual do CSV → migration de dados.
+**Qualidade de conteúdo: siglas** - DONE ✅ (PR #28, 2026-07-04) — Rake task `content:check_acronyms` (auditoria reutilizável) + migration de dados com as correções revisadas: CAF, AFC e CBF explicadas nos enunciados; CONMEBOL, CONCACAF, UEFA e AFC explicadas nas respostas. Auditoria pós-correção: 0 candidatos.
 
-**Qualidade de conteúdo: tempo verbal 2026** - IN PROGRESS — Rake task `content:check_future_tense` implementada; gera CSV com sugestão de reescrita para o presente em `tmp/future_tense_candidates.csv`. Pendente: revisão manual do CSV → migration de dados.
+**Qualidade de conteúdo: tempo verbal 2026** - DONE ✅ (PR #28, 2026-07-04) — Rake task `content:check_future_tense` (auditoria reutilizável) + migration de dados: 6 perguntas reescritas do futuro para o presente. Auditoria pós-correção: 0 candidatos.
 
 **Anti-repetição de perguntas por jogador** - DONE ✅ (PR #27, 2026-07-04) — `question_ids` (jsonb) em `game_results`; ao iniciar partida, exclui IDs vistos nos últimos 10 jogos do usuário logado via `exclude_ids` em `Quiz::Question.sample_ids`. Fallback para pool completo quando o pool filtrado é insuficiente. Guests: sem mudança.
 
