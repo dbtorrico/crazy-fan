@@ -21,7 +21,7 @@ namespace :content do
       next if detected.empty?
 
       sugestao = q.enunciado.gsub(pattern) { |verbo| replacements[verbo.downcase] || verbo }
-      rows << [q.id, q.enunciado, detected.uniq.join(" | "), sugestao]
+      rows << [ q.id, q.enunciado, detected.uniq.join(" | "), sugestao ]
     end
 
     path = Rails.root.join("tmp", "future_tense_candidates.csv")

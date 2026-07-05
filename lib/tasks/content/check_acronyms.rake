@@ -14,7 +14,7 @@ namespace :content do
         # Candidata: sigla isolada (word boundary) sem explicação — nem seguida de "("
         # (forma "CBF (Confederação...)") nem precedida de "(" (forma "Oceania (OFC)").
         next unless texto&.match?(/(?<!\()\b#{sigla}\b(?!\s*\()/)
-        rows << [question_id, enunciado, campo, texto, sigla]
+        rows << [ question_id, enunciado, campo, texto, sigla ]
       end
     end
 
