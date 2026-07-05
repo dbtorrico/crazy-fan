@@ -309,9 +309,18 @@ Devise.setup do |config|
   config.responder.redirect_status = :see_other
 
   # ==> OmniAuth — Google OAuth2
+  # Em produção o redirect_uri é obrigatório: sem ele o OmniAuth calcula a URL
+  # a partir do request e volta o redirect_uri_mismatch. Falha no boot se faltar.
+  google_callback_url =
+    if Rails.env.production?
+      ENV.fetch("GOOGLE_CALLBACK_URL")
+    else
+      ENV["GOOGLE_CALLBACK_URL"]
+    end
+
   config.omniauth :google_oauth2,
                   ENV.fetch("GOOGLE_CLIENT_ID", ""),
                   ENV.fetch("GOOGLE_CLIENT_SECRET", ""),
                   scope: "email,profile",
-                  redirect_uri: ENV["GOOGLE_CALLBACK_URL"]
+                  redirect_uri: google_callback_url
 end
