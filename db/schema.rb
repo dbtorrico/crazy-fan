@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_06_28_215853) do
+ActiveRecord::Schema[7.2].define(version: 2026_07_05_001439) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_28_215853) do
     t.datetime "played_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "question_ids", default: []
     t.index ["user_id", "played_at"], name: "index_game_results_on_user_id_and_played_at"
     t.index ["user_id"], name: "index_game_results_on_user_id"
   end

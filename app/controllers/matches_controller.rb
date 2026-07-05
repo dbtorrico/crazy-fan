@@ -17,7 +17,7 @@ class MatchesController < ApplicationController
   def start
     return render :show unless consume_energy!
 
-    @match  = Quiz::MatchState.start(nickname: match_nickname)
+    @match  = Quiz::MatchState.start(nickname: match_nickname, exclude_ids: recent_question_ids)
     save_match
     @screen = :question
     render :show
@@ -33,7 +33,8 @@ class MatchesController < ApplicationController
         user:            current_user,
         score:           @match.score,
         correct_count:   @match.correct_count,
-        questions_count: @match.total
+        questions_count: @match.total,
+        question_ids:    @match.question_ids
       )
       weekly_leader    = Quiz::Leaderboard.for(:weekly).first
       @newly_earned    = Quiz::Badge.check_and_award!(current_user, result, weekly_leader_id: weekly_leader&.user_id)
@@ -89,5 +90,18 @@ class MatchesController < ApplicationController
 
   def reset_match
     session.delete(:match)
+  end
+
+  # IDs das perguntas vistas nos últimos 10 jogos do usuário logado.
+  # Retorna array vazio para convidados.
+  def recent_question_ids
+    return [] unless user_signed_in?
+    current_user.game_results
+                .where.not(question_ids: nil)
+                .order(played_at: :desc)
+                .limit(10)
+                .pluck(:question_ids)
+                .flatten
+                .uniq
   end
 end

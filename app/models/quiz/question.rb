@@ -51,11 +51,17 @@ module Quiz
         .select { |_, v| v >= 5 }
     end
 
-    def self.sample_ids(n, tema: nil)
+    def self.sample_ids(n, tema: nil, exclude_ids: [])
       scope = ::Question.joins(:answers).group("questions.id").having("COUNT(answers.id) >= 4")
       scope = scope.where(tema: tema) if tema.present?
+      scope = scope.where.not(id: exclude_ids) if exclude_ids.present?
       ids   = scope.order("RANDOM()").limit(n).pluck(:id)
       return ids if ids.size >= n
+      # pool filtrado insuficiente — usa pool completo sem exclusão
+      full = ::Question.joins(:answers).group("questions.id").having("COUNT(answers.id) >= 4")
+      full = full.where(tema: tema) if tema.present?
+      full_ids = full.order("RANDOM()").limit(n).pluck(:id)
+      return full_ids if full_ids.size >= n
       FALLBACK.sample(n).map(&:id)
     end
 

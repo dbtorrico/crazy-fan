@@ -10,8 +10,8 @@ module Quiz
     attr_reader :nickname, :position, :score, :correct_count,
                 :question_ids, :last_choice, :revealed, :deadline_at
 
-    def self.start(nickname:)
-      ids = Quiz::Question.sample_ids(TOTAL_QUESTIONS)
+    def self.start(nickname:, exclude_ids: [])
+      ids = Quiz::Question.sample_ids(TOTAL_QUESTIONS, exclude_ids: exclude_ids)
       new(
         nickname:      nickname.to_s.strip[0, 18],
         position:      0,
