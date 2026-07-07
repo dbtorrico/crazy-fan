@@ -311,8 +311,10 @@ Devise.setup do |config|
   # ==> OmniAuth — Google OAuth2
   # Em produção o redirect_uri é obrigatório: sem ele o OmniAuth calcula a URL
   # a partir do request e volta o redirect_uri_mismatch. Falha no boot se faltar.
+  # Exceção: durante assets:precompile no build da imagem (SECRET_KEY_BASE_DUMMY=1)
+  # as env vars do Railway não existem — não falhar aí, só no boot real.
   google_callback_url =
-    if Rails.env.production?
+    if Rails.env.production? && ENV["SECRET_KEY_BASE_DUMMY"].blank?
       ENV.fetch("GOOGLE_CALLBACK_URL")
     else
       ENV["GOOGLE_CALLBACK_URL"]
