@@ -4,6 +4,8 @@ dockerfilePath = "Dockerfile"
 
 [deploy]
 healthcheckPath = "/up"
-healthcheckTimeout = 60
+# O boot leva ~75s (db:prepare roda migrations antes do Puma subir); 60s
+# derrubava todo deploy — ver deploys FAILED de 04-07/07/2026.
+healthcheckTimeout = 300
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
